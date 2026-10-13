@@ -7,6 +7,7 @@ import Contact from './components/Contact.jsx'
 import AnimeCursor from './components/AnimeCursor.jsx'
 import ContributionGraph from './components/ContributionGraph.jsx'
 import ThemeSwitch from './components/ThemeSwitch.jsx'
+import PortraitStage from './components/PortraitStage.jsx'
 
 const projects = [
   { number: 1, title: 'ITSO IP Management System', category: 'WEB APPLICATION', symbol: 'IP', sfx: 'ドン', description: 'A streamlined application process for the Innovation and Technology Support Office, from document submission through status tracking.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
@@ -108,9 +109,11 @@ function App() {
           <div className="hero-visual">
             <div className="visual-topline"><span>FIG. 01</span><span className="topline-right"><span>THE DEVELOPER <span lang="ja">開発者</span></span><ThemeSwitch /></span></div>
             <div className="portrait-art" ref={portraitRef} aria-label="Interactive portrait: move your pointer to reveal an anime version beneath the photo" role="img" onPointerEnter={activatePortrait} onPointerMove={movePortraitSpot} onPointerLeave={deactivatePortrait} onPointerDown={activatePortrait} onPointerUp={(event) => { if (event.pointerType === 'touch') deactivatePortrait() }}>
-              <div className="portrait-speedlines" />
-              <img className="portrait-photo portrait-base" src="/assets/1p.png" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-              <div className="portrait-reveal" aria-hidden="true"><img className="portrait-alt" src="/assets/anime.jpg" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></div>
+              <PortraitStage>
+                <div className="portrait-speedlines" />
+                <img className="portrait-photo portrait-base" src="/assets/1p.png" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+                <div className="portrait-reveal" aria-hidden="true"><span className="portrait-alt-frame"><img className="portrait-alt" src="/assets/anime.jpg" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></span></div>
+              </PortraitStage>
               <span className="portrait-scope" aria-hidden="true"><span className="scope-tag">ANIME VIEW</span></span>
               <span className="portrait-caption"><span className="caption-hover">HOVER TO REVEAL</span><span className="caption-touch">HOLD TO REVEAL</span></span>
             </div>

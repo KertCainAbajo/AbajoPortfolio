@@ -1,7 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 
 const THEME_COLORS = { light: '#f3f2ed', dark: '#0f0f0f' }
+const readTheme = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
+
+// Read-only view of the current theme for components that react to switches.
+export function useCurrentTheme() {
+  const [theme, setTheme] = useState(readTheme)
+  useEffect(() => {
+    const observer = new MutationObserver(() => setTheme(readTheme()))
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => observer.disconnect()
+  }, [])
+  return theme
+}
 
 // Theme lives on <html data-theme>; index.html sets it before first paint.
 export default function useTheme() {
