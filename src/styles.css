@@ -45,7 +45,7 @@ button, input, textarea { font: inherit; color: inherit }
 .sidebar { position: fixed; z-index: 30; inset: 0 auto 0 0; width: var(--side); background: var(--ink); color: var(--paper); padding: 26px 16px 20px; display: flex; flex-direction: column; transition: width .3s ease, transform .3s ease; overflow: hidden }
 .sidebar:after { content: ""; position: absolute; inset: auto 0 0 0; height: 180px; background-image: var(--tone-light); background-size: 7px 7px; opacity: .14; mask-image: linear-gradient(transparent, #000); pointer-events: none }
 .brand { display: flex; align-items: center; gap: 11px; white-space: nowrap }
-.brand-mark { font-family: var(--display); font-size: 22px; width: 40px; height: 40px; flex: none; display: grid; place-items: center; background: var(--paper); color: var(--ink); border: 2px solid var(--paper); box-shadow: 3px 3px 0 #555; line-height: 1 }
+.brand-mark { font-family: var(--display); font-size: 22px; width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; background: var(--paper); color: var(--ink); border: 2px solid var(--paper); box-shadow: 3px 3px 0 #555; line-height: 1; white-space: nowrap; letter-spacing: -.08em }
 .brand-mark span, .footer-brand span { color: var(--faint) }
 .brand-copy { font: 500 11px var(--mono); letter-spacing: 1.6px }
 .brand-copy small { display: block; font: 10px var(--mono); letter-spacing: 1px; color: #9a9a9a; margin-top: 5px }
@@ -64,15 +64,24 @@ button, input, textarea { font: inherit; color: inherit }
 .availability { font: 10px var(--mono); letter-spacing: .6px; color: #bdbdbd; white-space: nowrap }
 .availability i, .live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; margin-right: 7px; vertical-align: 1px; animation: pulse 1.6s ease-in-out infinite }
 @keyframes pulse { 50% { opacity: .25 } }
-.collapse-button { background: none; border: 0; border-top: 1px solid #333; color: #9a9a9a; padding: 13px 0 0; display: flex; justify-content: space-between; align-items: center; font: 10px var(--mono); letter-spacing: 1px; cursor: pointer }
+.collapse-button { background: none; border: 0; border-top: 1px solid #333; color: #9a9a9a; padding: 13px 0 0; display: flex; justify-content: space-between; align-items: center; gap: 8px; font: 10px var(--mono); letter-spacing: 1px; cursor: pointer; transition: color .15s }
 .collapse-button:hover { color: var(--paper) }
-.collapse-button svg { transform: rotate(45deg) }
-.sidebar-compact { width: 76px; padding-left: 12px; padding-right: 12px }
-.sidebar-compact .brand { gap: 0 }
-.sidebar-compact .brand-copy, .sidebar-compact .side-caption, .sidebar-compact .side-label, .sidebar-compact .sidebar-bottom > * { font-size: 0; opacity: 0 }
+.collapse-button svg { transition: transform .15s }
+.collapse-button:hover svg { transform: translateX(-2px) }
+/* Collapsed rail: numbers only, labels as hover titles, expand button stays reachable */
+html.sidebar-collapsed { --side: 76px }
+.sidebar-compact { padding-left: 12px; padding-right: 12px }
+.sidebar-compact .brand { justify-content: center; gap: 0 }
+.sidebar-compact .brand-copy, .sidebar-compact .side-caption, .sidebar-compact .side-label, .sidebar-compact .availability > span { display: none }
 .sidebar-compact .side-link { justify-content: center; padding: 0 }
 .sidebar-compact .side-index { font-size: 11px }
-.sidebar-compact .brand-mark { margin: auto }
+.sidebar-compact .sidebar-bottom { align-items: center; padding: 0 }
+.sidebar-compact .availability i { margin: 0 }
+.sidebar-compact .collapse-button { width: 40px; height: 40px; padding: 0; justify-content: center; border: 1px solid #333 }
+.sidebar-compact .collapse-button:hover { border-color: var(--paper); background: #1a1a1a }
+.sidebar-compact .collapse-button > span { display: none }
+.sidebar-compact .collapse-button:hover svg { transform: translateX(2px) }
+.sidebar-compact .side-caption + .side-nav, .sidebar-compact .side-nav { margin-top: 48px }
 
 /* ── Main column ───────────────────────────────────────────────────── */
 .main-content { margin-left: var(--side); padding: 0 5.5%; max-width: 1720px; transition: margin-left .3s ease }
@@ -364,9 +373,13 @@ button, input, textarea { font: inherit; color: inherit }
   :root { --side: 0px }
   .sidebar { top: 62px; width: min(290px, 85vw); transform: translateX(-105%); padding: 22px 16px }
   .sidebar.sidebar-open { transform: translateX(0) }
-  .sidebar-compact { width: min(290px, 85vw) }
-  .sidebar-compact .brand-copy, .sidebar-compact .side-caption, .sidebar-compact .side-label, .sidebar-compact .sidebar-bottom > * { font-size: initial; opacity: 1 }
+  html.sidebar-collapsed { --side: 0px }
+  .sidebar-compact .side-caption, .sidebar-compact .side-label, .sidebar-compact .availability > span { display: initial }
+  .sidebar-compact .side-caption { display: flex }
   .sidebar-compact .side-link { justify-content: flex-start; padding: 0 10px }
+  .sidebar-compact .side-nav { margin-top: 0 }
+  .sidebar-compact .sidebar-bottom { align-items: stretch; padding: 0 8px }
+  .sidebar-compact .availability i { margin-right: 7px }
   .collapse-button { display: none }
   .desktop-brand { display: none }
   .side-caption { margin-top: 12px }

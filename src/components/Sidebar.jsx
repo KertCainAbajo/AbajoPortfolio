@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { Menu, X, ChevronsLeft, ChevronsRight } from 'lucide-react'
 
 const links = [
   ['about', 'Intro'], ['education', 'About & Education'], ['stack', 'Stack'], ['skills', 'Skills'],
@@ -10,8 +10,16 @@ const links = [
 export default function Sidebar() {
   const [active, setActive] = useState('about')
   const [open, setOpen] = useState(false)
-  const [compact, setCompact] = useState(false)
+  const [compact, setCompact] = useState(() => {
+    try { return window.localStorage.getItem('sidebar-compact') === '1' } catch { return false }
+  })
   const activeId = links.some(([id]) => id === active) ? active : links[0][0]
+
+  // Main content reads --side from the root, so the collapsed width is mirrored there.
+  useEffect(() => {
+    document.documentElement.classList.toggle('sidebar-collapsed', compact)
+    try { window.localStorage.setItem('sidebar-compact', compact ? '1' : '0') } catch { /* storage unavailable */ }
+  }, [compact])
 
   useEffect(() => {
     let frame = 0
@@ -56,12 +64,12 @@ export default function Sidebar() {
         <div className="side-caption">INDEX <span>01—{String(links.length).padStart(2, '0')}</span></div>
         <nav aria-label="Main navigation" className="side-nav">
           {links.map(([id, label], index) => (
-            <a className={`side-link ${activeId === id ? 'active' : ''}`} key={id} href={`#${id}`} onClick={(event) => { event.preventDefault(); navigate(id) }}>
+            <a className={`side-link ${activeId === id ? 'active' : ''}`} key={id} href={`#${id}`} title={compact ? label : undefined} aria-label={label} onClick={(event) => { event.preventDefault(); navigate(id) }}>
               <span className="side-index">{String(index + 1).padStart(2, '0')}</span><span className="side-label">{label}</span><span className="active-mark" />
             </a>
           ))}
         </nav>
-        <div className="sidebar-bottom"><span className="availability"><i /> OPEN TO OPPORTUNITIES</span><button className="collapse-button" onClick={() => setCompact(!compact)} aria-label={compact ? 'Expand sidebar' : 'Collapse sidebar'}><span>{compact ? 'EXPAND' : 'COLLAPSE'}</span><ArrowUpRight size={13} /></button></div>
+        <div className="sidebar-bottom"><span className="availability" title={compact ? 'Open to opportunities' : undefined}><i /><span>OPEN TO OPPORTUNITIES</span></span><button className="collapse-button" onClick={() => setCompact(!compact)} aria-label={compact ? 'Expand sidebar' : 'Collapse sidebar'} aria-expanded={!compact} title={compact ? 'Expand sidebar' : undefined}><span>{compact ? 'EXPAND' : 'COLLAPSE'}</span>{compact ? <ChevronsRight size={16} /> : <ChevronsLeft size={16} />}</button></div>
       </aside>
     </>
   )
