@@ -10,13 +10,17 @@ import ThemeSwitch from './components/ThemeSwitch.jsx'
 import PortraitStage from './components/PortraitStage.jsx'
 
 const projects = [
-  { number: 1, title: 'ITSO IP Management System', category: 'WEB APPLICATION', symbol: 'IP', sfx: 'ドン', description: 'A streamlined application process for the Innovation and Technology Support Office, from document submission through status tracking.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
-  { number: 2, title: 'RPIC Research Management System', category: 'WEB APPLICATION', symbol: 'R/', sfx: 'ゴゴゴ', description: 'An organized home for research workflows, defense schedules, document storage, and publication tracking.', tags: ['Research', 'Scheduling', 'Data organization'] },
-  { number: 3, title: 'TechSustain', category: 'MOBILE APPLICATION', symbol: '↗', sfx: 'キラ', description: 'A Flutter app encouraging everyday eco-friendly habits with practical tools, tips, and personal tracking.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
-  { number: 4, title: 'Mechanic Booking System', category: 'WEB APPLICATION', symbol: 'M—', sfx: 'ガチャ', description: 'A service platform for choosing repairs, booking appointments, and managing mechanic schedules.', tags: ['Booking', 'Scheduling', 'Services'] },
-  { number: 5, title: 'Crochet Shop System', category: 'E-COMMERCE', symbol: '✳', sfx: 'フワ', description: 'An online shop for browsing handmade crochet, placing orders, and requesting custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
-  { number: 6, title: 'Gym Time-In & Time-Out', category: 'MANAGEMENT SYSTEM', symbol: '06', sfx: 'ピッ', description: 'A simple gym attendance and membership system that checks members in with a unique ID.', tags: ['Attendance', 'Membership', 'Member ID'] },
-  { number: 7, title: 'Acid Reflux Tracker', category: 'MOBILE APPLICATION', symbol: '≈', sfx: 'ザワ', description: 'A personal log for meals, symptoms, and habits that reveals patterns and possible triggers over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
+  { platform: 'web', number: 1, title: 'ITSO IP Management System', category: 'OFFICE WORKFLOW', symbol: 'IP', sfx: 'ドン', description: 'A streamlined application process for the Innovation and Technology Support Office, from document submission through status tracking.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
+  { platform: 'web', number: 2, title: 'RPIC Research Management System', category: 'RESEARCH MANAGEMENT', symbol: 'R/', sfx: 'ゴゴゴ', description: 'An organized home for research workflows, defense schedules, document storage, and publication tracking.', tags: ['Research', 'Scheduling', 'Data organization'] },
+  { platform: 'web', number: 3, title: 'Mechanic Booking System', category: 'BOOKING PLATFORM', symbol: 'M—', sfx: 'ガチャ', description: 'A service platform for choosing repairs, booking appointments, and managing mechanic schedules.', tags: ['Booking', 'Scheduling', 'Services'] },
+  { platform: 'web', number: 4, title: 'Crochet Shop System', category: 'E-COMMERCE', symbol: '✳', sfx: 'フワ', description: 'An online shop for browsing handmade crochet, placing orders, and requesting custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
+  { platform: 'web', number: 5, title: 'Gym Time-In & Time-Out', category: 'MEMBERSHIP SYSTEM', symbol: '05', sfx: 'ピッ', description: 'A simple gym attendance and membership system that checks members in with a unique ID.', tags: ['Attendance', 'Membership', 'Member ID'] },
+  { platform: 'mobile', number: 6, title: 'TechSustain', category: 'FLUTTER APP', symbol: '↗', sfx: 'キラ', description: 'A Flutter app encouraging everyday eco-friendly habits with practical tools, tips, and personal tracking.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
+  { platform: 'mobile', number: 7, title: 'Acid Reflux Tracker', category: 'HEALTH TRACKER', symbol: '≈', sfx: 'ザワ', description: 'A personal log for meals, symptoms, and habits that reveals patterns and possible triggers over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
+]
+const projectGroups = [
+  { platform: 'web', title: 'Web applications', note: 'Systems for offices, services, and shops' },
+  { platform: 'mobile', title: 'Mobile applications', note: 'Apps for everyday habits and health' },
 ]
 
 const skills = ['Web & application development', 'Mobile application development', 'AI-assisted software development', 'System design & architecture', 'Software testing & debugging', 'Problem solving & analytical thinking', 'Technical documentation & reporting']
@@ -127,11 +131,12 @@ function App() {
             <div className="portrait-art" ref={portraitRef} aria-label="Interactive portrait: move your pointer to reveal an anime version beneath the photo" role="img" onPointerEnter={activatePortrait} onPointerMove={movePortraitSpot} onPointerLeave={deactivatePortrait} onPointerDown={activatePortrait} onPointerUp={(event) => { if (event.pointerType === 'touch') deactivatePortrait() }}>
               <PortraitStage>
                 <div className="portrait-speedlines" />
-                <img className="portrait-photo portrait-base" src="/assets/1p.png" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-                <img className="portrait-photo portrait-cut" src="/assets/1p-cutout.webp" alt="" aria-hidden="true" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-                <div className="portrait-reveal" aria-hidden="true"><span className="portrait-alt-frame"><img className="portrait-alt" src="/assets/anime.jpg" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /><img className="portrait-alt portrait-alt-cut" src="/assets/anime-cutout.webp" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></span></div>
+                <img className="portrait-photo portrait-base" src="/assets/1p-cutout.webp" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+                <img className="portrait-photo portrait-base-head" src="/assets/1p-cutout.webp" alt="" aria-hidden="true" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+                <img className="portrait-photo portrait-cut" src="/assets/q-cutout.webp" alt="" aria-hidden="true" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+                <div className="portrait-reveal" aria-hidden="true"><span className="portrait-alt-frame"><img className="portrait-alt" src="/assets/anime-cutout.webp" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /><img className="portrait-alt portrait-alt-cut" src="/assets/w-cutout.webp" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></span></div>
               </PortraitStage>
-              <span className="portrait-scope" aria-hidden="true"><span className="scope-tag">ANIME VIEW</span></span>
+              <span className="portrait-scope" aria-hidden="true" />
               <span className="portrait-caption"><span className="caption-hover">HOVER TO REVEAL</span><span className="caption-touch">HOLD TO REVEAL</span></span>
             </div>
             <div className="visual-bottomline"><span>INFORMATION TECHNOLOGY</span><span>7°04′N <i>·</i> 125°36′E</span></div>
@@ -164,7 +169,15 @@ function App() {
 
         <Section id="projects" number="05" title="Selected projects" eyebrow="FEATURED WORK" jp="作品" className="projects-section">
           <div className="projects-intro"><p>A selection of systems and apps designed around everyday workflows.</p><span>07 PROJECTS <i>✳</i> 2023 — 2026</span></div>
-          <div className="projects-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
+          {projectGroups.map((group) => {
+            const items = projects.filter((project) => project.platform === group.platform)
+            return (
+              <div className="project-group" key={group.platform}>
+                <div className="project-group-head"><h3>{group.title}</h3><span>{group.note} · {String(items.length).padStart(2, '0')} {items.length === 1 ? 'project' : 'projects'}</span></div>
+                <div className="projects-grid">{items.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
+              </div>
+            )
+          })}
         </Section>
 
         <Section id="interests" number="06" title="Always curious about" eyebrow="CURRENT INTERESTS" jp="興味">

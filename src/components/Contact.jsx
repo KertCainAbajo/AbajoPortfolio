@@ -1,21 +1,136 @@
-import { useState } from 'react'
-import { ArrowUpRight, Send, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { ArrowUpRight, Send, Github, Linkedin, Mail, MapPin, Loader2, CircleCheck, CircleAlert, X } from 'lucide-react'
 
-// Replace these sample details with your own before publishing.
 const contact = {
-  name: 'Your Name',
-  email: 'hello@example.com',
+  email: 'kertabajo4@gmail.com',
   github: 'https://github.com/KertCainAbajo',
-  linkedin: 'https://www.linkedin.com/',
+  linkedin: 'https://www.linkedin.com/in/kert-cain-arvie-p-abajo-94325a3a7',
 }
 
-export default function Contact() {
-  const [sent, setSent] = useState(false)
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setSent(true)
-    event.currentTarget.reset()
+// FormSubmit forwards each submission to the inbox above. The very first submission
+// sends a one-time activation email to that inbox; messages arrive after it is confirmed.
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${contact.email}`
+
+const NOTICE = {
+  sent: { title: 'Message sent', text: 'Thanks for reaching out! I’ll reply to the email you provided.' },
+  error: { title: 'Message not sent', text: 'Something went wrong. Please try again, or email me directly at' },
+  limited: { title: 'Please wait a moment', text: '' },
+}
+const SENT_NOTICE_MS = 5000
+
+// Browser-side rate limit. It stops double-sends, rapid re-submits and simple bots;
+// it is not a hard guarantee, since anyone can post to the endpoint directly.
+const COOLDOWN_MS = 60 * 1000
+const HOURLY_LIMIT = 3
+const MIN_FILL_MS = 3000
+const LIMIT_KEY = 'contact-sends'
+
+const readSends = () => {
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(LIMIT_KEY) || '[]')
+    return Array.isArray(stored) ? stored.filter((entry) => Date.now() - entry.at < 60 * 60 * 1000) : []
+  } catch { return [] }
+}
+const writeSends = (sends) => {
+  try { window.localStorage.setItem(LIMIT_KEY, JSON.stringify(sends)) } catch { /* storage unavailable */ }
+}
+const fingerprint = (text) => text.trim().toLowerCase().replace(/\s+/g, ' ')
+
+// Returns why a send should be blocked, or '' when it may go ahead.
+function checkLimit(message) {
+  const sends = readSends()
+  const last = sends[sends.length - 1]
+  if (last && Date.now() - last.at < COOLDOWN_MS) {
+    const wait = Math.ceil((COOLDOWN_MS - (Date.now() - last.at)) / 1000)
+    return `You just sent a message. You can send another in ${wait} seconds.`
   }
+  if (sends.length >= HOURLY_LIMIT) {
+    const wait = Math.ceil((60 * 60 * 1000 - (Date.now() - sends[0].at)) / 60000)
+    return `You’ve reached the limit of ${HOURLY_LIMIT} messages per hour. Please try again in about ${wait} minute${wait === 1 ? '' : 's'}, or email me directly.`
+  }
+  if (sends.some((entry) => entry.fp === fingerprint(message))) {
+    return 'This message was already sent. I’ll get back to you soon!'
+  }
+  return ''
+}
+
+const AUTO_REPLY = `Hi there,
+
+Thank you for reaching out through my portfolio. I've received your message and will get back to you as soon as I can, usually within 1–2 business days.
+
+In the meantime, you can view my work on GitHub: ${contact.github}
+or connect with me on LinkedIn: ${contact.linkedin}
+
+Best regards,
+Kert Cain Arvie P. Abajo
+Web & Mobile Developer · Davao City, Philippines
+${contact.email}`
+
+export default function Contact() {
+  const [status, setStatus] = useState('idle')
+  const [detail, setDetail] = useState('')
+  const [cooldown, setCooldown] = useState(0)
+  const startedAt = useRef(0)
+
+  // Count down the cooldown on the button after a successful send
+  useEffect(() => {
+    const tick = () => {
+      const last = readSends().at(-1)
+      setCooldown(last ? Math.max(0, Math.ceil((COOLDOWN_MS - (Date.now() - last.at)) / 1000)) : 0)
+    }
+    tick()
+    const timer = window.setInterval(tick, 1000)
+    return () => window.clearInterval(timer)
+  }, [status])
+
+  // The success notice dismisses itself; errors stay until closed or retried
+  useEffect(() => {
+    if (status !== 'sent') return undefined
+    const timer = window.setTimeout(() => setStatus('idle'), SENT_NOTICE_MS)
+    return () => window.clearTimeout(timer)
+  }, [status])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const message = String(data.get('message') || '')
+    // Real people take a few seconds to fill the form; instant submits are bots
+    if (!startedAt.current || Date.now() - startedAt.current < MIN_FILL_MS) {
+      setDetail('That was very fast. Please take a moment to review your message, then send it again.')
+      setStatus('limited')
+      startedAt.current = startedAt.current || Date.now()
+      return
+    }
+    const blocked = checkLimit(message)
+    if (blocked) {
+      setDetail(blocked)
+      setStatus('limited')
+      return
+    }
+    setStatus('sending')
+    setDetail('')
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      })
+      const result = await response.json().catch(() => ({}))
+      // FormSubmit answers 200 with success "false" until the inbox owner activates the form
+      if (!response.ok || String(result.success) === 'false') throw new Error(result.message || '')
+      writeSends([...readSends(), { at: Date.now(), fp: fingerprint(message) }])
+      setStatus('sent')
+      form.reset()
+      startedAt.current = 0
+    } catch (error) {
+      setDetail(/activat/i.test(error.message) ? 'The form is waiting for activation: check kertabajo4@gmail.com (and Spam) for the FormSubmit email and click “Activate Form”.' : '')
+      setStatus('error')
+    }
+  }
+
+  const sending = status === 'sending'
+  const coolingDown = cooldown > 0 && !sending
   return (
     <section id="contact" className="contact-section">
       <div className="section-heading"><div><span className="eyebrow"><span className="chapter-tag">CH.10</span>SAY HELLO<span className="eyebrow-jp" lang="ja">連絡</span></span><h2>Have a good idea?</h2></div><a className="top-link" href="#top" aria-label="Back to top"><ArrowUpRight size={16} /></a></div>
@@ -31,12 +146,31 @@ export default function Contact() {
           </div>
           <div className="contact-stamp"><span lang="ja">受付中</span>OPEN FOR<br />WHAT’S NEXT</div>
         </div>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <label>Your name<input name="name" placeholder="How should I call you?" required /></label>
-          <label>Email address<input name="email" type="email" placeholder="you@example.com" required /></label>
-          <label>Your message<textarea name="message" rows="4" placeholder="A little about your project..." required /></label>
-          <button type="submit" className="send-button">{sent ? 'MESSAGE NOTED' : 'SEND A MESSAGE'}<Send size={15} /></button>
-          <p className={`form-note ${sent ? 'form-note-visible' : ''}`} aria-live="polite">Thanks for reaching out. This demo form doesn’t send data yet.</p>
+        <form className="contact-form" onSubmit={handleSubmit} onFocus={() => { if (!startedAt.current) startedAt.current = Date.now() }}>
+          <input type="hidden" name="_subject" value="New message from your portfolio" />
+          <input type="hidden" name="_template" value="table" />
+          {/* FormSubmit emails this text back to the address in the "email" field */}
+          <input type="hidden" name="_autoresponse" value={AUTO_REPLY} />
+          <label>Your name<input name="name" placeholder="How should I call you?" autoComplete="name" required minLength={2} maxLength={80} disabled={sending} /></label>
+          <label>Email address<input name="email" type="email" placeholder="you@example.com" autoComplete="email" required maxLength={120} disabled={sending} /></label>
+          <label>Your message<textarea name="message" rows="4" placeholder="A little about your project..." required minLength={10} maxLength={2000} disabled={sending} /></label>
+          <button type="submit" className="send-button" disabled={sending || coolingDown}>
+            {sending ? 'SENDING…' : coolingDown ? `SEND AGAIN IN ${cooldown}s` : 'SEND A MESSAGE'}
+            {sending ? <Loader2 size={15} className="send-spinner" /> : <Send size={15} />}
+          </button>
+          <div className="form-notice-slot" role="status" aria-live="polite">
+            {NOTICE[status] && (
+              <div className={`form-notice form-notice-${status === 'limited' ? 'error' : status}`} key={status}>
+                <span className="form-notice-icon">{status === 'sent' ? <CircleCheck size={20} /> : <CircleAlert size={20} />}</span>
+                <div className="form-notice-copy">
+                  <strong>{NOTICE[status].title}</strong>
+                  <p>{status !== 'sent' && detail ? detail : <>{NOTICE[status].text}{status === 'error' && <> <a href={`mailto:${contact.email}`}>{contact.email}</a>.</>}</>}</p>
+                </div>
+                <button type="button" className="form-notice-close" onClick={() => setStatus('idle')} aria-label="Dismiss message"><X size={16} /></button>
+                {status === 'sent' && <span className="form-notice-timer" style={{ animationDuration: `${SENT_NOTICE_MS}ms` }} aria-hidden="true" />}
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </section>

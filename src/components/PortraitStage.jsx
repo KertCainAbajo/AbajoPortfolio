@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
 import { useCurrentTheme } from '../hooks/useTheme.js'
 
 function Sunglasses() {
@@ -48,18 +47,9 @@ function Umbrella() {
 // Photo layers plus the summer props: worn in light mode, packed away in dark mode.
 export default function PortraitStage({ children }) {
   const theme = useCurrentTheme()
-  const [jolting, setJolting] = useState(false)
-  const first = useRef(true)
-
-  useEffect(() => {
-    if (first.current) { first.current = false; return undefined }
-    setJolting(true)
-    const timer = window.setTimeout(() => setJolting(false), 750)
-    return () => window.clearTimeout(timer)
-  }, [theme])
 
   return (
-    <div className={`portrait-stage ${theme === 'light' ? 'is-sunny' : ''} ${jolting ? 'is-jolting' : ''}`}>
+    <div className={`portrait-stage ${theme === 'light' ? 'is-sunny' : ''}`}>
       {children}
       <div className="portrait-props" aria-hidden="true">
         <Umbrella />
