@@ -37,14 +37,30 @@ function App() {
   const portraitCurrentRef = useRef({ x: 0, y: 0 })
   const portraitFrameRef = useRef(0)
   const title = 'KERT CAIN ARVIE P. ABAJO'
+  // Type the name, hold it for 5s, erase it, then type it again.
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setTyped(title)
+      return undefined
+    }
     let index = 0
-    const timer = window.setInterval(() => {
-      index += 1
+    let deleting = false
+    let timer = 0
+    const step = () => {
+      index += deleting ? -1 : 1
       setTyped(title.slice(0, index))
-      if (index >= title.length) window.clearInterval(timer)
-    }, 48)
-    return () => window.clearInterval(timer)
+      if (!deleting && index >= title.length) {
+        deleting = true
+        timer = window.setTimeout(step, 5000)
+      } else if (deleting && index <= 0) {
+        deleting = false
+        timer = window.setTimeout(step, 450)
+      } else {
+        timer = window.setTimeout(step, deleting ? 26 : 48)
+      }
+    }
+    timer = window.setTimeout(step, 48)
+    return () => window.clearTimeout(timer)
   }, [])
 
   useEffect(() => () => window.cancelAnimationFrame(portraitFrameRef.current), [])
@@ -112,7 +128,8 @@ function App() {
               <PortraitStage>
                 <div className="portrait-speedlines" />
                 <img className="portrait-photo portrait-base" src="/assets/1p.png" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-                <div className="portrait-reveal" aria-hidden="true"><span className="portrait-alt-frame"><img className="portrait-alt" src="/assets/anime.jpg" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></span></div>
+                <img className="portrait-photo portrait-cut" src="/assets/1p-cutout.webp" alt="" aria-hidden="true" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+                <div className="portrait-reveal" aria-hidden="true"><span className="portrait-alt-frame"><img className="portrait-alt" src="/assets/anime.jpg" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /><img className="portrait-alt portrait-alt-cut" src="/assets/anime-cutout.webp" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></span></div>
               </PortraitStage>
               <span className="portrait-scope" aria-hidden="true"><span className="scope-tag">ANIME VIEW</span></span>
               <span className="portrait-caption"><span className="caption-hover">HOVER TO REVEAL</span><span className="caption-touch">HOLD TO REVEAL</span></span>
