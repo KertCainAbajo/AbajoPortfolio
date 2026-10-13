@@ -110,7 +110,7 @@ function App() {
               <div className="portrait-speedlines" />
               <img className="portrait-photo portrait-base" src="/assets/1p.png" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
               <div className="portrait-reveal" aria-hidden="true"><img className="portrait-alt" src="/assets/anime.jpg" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></div>
-              <span className="portrait-scope" aria-hidden="true"><span className="scope-tag">ANIME</span></span>
+              <span className="portrait-scope" aria-hidden="true"><span className="scope-tag">ANIME VIEW</span></span>
               <span className="portrait-caption"><span className="caption-hover">HOVER TO REVEAL</span><span className="caption-touch">HOLD TO REVEAL</span></span>
             </div>
             <div className="visual-bottomline"><span>INFORMATION TECHNOLOGY</span><span>7°04′N <i>·</i> 125°36′E</span></div>

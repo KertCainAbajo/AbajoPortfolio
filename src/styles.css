@@ -122,14 +122,18 @@ button, input, textarea { font: inherit; color: inherit }
 /* Illustrated layer, revealed through a soft-edged lens that follows the pointer */
 .portrait-reveal { position: absolute; inset: 0; z-index: 2; overflow: hidden; background: var(--ink); opacity: 0; mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); -webkit-mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; transition: opacity 260ms ease; will-change: mask-image, opacity }
 /* anime.jpg shares 1p.png's framing, so it sits exactly over the photo */
-.portrait-alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; filter: grayscale(1) contrast(1.06); pointer-events: none }
+.portrait-alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; filter: grayscale(1) contrast(1.06); pointer-events: none; transform-origin: var(--spot-x) var(--spot-y); transition: transform 420ms cubic-bezier(.2, .8, .2, 1) }
 .portrait-art.portrait-revealing .portrait-reveal { opacity: 1 }
-.portrait-scope { position: absolute; z-index: 4; left: var(--spot-x); top: var(--spot-y); width: calc(var(--lens) * 1.84); height: calc(var(--lens) * 1.84); border-radius: 50%; border: 1px solid #ffffffa6; box-shadow: 0 0 0 1px #0000004d; transform: translate(-50%, -50%) scale(.94); opacity: 0; pointer-events: none; transition: opacity 260ms ease, transform 320ms ease }
-.portrait-scope:before, .portrait-scope:after { content: ""; position: absolute; left: 50%; top: 50%; background: #ffffffb3; transform: translate(-50%, -50%) }
-.portrait-scope:before { width: 12px; height: 1px }
-.portrait-scope:after { width: 1px; height: 12px }
-.scope-tag { position: absolute; left: 50%; bottom: -13px; transform: translateX(-50%); background: var(--paper); color: var(--ink); padding: 4px 9px; font: 500 9px var(--mono); letter-spacing: 1.4px; white-space: nowrap }
+/* Loupe: the anime layer zooms 1.1x around the pointer, with a darkened glass edge */
+.portrait-art.portrait-revealing .portrait-alt { transform: scale(1.1) }
+.portrait-reveal:after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), transparent 50%, #00000059 80%, transparent 100%); pointer-events: none }
+.portrait-scope { position: absolute; z-index: 4; left: var(--spot-x); top: var(--spot-y); width: calc(var(--lens) * 1.84); height: calc(var(--lens) * 1.84); border-radius: 50%; box-shadow: inset 0 0 0 1px #0000004d, inset 0 0 40px #ffffff0f, 0 0 0 6px #ffffff08, 0 18px 50px #0000008c; transform: translate(-50%, -50%) scale(.9); opacity: 0; pointer-events: none; transition: opacity 280ms ease, transform 420ms cubic-bezier(.2, .8, .2, 1) }
 .portrait-art.portrait-revealing .portrait-scope { opacity: 1; transform: translate(-50%, -50%) scale(1) }
+/* Glass shine across the upper-left of the lens */
+.portrait-scope:before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse 70% 45% at 32% 18%, #ffffff2e, transparent 70%), linear-gradient(160deg, transparent 62%, #ffffff0d) }
+/* Rim that catches light at the top and bottom, fading at the sides */
+.portrait-scope:after { content: ""; position: absolute; inset: 0; border-radius: 50%; padding: 1.5px; background: linear-gradient(160deg, #ffffffcc, #ffffff1f 38%, #ffffff0d 62%, #ffffff73); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor }
+.scope-tag { position: absolute; left: 50%; bottom: -36px; transform: translateX(-50%); background: #0b0b0b8c; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid #ffffff38; border-radius: 999px; color: #f3f2ed; padding: 5px 12px; font: 500 9px var(--mono); letter-spacing: 1.6px; white-space: nowrap }
 @media (max-width: 760px) { .portrait-art { --lens: 92px } }
 .portrait-caption { position: absolute; z-index: 3; left: 0; bottom: 0; background: var(--paper); color: var(--ink); border-top: var(--line); border-right: var(--line); padding: 8px 12px; font: 500 10px var(--mono); letter-spacing: 1.2px; pointer-events: none }
 .scroll-cue { position: absolute; bottom: 26px; left: 0; display: flex; align-items: center; gap: 12px; color: var(--muted); font: 500 10px var(--mono); letter-spacing: 1.2px }
