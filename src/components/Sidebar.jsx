@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
 
 const links = [
-  ['about', 'About & Education'], ['stack', 'Stack'], ['skills', 'Skills'],
+  ['about', 'Intro'], ['education', 'About & Education'], ['stack', 'Stack'], ['skills', 'Skills'],
   ['leadership', 'Leadership'], ['projects', 'Projects'], ['interests', 'Interests'],
   ['technologies', 'Technologies'], ['contributions', 'Activity'], ['contact', 'Contact'],
 ]

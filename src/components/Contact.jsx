@@ -5,7 +5,7 @@ import { ArrowUpRight, Send, Github, Linkedin, Mail, MapPin } from 'lucide-react
 const contact = {
   name: 'Your Name',
   email: 'hello@example.com',
-  github: 'https://github.com/',
+  github: 'https://github.com/KertCainAbajo',
   linkedin: 'https://www.linkedin.com/',
 }
 
@@ -18,7 +18,7 @@ export default function Contact() {
   }
   return (
     <section id="contact" className="contact-section">
-      <div className="section-heading"><div><span className="eyebrow"><span className="eyebrow-dot" />10 / SAY HELLO</span><h2>Have a good idea?</h2></div><a className="top-link" href="#top" aria-label="Back to top"><ArrowUpRight size={16} /></a></div>
+      <div className="section-heading"><div><span className="eyebrow"><span className="chapter-tag">CH.10</span>SAY HELLO<span className="eyebrow-jp" lang="ja">連絡</span></span><h2>Have a good idea?</h2></div><a className="top-link" href="#top" aria-label="Back to top"><ArrowUpRight size={16} /></a></div>
       <div className="contact-grid">
         <div className="contact-info">
           <p className="contact-lede">Let’s make something useful.<br /><span>Tell me what you’re thinking.</span></p>
@@ -29,7 +29,7 @@ export default function Contact() {
             <a href={contact.linkedin} target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn<ArrowUpRight size={14} /></a>
             <span className="location-line"><MapPin size={16} />Davao City, Philippines</span>
           </div>
-          <div className="contact-stamp">AVAILABLE<br />FOR WHAT’S NEXT<span>✳</span></div>
+          <div className="contact-stamp"><span lang="ja">受付中</span>OPEN FOR<br />WHAT’S NEXT</div>
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
           <label>Your name<input name="name" placeholder="How should I call you?" required /></label>
