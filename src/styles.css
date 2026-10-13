@@ -72,7 +72,8 @@
 .theme-switching, .theme-switching *, .theme-switching *:before, .theme-switching *:after { transition: background-color .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease !important }
 
 * { box-sizing: border-box }
-html { scroll-behavior: smooth; scroll-padding-top: 28px }
+/* Smooth scrolling is handled by Lenis (src/lib/smoothScroll.js); native smooth-scroll would fight it */
+html { scroll-padding-top: 28px }
 body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink) }
 /* Paper grain */
 body:before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .07; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") }
@@ -214,27 +215,27 @@ html.sidebar-collapsed { --side: 76px }
 .is-sunny .portrait-cut, .is-sunny .portrait-alt.portrait-alt-cut { z-index: 2 }
 .is-sunny .portrait-base, .is-sunny .portrait-base-head, .is-sunny .portrait-alt:not(.portrait-alt-cut) { z-index: 1 }
 /* Illustrated layer, revealed through a soft-edged lens that follows the pointer */
-.portrait-reveal { position: absolute; inset: 0; z-index: 2; overflow: hidden; background: var(--portrait-bg); opacity: 0; mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); -webkit-mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; transition: opacity 260ms ease, background-color 1s ease-in-out; will-change: mask-image, opacity }
+.portrait-reveal { position: absolute; inset: 0; z-index: 4; overflow: hidden; background: var(--portrait-bg); opacity: 0; mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); -webkit-mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; transition: opacity 260ms ease, background-color 1s ease-in-out; will-change: mask-image, opacity }
 /* anime.jpg shares 1p.png's framing, so it sits exactly over the photo */
 .portrait-alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; filter: grayscale(1) contrast(1.06); pointer-events: none; transform-origin: var(--spot-x) var(--spot-y); transition: transform 420ms cubic-bezier(.2, .8, .2, 1), opacity .7s ease .6s }
 .portrait-art.portrait-revealing .portrait-reveal { opacity: 1 }
 /* Loupe: the anime layer zooms 1.1x around the pointer */
 .portrait-art.portrait-revealing .portrait-alt { transform: scale(1.1) }
-.portrait-scope { position: absolute; z-index: 4; left: var(--spot-x); top: var(--spot-y); width: calc(var(--lens) * 1.84); height: calc(var(--lens) * 1.84); border-radius: 50%; box-shadow: inset 0 0 40px #ffffff14, 0 10px 30px #0000002e; transform: translate(-50%, -50%) scale(.9); opacity: 0; pointer-events: none; transition: opacity 280ms ease, transform 420ms cubic-bezier(.2, .8, .2, 1) }
+.portrait-scope { position: absolute; z-index: 6; left: var(--spot-x); top: var(--spot-y); width: calc(var(--lens) * 1.84); height: calc(var(--lens) * 1.84); border-radius: 50%; box-shadow: inset 0 0 40px #ffffff14, 0 10px 30px #0000002e; transform: translate(-50%, -50%) scale(.9); opacity: 0; pointer-events: none; transition: opacity 280ms ease, transform 420ms cubic-bezier(.2, .8, .2, 1) }
 .portrait-art.portrait-revealing .portrait-scope { opacity: 1; transform: translate(-50%, -50%) scale(1) }
 /* Glass shine across the upper-left of the lens */
 .portrait-scope:before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse 70% 45% at 32% 18%, #ffffff2e, transparent 70%), linear-gradient(160deg, transparent 62%, #ffffff0d) }
 /* Rim that catches light at the top and bottom, fading at the sides */
 .portrait-scope:after { content: ""; position: absolute; inset: 0; border-radius: 50%; padding: 1.5px; background: linear-gradient(160deg, #ffffffcc, #ffffff1f 38%, #ffffff0d 62%, #ffffff73); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor }
 @media (max-width: 760px) { .portrait-art { --lens: 92px } }
-.portrait-caption { position: absolute; z-index: 3; left: 0; bottom: 0; background: var(--paper); color: var(--ink); border-top: var(--line); border-right: var(--line); padding: 8px 12px; font: 500 13px var(--mono); letter-spacing: .6px; pointer-events: none }
+.portrait-caption { position: absolute; z-index: 6; left: 0; bottom: 0; background: var(--paper); color: var(--ink); border-top: var(--line); border-right: var(--line); padding: 8px 12px; font: 500 13px var(--mono); letter-spacing: .6px; pointer-events: none }
 .scroll-cue { position: absolute; bottom: 26px; left: 0; display: flex; align-items: center; gap: 12px; color: var(--muted); font: 500 13px var(--mono); letter-spacing: .6px }
 .scroll-cue svg { animation: float 1.4s ease-in-out infinite alternate }
 @keyframes float { to { transform: translateY(4px) } }
 
 /* ── Summer props: sunglasses + beach umbrella in light mode ───────── */
 .portrait-stage { position: absolute; inset: 0 }
-.portrait-props { position: absolute; inset: 0; z-index: 3; pointer-events: none }
+.portrait-props { position: absolute; inset: 0; z-index: 5; pointer-events: none }
 /* Sunglasses ride on a rig carried by a hand from the right.
    Arriving: rig slides in, then the hand lets go and leaves. Leaving: the hand returns, then the rig slides out. */
 .shades-rig { position: absolute; left: 37.4%; top: 36.85%; width: 26.4%; transform: translateX(260%); transition: transform .45s cubic-bezier(.5, 0, .75, 0) .3s }
@@ -385,6 +386,7 @@ html.sidebar-collapsed { --side: 76px }
 .tech-item { height: 76px; border: var(--line); background: var(--white); display: flex; align-items: center; gap: 13px; padding: 0 14px; font-size: 15px; font-weight: 700; box-shadow: var(--shadow-sm); transition: background .15s, color .15s, transform .15s }
 .tech-item:hover { background: var(--ink); color: var(--paper); transform: translate(-2px, -2px) }
 .tech-icon { width: 38px; height: 38px; flex: none; display: grid; place-items: center; background: var(--ink); color: var(--paper); font: 500 13px var(--mono); letter-spacing: -.3px }
+.tech-icon svg { width: 20px; height: 20px; fill: currentColor }
 .tech-item:hover .tech-icon { background: var(--paper); color: var(--ink) }
 .tech-note { text-align: right; color: var(--muted); font: 500 13px var(--mono); letter-spacing: .6px; margin: 20px 0 0 }
 

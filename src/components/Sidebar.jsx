@@ -1,8 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { scrollToSection } from '../lib/smoothScroll.js'
 import { Menu, X, ChevronsLeft, ChevronsRight, Github, Mail, MapPin } from 'lucide-react'
 
 const groups = [
-  { label: 'Profile', links: [['about', 'Intro'], ['education', 'About & Education'], ['stack', 'Stack'], ['skills', 'Skills'], ['leadership', 'Leadership']] },
+  { label: 'Profile', links: [['about', 'Intro'], ['education', 'About Me'], ['stack', 'Stack'], ['skills', 'Skills'], ['leadership', 'Leadership']] },
   { label: 'Work', links: [['projects', 'Projects'], ['interests', 'Interests'], ['technologies', 'Technologies'], ['contributions', 'Activity']] },
   { label: 'Connect', links: [['contact', 'Contact']] },
 ]
@@ -68,7 +69,7 @@ export default function Sidebar() {
   const navigate = (id) => {
     setActive(id)
     setOpen(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    scrollToSection(id)
   }
 
   let counter = 0

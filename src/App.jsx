@@ -8,6 +8,8 @@ import AnimeCursor from './components/AnimeCursor.jsx'
 import ContributionGraph from './components/ContributionGraph.jsx'
 import ThemeSwitch from './components/ThemeSwitch.jsx'
 import PortraitStage from './components/PortraitStage.jsx'
+import { initSmoothScroll } from './lib/smoothScroll.js'
+import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin } from 'simple-icons'
 
 const projects = [
   { platform: 'web', number: 1, title: 'ITSO IP Management System', category: 'OFFICE WORKFLOW', symbol: 'IP', sfx: 'ドン', description: 'A streamlined application process for the Innovation and Technology Support Office, from document submission through status tracking.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
@@ -25,7 +27,10 @@ const projectGroups = [
 
 const skills = ['Web & application development', 'Mobile application development', 'AI-assisted software development', 'System design & architecture', 'Software testing & debugging', 'Problem solving & analytical thinking', 'Technical documentation & reporting']
 const techs = [
-  { name: 'HTML5', icon: 'HTML' }, { name: 'CSS3', icon: 'CSS' }, { name: 'JavaScript', icon: 'JS' }, { name: 'React', icon: 'Re' }, { name: 'TypeScript', icon: 'TS' }, { name: 'PHP', icon: 'PHP' }, { name: 'Laravel', icon: 'Lv' }, { name: 'MySQL', icon: 'SQL' }, { name: 'MongoDB', icon: 'Mg' }, { name: 'Flutter', icon: 'Fl' }, { name: 'Dart', icon: 'Dt' }, { name: 'Git', icon: 'Git' }, { name: 'GitHub', icon: 'GH' }, { name: 'Postman', icon: 'PM' }, { name: 'Expo Go', icon: 'Ex' }, { name: 'phpMyAdmin', icon: 'PMA' },
+  { name: 'HTML5', icon: siHtml5 }, { name: 'CSS3', icon: siCss }, { name: 'JavaScript', icon: siJavascript }, { name: 'React', icon: siReact },
+  { name: 'TypeScript', icon: siTypescript }, { name: 'PHP', icon: siPhp }, { name: 'Laravel', icon: siLaravel }, { name: 'MySQL', icon: siMysql },
+  { name: 'MongoDB', icon: siMongodb }, { name: 'Flutter', icon: siFlutter }, { name: 'Dart', icon: siDart }, { name: 'Git', icon: siGit },
+  { name: 'GitHub', icon: siGithub }, { name: 'Postman', icon: siPostman }, { name: 'Expo Go', icon: siExpo }, { name: 'phpMyAdmin', icon: siPhpmyadmin },
 ]
 const stack = [
   ['01', 'Frontend', 'HTML · CSS · JavaScript', 'React · TypeScript', <Code2 size={18} />],
@@ -68,6 +73,8 @@ function App() {
   }, [])
 
   useEffect(() => () => window.cancelAnimationFrame(portraitFrameRef.current), [])
+
+  useEffect(() => initSmoothScroll(), [])
 
   const movePortraitSpot = (event) => {
     const portrait = portraitRef.current
@@ -185,7 +192,7 @@ function App() {
         </Section>
 
         <Section id="technologies" number="07" title="In my toolkit" eyebrow="TECHNOLOGIES I USE" jp="道具">
-          <div className="tech-grid">{techs.map((tech) => <div className="tech-item" key={tech.name}><span className="tech-icon">{tech.icon}</span><span>{tech.name}</span></div>)}</div>
+          <div className="tech-grid">{techs.map((tech) => <div className="tech-item" key={tech.name}><span className="tech-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={tech.icon.path} /></svg></span><span>{tech.name}</span></div>)}</div>
           <p className="tech-note">TOOLS CHANGE. CURIOSITY COMPOUNDS.</p>
         </Section>
 
