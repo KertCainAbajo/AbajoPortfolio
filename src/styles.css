@@ -114,14 +114,23 @@ button, input, textarea { font: inherit; color: inherit }
 .visual-topline { padding: 0 2px 10px }
 .visual-bottomline { padding: 22px 2px 0 }
 .visual-bottomline i { font-style: normal; color: var(--faint) }
-.portrait-art { --spot-x: 50%; --spot-y: 50%; height: min(58vw, 580px); min-height: 400px; position: relative; overflow: hidden; background: var(--ink); border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink), 10px 10px 0 4px var(--paper); outline: 2px solid var(--ink); outline-offset: 6px; touch-action: pan-y; transform: rotate(1.2deg) }
-.portrait-speedlines { position: absolute; inset: -40%; z-index: 0; background: repeating-conic-gradient(from 0deg at 50% 50%, #ffffff26 0 .7deg, transparent .7deg 5deg); mask-image: radial-gradient(circle, transparent 18%, #000 55%); animation: speed 8s linear infinite }
+.portrait-art { --spot-x: 50%; --spot-y: 50%; --lens: 120px; height: min(58vw, 580px); min-height: 400px; position: relative; overflow: hidden; background: var(--ink); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--faint); touch-action: pan-y }
+.portrait-speedlines { position: absolute; inset: -40%; z-index: 0; background: repeating-conic-gradient(from 0deg at 50% 50%, #ffffff12 0 .5deg, transparent .5deg 6deg); mask-image: radial-gradient(circle, transparent 22%, #000 60%); animation: speed 60s linear infinite }
 @keyframes speed { to { transform: rotate(360deg) } }
 .portrait-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; pointer-events: none }
-.portrait-base { z-index: 1; filter: grayscale(1) contrast(1.12); mix-blend-mode: lighten }
-.portrait-reveal { z-index: 2; opacity: 0; filter: grayscale(1) contrast(1.05); mask-image: radial-gradient(ellipse 150px 175px at var(--spot-x) var(--spot-y), #000 0 55%, rgba(0,0,0,.6) 78%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 150px 175px at var(--spot-x) var(--spot-y), #000 0 55%, rgba(0,0,0,.6) 78%, transparent 100%); mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; transition: opacity 220ms ease; will-change: mask-image, opacity }
+.portrait-base { z-index: 1; filter: grayscale(1) contrast(1.06); mix-blend-mode: lighten }
+/* Illustrated layer, revealed through a soft-edged lens that follows the pointer */
+.portrait-reveal { position: absolute; inset: 0; z-index: 2; overflow: hidden; background: var(--ink); opacity: 0; mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); -webkit-mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; transition: opacity 260ms ease; will-change: mask-image, opacity }
+/* anime.jpg shares 1p.png's framing, so it sits exactly over the photo */
+.portrait-alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; filter: grayscale(1) contrast(1.06); pointer-events: none }
 .portrait-art.portrait-revealing .portrait-reveal { opacity: 1 }
-.portrait-sfx { position: absolute; z-index: 3; top: 6%; right: 5%; writing-mode: vertical-rl; font: 400 clamp(34px, 4vw, 52px)/1 var(--display); color: var(--ink); -webkit-text-stroke: 1.5px var(--paper); paint-order: stroke fill; text-shadow: 3px 3px 0 var(--paper); letter-spacing: -.05em; transform: rotate(8deg); pointer-events: none }
+.portrait-scope { position: absolute; z-index: 4; left: var(--spot-x); top: var(--spot-y); width: calc(var(--lens) * 1.84); height: calc(var(--lens) * 1.84); border-radius: 50%; border: 1px solid #ffffffa6; box-shadow: 0 0 0 1px #0000004d; transform: translate(-50%, -50%) scale(.94); opacity: 0; pointer-events: none; transition: opacity 260ms ease, transform 320ms ease }
+.portrait-scope:before, .portrait-scope:after { content: ""; position: absolute; left: 50%; top: 50%; background: #ffffffb3; transform: translate(-50%, -50%) }
+.portrait-scope:before { width: 12px; height: 1px }
+.portrait-scope:after { width: 1px; height: 12px }
+.scope-tag { position: absolute; left: 50%; bottom: -13px; transform: translateX(-50%); background: var(--paper); color: var(--ink); padding: 4px 9px; font: 500 9px var(--mono); letter-spacing: 1.4px; white-space: nowrap }
+.portrait-art.portrait-revealing .portrait-scope { opacity: 1; transform: translate(-50%, -50%) scale(1) }
+@media (max-width: 760px) { .portrait-art { --lens: 92px } }
 .portrait-caption { position: absolute; z-index: 3; left: 0; bottom: 0; background: var(--paper); color: var(--ink); border-top: var(--line); border-right: var(--line); padding: 8px 12px; font: 500 10px var(--mono); letter-spacing: 1.2px; pointer-events: none }
 .scroll-cue { position: absolute; bottom: 26px; left: 0; display: flex; align-items: center; gap: 12px; color: var(--muted); font: 500 10px var(--mono); letter-spacing: 1.2px }
 .scroll-cue svg { animation: float 1.4s ease-in-out infinite alternate }
@@ -313,6 +322,7 @@ button, input, textarea { font: inherit; color: inherit }
 /* ── Anime cursor ──────────────────────────────────────────────────── */
 .anime-cursor { position: fixed; top: 0; left: 0; width: 24px; height: 30px; z-index: 200; pointer-events: none; display: none; opacity: 0; transition: opacity 180ms ease }
 .anime-cursor-visible { opacity: 1 }
+.anime-cursor-visible.anime-cursor-scope { opacity: 0 }
 @media (hover: hover) and (pointer: fine) {
   body.anime-cursor-enabled, body.anime-cursor-enabled * { cursor: none !important }
   body.anime-cursor-enabled .anime-cursor { display: block }

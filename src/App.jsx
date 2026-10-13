@@ -106,11 +106,11 @@ function App() {
           </div>
           <div className="hero-visual">
             <div className="visual-topline"><span>FIG. 01</span><span>THE DEVELOPER <span lang="ja">開発者</span></span></div>
-            <div className="portrait-art" ref={portraitRef} aria-label="Interactive portrait: move your pointer to reveal the photo beneath the illustration" role="img" onPointerEnter={activatePortrait} onPointerMove={movePortraitSpot} onPointerLeave={deactivatePortrait} onPointerDown={activatePortrait} onPointerUp={(event) => { if (event.pointerType === 'touch') deactivatePortrait() }}>
+            <div className="portrait-art" ref={portraitRef} aria-label="Interactive portrait: move your pointer to reveal an anime version beneath the photo" role="img" onPointerEnter={activatePortrait} onPointerMove={movePortraitSpot} onPointerLeave={deactivatePortrait} onPointerDown={activatePortrait} onPointerUp={(event) => { if (event.pointerType === 'touch') deactivatePortrait() }}>
               <div className="portrait-speedlines" />
-              <img className="portrait-photo portrait-base" src="/assets/2p.jpg" alt="Illustrated portrait of Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-              <img className="portrait-photo portrait-reveal" src="/assets/1p.png" alt="" aria-hidden="true" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-              <span className="portrait-sfx" lang="ja" aria-hidden="true">ドドド</span>
+              <img className="portrait-photo portrait-base" src="/assets/1p.png" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+              <div className="portrait-reveal" aria-hidden="true"><img className="portrait-alt" src="/assets/anime.jpg" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></div>
+              <span className="portrait-scope" aria-hidden="true"><span className="scope-tag">ANIME</span></span>
               <span className="portrait-caption"><span className="caption-hover">HOVER TO REVEAL</span><span className="caption-touch">HOLD TO REVEAL</span></span>
             </div>
             <div className="visual-bottomline"><span>INFORMATION TECHNOLOGY</span><span>7°04′N <i>·</i> 125°36′E</span></div>
