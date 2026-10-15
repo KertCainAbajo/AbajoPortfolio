@@ -41,7 +41,6 @@ export default function AnimeCursor() {
         cursor.classList.add('anime-cursor-visible')
       }
       cursor.classList.toggle('anime-cursor-hover', Boolean(event.target.closest('a, button, input, textarea')))
-      cursor.classList.toggle('anime-cursor-scope', Boolean(event.target.closest('.portrait-art')))
       if (!frame) frame = window.requestAnimationFrame(animate)
     }
     const onLeave = () => {

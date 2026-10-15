@@ -186,81 +186,33 @@ html.sidebar-collapsed { --side: 76px }
 .topline-right { display: flex; align-items: center; gap: 14px }
 .visual-bottomline { padding: 22px 2px 0 }
 .visual-bottomline i { font-style: normal; color: var(--faint) }
-.portrait-art { --spot-x: 50%; --spot-y: 50%; --lens: 120px; height: min(58vw, 580px); min-height: 400px; position: relative; overflow: hidden; background: var(--portrait-bg); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--faint); touch-action: pan-y; transition: background-color 1s ease-in-out }
+.portrait-art { height: min(58vw, 580px); min-height: 400px; position: relative; overflow: hidden; background: var(--portrait-bg); border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--faint); touch-action: pan-y; transition: background-color 1s ease-in-out }
 .portrait-speedlines { position: absolute; inset: -40%; z-index: 0; background: repeating-conic-gradient(from 0deg at 50% 50%, var(--portrait-lines) 0 .5deg, transparent .5deg 6deg); mask-image: radial-gradient(circle, transparent 22%, #000 60%); animation: speed 60s linear infinite }
 @keyframes speed { to { transform: rotate(360deg) } }
 .portrait-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; pointer-events: none }
-/* ── Outfit change (suit ↔ beach shirt) ──────────────────────────────
-   Both outfits are background-free cutouts with the face in the same spot, so only the clothes change.
-   The arriving outfit fades in quickly while the leaving one lingers then goes, so the old suit's black
-   shoulders and tie never show through. A head-only copy of the suit photo keeps the face solid meanwhile.
-   Light: outfit change first, then zoom out. Dark: props leave, zoom back, then the suit returns. */
-.portrait-base, .portrait-base-head { z-index: 1; filter: grayscale(1) contrast(1.06); transform-origin: 50% 100%; transition: transform .9s cubic-bezier(.65, 0, .35, 1) .75s, opacity 1s cubic-bezier(.25, .6, .35, 1) 1.65s }
-.portrait-base-head { -webkit-mask-image: linear-gradient(to bottom, #000 39%, transparent 44%); mask-image: linear-gradient(to bottom, #000 39%, transparent 44%); transition: transform .9s cubic-bezier(.65, 0, .35, 1) .75s, opacity 0s 1.65s }
-.portrait-alt-frame { position: absolute; inset: 0; transform-origin: 50% 100%; transition: transform .9s cubic-bezier(.65, 0, .35, 1) .75s }
-.portrait-cut { z-index: 1; opacity: 0; filter: grayscale(1) contrast(1.06); transform-origin: 50% 100%; transition: transform .9s cubic-bezier(.65, 0, .35, 1) .75s, opacity 1s cubic-bezier(.45, 0, .55, 1) 1.65s }
-.portrait-alt.portrait-alt-cut { opacity: 0; transition: transform 420ms cubic-bezier(.2, .8, .2, 1), opacity 1s cubic-bezier(.45, 0, .55, 1) 1.65s }
-.portrait-alt:not(.portrait-alt-cut) { transition: transform 420ms cubic-bezier(.2, .8, .2, 1), opacity 1s cubic-bezier(.25, .6, .35, 1) 1.65s }
-.is-sunny .portrait-cut { opacity: 1; transform: scale(.8); transition: transform .9s cubic-bezier(.65, 0, .35, 1) 1s, opacity 1s cubic-bezier(.25, .6, .35, 1) }
-.is-sunny .portrait-alt.portrait-alt-cut { opacity: 1; transition: transform 420ms cubic-bezier(.2, .8, .2, 1), opacity 1s cubic-bezier(.25, .6, .35, 1) }
-.is-sunny .portrait-alt-frame { transform: scale(.8); transition: transform .9s cubic-bezier(.65, 0, .35, 1) 1s }
-.is-sunny .portrait-base { opacity: 0; transform: scale(.8); transition: transform .9s cubic-bezier(.65, 0, .35, 1) 1s, opacity 1s cubic-bezier(.45, 0, .55, 1) }
-.is-sunny .portrait-base-head { opacity: 0; transform: scale(.8); transition: transform .9s cubic-bezier(.65, 0, .35, 1) 1s, opacity 0s 1s }
-.is-sunny .portrait-alt:not(.portrait-alt-cut) { opacity: 0; transition: transform 420ms cubic-bezier(.2, .8, .2, 1), opacity 1s cubic-bezier(.45, 0, .55, 1) }
-/* The arriving outfit always sits on top: suit going dark, beach shirt going light */
-.portrait-base { z-index: 2 }
-.portrait-base-head { z-index: 3 }
-.portrait-cut, .portrait-alt.portrait-alt-cut { z-index: 1 }
-.portrait-alt:not(.portrait-alt-cut) { z-index: 2 }
-.is-sunny .portrait-cut, .is-sunny .portrait-alt.portrait-alt-cut { z-index: 2 }
-.is-sunny .portrait-base, .is-sunny .portrait-base-head, .is-sunny .portrait-alt:not(.portrait-alt-cut) { z-index: 1 }
-/* Illustrated layer, revealed through a soft-edged lens that follows the pointer */
-.portrait-reveal { position: absolute; inset: 0; z-index: 4; overflow: hidden; background: var(--portrait-bg); opacity: 0; mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); -webkit-mask-image: radial-gradient(circle var(--lens) at var(--spot-x) var(--spot-y), #000 0 82%, transparent 100%); mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; transition: opacity 260ms ease, background-color 1s ease-in-out; will-change: mask-image, opacity }
-/* anime.jpg shares 1p.png's framing, so it sits exactly over the photo */
-.portrait-alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 22%; filter: grayscale(1) contrast(1.06); pointer-events: none; transform-origin: var(--spot-x) var(--spot-y); transition: transform 420ms cubic-bezier(.2, .8, .2, 1), opacity .7s ease .6s }
-.portrait-art.portrait-revealing .portrait-reveal { opacity: 1 }
-/* Loupe: the anime layer zooms 1.1x around the pointer */
-.portrait-art.portrait-revealing .portrait-alt { transform: scale(1.1) }
-.portrait-scope { position: absolute; z-index: 6; left: var(--spot-x); top: var(--spot-y); width: calc(var(--lens) * 1.84); height: calc(var(--lens) * 1.84); border-radius: 50%; box-shadow: inset 0 0 40px #ffffff14, 0 10px 30px #0000002e; transform: translate(-50%, -50%) scale(.9); opacity: 0; pointer-events: none; transition: opacity 280ms ease, transform 420ms cubic-bezier(.2, .8, .2, 1) }
-.portrait-art.portrait-revealing .portrait-scope { opacity: 1; transform: translate(-50%, -50%) scale(1) }
-/* Glass shine across the upper-left of the lens */
-.portrait-scope:before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(ellipse 70% 45% at 32% 18%, #ffffff2e, transparent 70%), linear-gradient(160deg, transparent 62%, #ffffff0d) }
-/* Rim that catches light at the top and bottom, fading at the sides */
-.portrait-scope:after { content: ""; position: absolute; inset: 0; border-radius: 50%; padding: 1.5px; background: linear-gradient(160deg, #ffffffcc, #ffffff1f 38%, #ffffff0d 62%, #ffffff73); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor }
-@media (max-width: 760px) { .portrait-art { --lens: 92px } }
-.portrait-caption { position: absolute; z-index: 6; left: 0; bottom: 0; background: var(--paper); color: var(--ink); border-top: var(--line); border-right: var(--line); padding: 8px 12px; font: 500 13px var(--mono); letter-spacing: .6px; pointer-events: none }
+/* ── Light-mode beach clip (suit ↔ beach video) ──────────────────────
+   PortraitStage sets data-zoom and data-outfit in sequence:
+   light = zoom in until the clip fills the panel edge to edge (it is narrower than the photo) → suit fades into the clip's first frame → clip plays once;
+   dark = reversed clip plays → fades back into the suit → zoom out.
+   The arriving outfit sits on top and fades in fast while the leaving one lingers, so nothing shows through.
+   A head-only copy of the suit photo keeps the face solid during the fade. */
+.portrait-base, .portrait-base-head, .portrait-video { transform-origin: 50.2% 0; transition: transform .9s cubic-bezier(.65, 0, .35, 1) }
+.portrait-base, .portrait-base-head, .portrait-video { filter: grayscale(1) contrast(1.06) }
+.portrait-stage[data-zoom="in"] :is(.portrait-base, .portrait-base-head, .portrait-video) { transform: scale(1.34) }
+.portrait-base-head { -webkit-mask-image: linear-gradient(to bottom, #000 39%, transparent 44%); mask-image: linear-gradient(to bottom, #000 39%, transparent 44%) }
+/* suit on */
+.portrait-base { z-index: 2; opacity: 1; transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity 1s cubic-bezier(.25, .6, .35, 1) }
+.portrait-base-head { z-index: 3; opacity: 1; transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity 0s 1s }
+.portrait-video { z-index: 1; opacity: 0; transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity 1s cubic-bezier(.45, 0, .55, 1) }
+/* beach on */
+.portrait-stage[data-outfit="beach"] .portrait-video { z-index: 2; opacity: 1; transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity 1s cubic-bezier(.25, .6, .35, 1) }
+.portrait-stage[data-outfit="beach"] .portrait-base { z-index: 1; opacity: 0; transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity 1s cubic-bezier(.45, 0, .55, 1) }
+.portrait-stage[data-outfit="beach"] .portrait-base-head { z-index: 1; opacity: 0; transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity 0s 1s }
 .scroll-cue { position: absolute; bottom: 26px; left: 0; display: flex; align-items: center; gap: 12px; color: var(--muted); font: 500 13px var(--mono); letter-spacing: .6px }
 .scroll-cue svg { animation: float 1.4s ease-in-out infinite alternate }
 @keyframes float { to { transform: translateY(4px) } }
 
-/* ── Summer props: sunglasses + beach umbrella in light mode ───────── */
 .portrait-stage { position: absolute; inset: 0 }
-.portrait-props { position: absolute; inset: 0; z-index: 5; pointer-events: none }
-/* Sunglasses ride on a rig carried by a hand from the right.
-   Arriving: rig slides in, then the hand lets go and leaves. Leaving: the hand returns, then the rig slides out. */
-.shades-rig { position: absolute; left: 37.4%; top: 36.85%; width: 26.4%; transform: translateX(260%); transition: transform .45s cubic-bezier(.5, 0, .75, 0) .3s }
-.is-sunny .shades-rig { transform: none; transition: transform .55s cubic-bezier(.2, .9, .3, 1.15) 1.95s }
-.prop-shades { display: block; width: 100%; overflow: visible; filter: drop-shadow(0 4px 5px #000a) }
-.shades-hand { position: absolute; left: 91%; top: -42.7%; width: 110%; overflow: visible; transition: transform .3s ease-out }
-.is-sunny .shades-hand { transform: translateX(260%); transition: transform .45s ease-in 2.65s }
-.shades-frame { fill: #0b0b0b }
-.shades-lens { fill: #1d1d1d; stroke: #3a3a3a; stroke-width: 1 }
-.shades-glint { fill: #fff; opacity: .45 }
-.is-sunny .shades-glint { animation: shades-glint .7s ease 2.55s }
-@keyframes shades-glint { 0% { opacity: .45; transform: translateX(-8px) } 40% { opacity: 1 } 100% { opacity: .45; transform: none } }
-.prop-umbrella { position: absolute; left: 32%; top: -4%; width: 91.3%; overflow: visible; opacity: 0; transform-origin: 41.7% 68.3%; transform: translateY(125%); filter: drop-shadow(0 8px 10px #0009); transition: transform .5s cubic-bezier(.5, -.3, .7, 1) .25s, opacity .2s ease .7s }
-.is-sunny .prop-umbrella { opacity: 1; transform: none; transition: transform .65s cubic-bezier(.25, 1.3, .5, 1) 1.9s, opacity .1s ease 1.9s }
-.umbrella-canopy { transform-box: fill-box; transform-origin: 50% 0; transform: scaleX(.12) scaleY(.85); transition: transform .3s ease-in }
-.is-sunny .umbrella-canopy { transform: none; transition: transform .45s cubic-bezier(.3, 1.6, .5, 1) 2.4s }
-.canopy-fill { fill: #f3f2ed }
-.canopy-stripe { fill: #0b0b0b }
-.canopy-line { fill: none; stroke: #0b0b0b; stroke-width: 3; stroke-linejoin: round }
-.canopy-tip { fill: #0b0b0b; stroke: #f3f2ed; stroke-width: 2 }
-.umbrella-shaft { fill: none; stroke: #e6e4dc; stroke-width: 5; stroke-linecap: round }
-.prop-skin { fill: #f3f2ed; stroke: #0b0b0b; stroke-width: 2.4; stroke-linejoin: round }
-.prop-crease { fill: none; stroke: #0b0b0b; stroke-width: 1.6; stroke-linecap: round }
-.prop-cuff { fill: #fff; stroke: #0b0b0b; stroke-width: 2 }
-.prop-sleeve { fill: #151515; stroke: #e6e4dc; stroke-width: 2; stroke-linejoin: round }
 
 /* ── Theme switch: sun that morphs into a moon ──────────────────────── */
 .theme-toggle { position: relative; width: 52px; height: 28px; flex: none; padding: 0; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--paper-2); cursor: pointer; transition: background-color .3s ease, border-color .3s ease, box-shadow .2s ease }
@@ -488,7 +440,6 @@ html.sidebar-collapsed { --side: 76px }
 /* ── Anime cursor ──────────────────────────────────────────────────── */
 .anime-cursor { position: fixed; top: 0; left: 0; width: 24px; height: 30px; z-index: 200; pointer-events: none; display: none; opacity: 0; transition: opacity 180ms ease }
 .anime-cursor-visible { opacity: 1 }
-.anime-cursor-visible.anime-cursor-scope { opacity: 0 }
 @media (hover: hover) and (pointer: fine) {
   body.anime-cursor-enabled, body.anime-cursor-enabled * { cursor: none !important }
   body.anime-cursor-enabled .anime-cursor { display: block }
@@ -592,5 +543,3 @@ html.sidebar-collapsed { --side: 76px }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important }
 }
 
-.caption-touch { display: none }
-@media (hover: none) { .caption-hover { display: none } .caption-touch { display: inline } }

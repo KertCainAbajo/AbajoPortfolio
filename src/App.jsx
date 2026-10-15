@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowDown, ArrowUpRight, MoveUpRight, Code2, Smartphone, Layers3, Sparkles } from 'lucide-react'
 import Sidebar from './components/Sidebar.jsx'
 import Section from './components/Section.jsx'
@@ -41,10 +41,6 @@ const interests = ['Scalable web and mobile applications', 'AI-assisted developm
 
 function App() {
   const [typed, setTyped] = useState('')
-  const portraitRef = useRef(null)
-  const portraitTargetRef = useRef({ x: 0, y: 0 })
-  const portraitCurrentRef = useRef({ x: 0, y: 0 })
-  const portraitFrameRef = useRef(0)
   const title = 'KERT CAIN ARVIE P. ABAJO'
   // Type the name, hold it for 5s, erase it, then type it again.
   useEffect(() => {
@@ -72,50 +68,7 @@ function App() {
     return () => window.clearTimeout(timer)
   }, [])
 
-  useEffect(() => () => window.cancelAnimationFrame(portraitFrameRef.current), [])
-
   useEffect(() => initSmoothScroll(), [])
-
-  const movePortraitSpot = (event) => {
-    const portrait = portraitRef.current
-    const bounds = portrait?.getBoundingClientRect()
-    if (!bounds) return
-    portraitTargetRef.current = { x: event.clientX - bounds.left, y: event.clientY - bounds.top }
-    if (portraitFrameRef.current) return
-
-    const animate = () => {
-      const current = portraitCurrentRef.current
-      const target = portraitTargetRef.current
-      current.x += (target.x - current.x) * 0.2
-      current.y += (target.y - current.y) * 0.2
-      portrait?.style.setProperty('--spot-x', `${current.x}px`)
-      portrait?.style.setProperty('--spot-y', `${current.y}px`)
-      if (Math.abs(target.x - current.x) + Math.abs(target.y - current.y) > 0.3) {
-        portraitFrameRef.current = window.requestAnimationFrame(animate)
-      } else {
-        current.x = target.x
-        current.y = target.y
-        portrait?.style.setProperty('--spot-x', `${current.x}px`)
-        portrait?.style.setProperty('--spot-y', `${current.y}px`)
-        portraitFrameRef.current = 0
-      }
-    }
-    portraitFrameRef.current = window.requestAnimationFrame(animate)
-  }
-
-  const activatePortrait = (event) => {
-    const portrait = portraitRef.current
-    const bounds = portrait?.getBoundingClientRect()
-    if (!portrait || !bounds) return
-    const point = { x: event.clientX - bounds.left, y: event.clientY - bounds.top }
-    portraitTargetRef.current = point
-    portraitCurrentRef.current = point
-    portrait.style.setProperty('--spot-x', `${point.x}px`)
-    portrait.style.setProperty('--spot-y', `${point.y}px`)
-    portrait.classList.add('portrait-revealing')
-  }
-
-  const deactivatePortrait = () => portraitRef.current?.classList.remove('portrait-revealing')
 
   return (
     <div className="app-frame" id="top">
@@ -135,16 +88,12 @@ function App() {
           </div>
           <div className="hero-visual">
             <div className="visual-topline"><span>FIG. 01</span><span className="topline-right"><span>THE DEVELOPER <span lang="ja">開発者</span></span><ThemeSwitch /></span></div>
-            <div className="portrait-art" ref={portraitRef} aria-label="Interactive portrait: move your pointer to reveal an anime version beneath the photo" role="img" onPointerEnter={activatePortrait} onPointerMove={movePortraitSpot} onPointerLeave={deactivatePortrait} onPointerDown={activatePortrait} onPointerUp={(event) => { if (event.pointerType === 'touch') deactivatePortrait() }}>
+            <div className="portrait-art" aria-label="Portrait of Kert Cain Arvie P. Abajo" role="img">
               <PortraitStage>
                 <div className="portrait-speedlines" />
                 <img className="portrait-photo portrait-base" src="/assets/1p-cutout.webp" alt="Kert Cain Arvie P. Abajo" onError={(event) => { event.currentTarget.style.display = 'none' }} />
                 <img className="portrait-photo portrait-base-head" src="/assets/1p-cutout.webp" alt="" aria-hidden="true" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-                <img className="portrait-photo portrait-cut" src="/assets/q-cutout.webp" alt="" aria-hidden="true" onError={(event) => { event.currentTarget.style.display = 'none' }} />
-                <div className="portrait-reveal" aria-hidden="true"><span className="portrait-alt-frame"><img className="portrait-alt" src="/assets/anime-cutout.webp" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /><img className="portrait-alt portrait-alt-cut" src="/assets/w-cutout.webp" alt="" onError={(event) => { event.currentTarget.style.display = 'none' }} /></span></div>
               </PortraitStage>
-              <span className="portrait-scope" aria-hidden="true" />
-              <span className="portrait-caption"><span className="caption-hover">HOVER TO REVEAL</span><span className="caption-touch">HOLD TO REVEAL</span></span>
             </div>
             <div className="visual-bottomline"><span>INFORMATION TECHNOLOGY</span><span>7°04′N <i>·</i> 125°36′E</span></div>
           </div>
