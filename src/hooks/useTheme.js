@@ -26,7 +26,6 @@ export default function useTheme() {
     const commit = () => {
       root.dataset.theme = next
       document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[next])
-      try { window.localStorage.setItem('theme', next) } catch { /* storage unavailable */ }
       flushSync(() => setTheme(next))
     }
 
