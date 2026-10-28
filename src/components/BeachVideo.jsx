@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 
-// Packed clips: left half = picture (grayscale), right half = alpha matte. beach-out is beach-in reversed.
+// Packed clips: left half = colour picture, right half = alpha matte. beach-out is beach-in reversed.
 const CLIPS = { in: '/assets/beach-in.mp4', out: '/assets/beach-out.mp4' }
 // Where the clip sits in the 896x1200 photo space shared with the portrait photos (measured from frame 0)
 const PHOTO_W = 896
@@ -14,9 +14,9 @@ void main() { v_uv = a_uv; gl_Position = vec4(a_pos, 0.0, 1.0); }`
 const FRAG = `precision mediump float; varying vec2 v_uv; uniform sampler2D u_tex; uniform float u_texel;
 void main() {
   float u = clamp(v_uv.x, 0.0, 1.0) * 0.5;
-  float color = texture2D(u_tex, vec2(min(u, 0.5 - u_texel), v_uv.y)).r;
+  vec3 color = texture2D(u_tex, vec2(min(u, 0.5 - u_texel), v_uv.y)).rgb;
   float alpha = texture2D(u_tex, vec2(max(u + 0.5, 0.5 + u_texel), v_uv.y)).r;
-  gl_FragColor = vec4(vec3(color) * alpha, alpha);
+  gl_FragColor = vec4(color * alpha, alpha);
 }`
 
 function setupGL(canvas) {
@@ -62,7 +62,7 @@ const BeachVideo = forwardRef(function BeachVideo(props, ref) {
     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight)
     gl.clearColor(0, 0, 0, 0)
     gl.clear(gl.COLOR_BUFFER_BIT)
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, gl.LUMINANCE, gl.UNSIGNED_BYTE, video)
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, video)
     gl.uniform1f(texel, 1 / video.videoWidth)
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
   }

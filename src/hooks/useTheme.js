@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 
-const THEME_COLORS = { light: '#f3f2ed', dark: '#0f0f0f' }
+const THEME_COLORS = { light: '#fbf6ee', dark: '#09090b' }
 const readTheme = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
 
 // Read-only view of the current theme for components that react to switches.
@@ -26,6 +26,8 @@ export default function useTheme() {
     const commit = () => {
       root.dataset.theme = next
       document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[next])
+      // Remembered for this tab only: refresh keeps it, a new visit starts dark again
+      try { window.sessionStorage.setItem('theme', next) } catch { /* storage unavailable */ }
       flushSync(() => setTheme(next))
     }
 

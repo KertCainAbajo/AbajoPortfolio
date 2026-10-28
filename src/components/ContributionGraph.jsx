@@ -67,10 +67,10 @@ export default function ContributionGraph() {
   const total = activeYear ? data?.total?.[activeYear] ?? data?.contributions?.filter((day) => Number(day.date.slice(0, 4)) === activeYear).reduce((sum, day) => sum + day.count, 0) ?? 0 : 0
 
   return (
-    <div className="contribution-card">
+    <div className="card contribution-card reveal">
       <div className="contribution-head">
-        <div><span className="card-kicker">A SMALL VIEW OF THE BIG PICTURE</span><h3>Progress is a practice.</h3></div>
-        <a className="contribution-profile-link" href={GITHUB_PROFILE} target="_blank" rel="noreferrer"><Github size={14} /> GITHUB PROFILE <ArrowUpRight size={13} /></a>
+        <div><span className="card-kicker">A small view of the big picture</span><h3>Progress is a practice.</h3></div>
+        <a className="contribution-profile-link" href={GITHUB_PROFILE} target="_blank" rel="noreferrer"><Github size={14} /> GitHub profile <ArrowUpRight size={13} /></a>
       </div>
       {weeks.length ? (
         <div className="contribution-content">
@@ -83,7 +83,7 @@ export default function ContributionGraph() {
               <div className="graph-body">
                 <div className="graph-days"><span /><span>MON</span><span /><span>WED</span><span /><span>FRI</span><span /></div>
                 <div className="graph-weeks" style={{ '--week-count': weeks.length }}>
-                  {weeks.map((week, weekIndex) => <div className="graph-week" key={weekIndex}>
+                  {weeks.map((week, weekIndex) => <div className="graph-week" key={weekIndex} style={{ '--w': weekIndex }}>
                     {week.map((day, dayIndex) => <span
                       className={`graph-cell ${day ? `intensity-${day.level}` : 'graph-cell-empty'}`}
                       key={dayIndex}
@@ -101,9 +101,9 @@ export default function ContributionGraph() {
           </nav>
         </div>
       ) : failed ? (
-        <div className="contribution-fallback">
+        <div className="contribution-fallback graph-fallback-anim">
           <img src={`https://ghchart.rshah.org/292929/${GITHUB_USERNAME}`} alt={`GitHub contribution calendar for ${GITHUB_USERNAME}`} />
-          <span>LIVE GITHUB CALENDAR · LAST 12 MONTHS</span>
+          <span>Live GitHub calendar · last 12 months</span>
         </div>
       ) : (
         <div className="contribution-loading" aria-live="polite">Loading GitHub contributions…</div>

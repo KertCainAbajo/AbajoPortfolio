@@ -1,15 +1,15 @@
-import { ArrowUpRight } from 'lucide-react'
+import SplitText from './SplitText.jsx'
 
-export default function Section({ id, number, title, eyebrow, jp, children, className = '' }) {
+export default function Section({ id, number, title, eyebrow, description, children, className = '' }) {
+  const label = eyebrow || title
   return (
     <section id={id} className={`section-shell ${className}`}>
-      <div className="section-heading">
-        <div>
-          <span className="eyebrow"><span className="chapter-tag">CH.{number}</span>{eyebrow || title}{jp && <span className="eyebrow-jp" lang="ja">{jp}</span>}</span>
-          <h2>{title}</h2>
-        </div>
-        <a className="top-link" href="#top" aria-label="Back to top"><ArrowUpRight size={16} /></a>
-      </div>
+      <span className="section-ghost" data-parallax="0.18" aria-hidden="true">{number}</span>
+      <header className="section-heading reveal">
+        <span className="eyebrow"><span className="eyebrow-no">{number}</span><span className="scramble" data-text={label}>{label}</span></span>
+        <h2><SplitText text={title} /></h2>
+        {description && <p className="section-description">{description}</p>}
+      </header>
       {children}
     </section>
   )

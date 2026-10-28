@@ -1,11 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { scrollToSection } from '../lib/smoothScroll.js'
-import { Menu, X, ChevronsLeft, ChevronsRight, Github, Mail, MapPin } from 'lucide-react'
+import { Menu, X, ChevronsLeft, ChevronsRight, Github, Mail, MapPin, House, UserRound, Layers3, Zap, Award, FolderKanban, Lightbulb, Cpu, Activity, Send } from 'lucide-react'
 
 const groups = [
-  { label: 'Profile', links: [['about', 'Intro'], ['education', 'About Me'], ['stack', 'Stack'], ['skills', 'Skills'], ['leadership', 'Leadership']] },
-  { label: 'Work', links: [['projects', 'Projects'], ['interests', 'Interests'], ['technologies', 'Technologies'], ['contributions', 'Activity']] },
-  { label: 'Connect', links: [['contact', 'Contact']] },
+  { label: 'Profile', links: [['about', 'Intro', House], ['education', 'About Me', UserRound], ['stack', 'Stack', Layers3], ['skills', 'Skills', Zap], ['leadership', 'Leadership', Award]] },
+  { label: 'Work', links: [['projects', 'Projects', FolderKanban], ['interests', 'Interests', Lightbulb], ['technologies', 'Technologies', Cpu], ['contributions', 'Activity', Activity]] },
+  { label: 'Connect', links: [['contact', 'Contact', Send]] },
 ]
 const links = groups.flatMap((group) => group.links)
 const GITHUB_URL = 'https://github.com/KertCainAbajo'
@@ -39,6 +39,9 @@ export default function Sidebar() {
           if (section && section.getBoundingClientRect().top <= marker) current = id
         }
         setActive((previous) => previous === current ? previous : current)
+        // How far through the active section the reader is (fills the bar inside the active pill)
+        const box = document.getElementById(current)?.getBoundingClientRect()
+        if (box && navRef.current) navRef.current.style.setProperty('--progress', String(Math.min(1, Math.max(0, (marker - box.top) / box.height))))
       })
     }
     window.addEventListener('scroll', updateActiveSection, { passive: true })
@@ -76,26 +79,26 @@ export default function Sidebar() {
   return (
     <>
       <header className="mobile-header">
-        <a className="brand" href="#top" onClick={() => setOpen(false)}><span className="brand-mark">A<span>.</span></span><span className="brand-copy"><strong>Kert Cain Abajo</strong><small>Web &amp; Mobile Developer</small></span></a>
+        <a className="brand" href="#top" onClick={() => setOpen(false)}><span className="brand-mark">KA</span><span className="brand-copy"><strong>Kert Cain Abajo</strong><small>Web &amp; Mobile Developer</small></span></a>
         <button className="mobile-menu-button" onClick={() => setOpen(!open)} aria-label={open ? 'Close navigation' : 'Open navigation'}>{open ? <X size={20} /> : <Menu size={20} />}</button>
       </header>
       {open && <button aria-label="Close navigation overlay" className="nav-scrim" onClick={() => setOpen(false)} />}
       <aside className={`sidebar ${compact ? 'sidebar-compact' : ''} ${open ? 'sidebar-open' : ''}`}>
         <a className="brand desktop-brand" href="#top" onClick={() => navigate('about')}>
-          <span className="brand-mark">A<span>.</span></span>
+          <span className="brand-mark">KA</span>
           <span className="brand-copy"><strong>Kert Cain Abajo</strong><small>Web &amp; Mobile Developer</small></span>
         </a>
 
         <nav aria-label="Main navigation" className="side-nav" ref={navRef}>
-          <span className="side-rail" aria-hidden="true"><span className="side-indicator" style={{ transform: `translateY(${indicator.top}px)`, height: indicator.height }} /></span>
+          <span className="side-rail" aria-hidden="true"><span className="side-indicator" style={{ transform: `translateY(${indicator.top}px)`, height: indicator.height }}><i className="side-progress" /></span></span>
           {groups.map((group) => (
             <div className="side-group" key={group.label}>
               <span className="side-group-label">{group.label}</span>
-              {group.links.map(([id, label]) => {
+              {group.links.map(([id, label, Icon]) => {
                 counter += 1
                 return (
-                  <a className={`side-link ${activeId === id ? 'active' : ''}`} key={id} data-id={id} href={`#${id}`} title={compact ? label : undefined} aria-current={activeId === id ? 'location' : undefined} onClick={(event) => { event.preventDefault(); navigate(id) }}>
-                    <span className="side-index">{String(counter).padStart(2, '0')}</span><span className="side-label">{label}</span>
+                  <a className={`side-link ${activeId === id ? 'active' : ''}`} key={id} data-id={id} href={`#${id}`} style={{ '--n': counter }} title={compact ? label : undefined} aria-current={activeId === id ? 'location' : undefined} onClick={(event) => { event.preventDefault(); navigate(id) }}>
+                    <span className="side-icon" key={activeId === id ? 'on' : 'off'}><Icon size={15} strokeWidth={2} /></span><span className="side-label">{label}</span><span className="side-index">{String(counter).padStart(2, '0')}</span>
                   </a>
                 )
               })}

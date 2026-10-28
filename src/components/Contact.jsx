@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import SplitText from './SplitText.jsx'
 import { ArrowUpRight, Send, Github, Linkedin, Mail, MapPin, Loader2, CircleCheck, CircleAlert, X } from 'lucide-react'
 
 const contact = {
@@ -133,18 +134,18 @@ export default function Contact() {
   const coolingDown = cooldown > 0 && !sending
   return (
     <section id="contact" className="contact-section">
-      <div className="section-heading"><div><span className="eyebrow"><span className="chapter-tag">CH.10</span>SAY HELLO<span className="eyebrow-jp" lang="ja">連絡</span></span><h2>Have a good idea?</h2></div><a className="top-link" href="#top" aria-label="Back to top"><ArrowUpRight size={16} /></a></div>
-      <div className="contact-grid">
+      <header className="section-heading reveal"><span className="eyebrow"><span className="eyebrow-no">09</span><span className="scramble" data-text="Contact">Contact</span></span><h2><SplitText text="Have a good idea?" /></h2><p className="section-description">I’m open to roles, freelance work, and collaborations. Messages go straight to my inbox.</p></header>
+      <div className="card contact-grid reveal">
         <div className="contact-info">
           <p className="contact-lede">Let’s make something useful.<br /><span>Tell me what you’re thinking.</span></p>
           <div className="contact-details">
-            <span className="contact-label">GET IN TOUCH</span>
+            <span className="contact-label">Get in touch</span>
             <a href={`mailto:${contact.email}`}><Mail size={16} />{contact.email}<ArrowUpRight size={14} /></a>
             <a href={contact.github} target="_blank" rel="noreferrer"><Github size={16} />GitHub<ArrowUpRight size={14} /></a>
             <a href={contact.linkedin} target="_blank" rel="noreferrer"><Linkedin size={16} />LinkedIn<ArrowUpRight size={14} /></a>
             <span className="location-line"><MapPin size={16} />Davao City, Philippines</span>
           </div>
-          <div className="contact-stamp"><span lang="ja">受付中</span>OPEN FOR<br />WHAT’S NEXT</div>
+          <span className="status-pill contact-status"><span className="live-dot" /> Open for what’s next</span>
         </div>
         <form className="contact-form" onSubmit={handleSubmit} onFocus={() => { if (!startedAt.current) startedAt.current = Date.now() }}>
           <input type="hidden" name="_subject" value="New message from your portfolio" />
@@ -154,8 +155,8 @@ export default function Contact() {
           <label>Your name<input name="name" placeholder="How should I call you?" autoComplete="name" required minLength={2} maxLength={80} disabled={sending} /></label>
           <label>Email address<input name="email" type="email" placeholder="you@example.com" autoComplete="email" required maxLength={120} disabled={sending} /></label>
           <label>Your message<textarea name="message" rows="4" placeholder="A little about your project..." required minLength={10} maxLength={2000} disabled={sending} /></label>
-          <button type="submit" className="send-button" disabled={sending || coolingDown}>
-            {sending ? 'SENDING…' : coolingDown ? `SEND AGAIN IN ${cooldown}s` : 'SEND A MESSAGE'}
+          <button type="submit" className="send-button" data-magnetic disabled={sending || coolingDown}>
+            {sending ? 'Sending…' : coolingDown ? `Send again in ${cooldown}s` : 'Send message'}
             {sending ? <Loader2 size={15} className="send-spinner" /> : <Send size={15} />}
           </button>
           <div className="form-notice-slot" role="status" aria-live="polite">
