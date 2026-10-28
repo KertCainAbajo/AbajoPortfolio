@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useState } from 'react'
-import { ArrowDown, ArrowUpRight, Code2, Smartphone, Layers3, Sparkles, GraduationCap, MapPin, UserRound, Rocket, Globe, Bot, Network, Bug, Brain, FileText } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Code2, Smartphone, Layers3, Sparkles, MapPin, Globe, Bot, Network, Bug, Brain, FileText } from 'lucide-react'
 import Sidebar from './components/Sidebar.jsx'
 import Section from './components/Section.jsx'
 import ProjectShowcase from './components/ProjectShowcase.jsx'
 import Toolkit from './components/Toolkit.jsx'
 import Interests from './components/Interests.jsx'
 import TechStack from './components/TechStack.jsx'
+import AboutMe from './components/AboutMe.jsx'
 import Leadership from './components/Leadership.jsx'
 import Skills from './components/Skills.jsx'
 import Contact from './components/Contact.jsx'
@@ -150,16 +151,7 @@ function App() {
         </div>
 
         <Section id="education" number="01" title="A little about me" eyebrow="About">
-          <div className="bento about-grid">
-            <article className="card about-card about-main reveal"><span className="card-mesh" aria-hidden="true" /><span className="card-kicker"><span className="kicker-icon"><UserRound size={14} /></span>The person</span><ScrubText text="I’m an IT graduate from the University of the Immaculate Conception in Davao City. I enjoy taking slow, paper-heavy processes and turning them into simple apps people actually like using." /><div className="about-card-foot"><MapPin size={14} /> Davao City, Philippines</div></article>
-            <article className="card about-card reveal" style={{ '--d': '90ms' }}><span className="card-kicker"><span className="kicker-icon"><Code2 size={14} /></span>How I work</span><p>I work on both what users see and what runs behind it. I test my own work carefully, help out with tech support, and use AI tools to move faster, but I always double-check the result.</p><div className="about-card-foot"><Layers3 size={14} /> Front end to back end</div></article>
-            <article className="card about-card reveal" style={{ '--d': '180ms' }}><span className="card-kicker"><span className="kicker-icon"><Rocket size={14} /></span>What’s next</span><p>I’m looking for a team where I can keep learning and build tools that save people time. Leading student organizations taught me to listen first, then build.</p><div className="about-card-foot"><Sparkles size={14} /> Always learning</div></article>
-            <article className="card education-card reveal" style={{ '--d': '120ms' }}>
-              <span className="education-icon"><GraduationCap size={24} /></span>
-              <div className="education-info"><span className="card-kicker">Education</span><h3>Bachelor of Science in Information Technology</h3><p>University of the Immaculate Conception · Davao City, Philippines</p></div>
-              <div className="edu-timeline" aria-label="2023 to 2026"><span>2023</span><span className="edu-track"><i /><b /></span><span>2026</span></div>
-            </article>
-          </div>
+          <AboutMe />
         </Section>
 
         <Section id="stack" number="02" title="Tech stack" eyebrow="Stack" description="The languages and tools I use most, grouped by what they’re for.">

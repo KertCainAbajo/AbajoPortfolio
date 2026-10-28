@@ -261,16 +261,7 @@ html.sidebar-collapsed { --side: 88px }
 .section-description { margin: 0; max-width: 560px; font-size: 17px; line-height: 1.6; color: var(--text-3) }
 
 /* About — bento */
-.about-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 16px }
-.about-card { min-height: 250px; padding: 26px; display: flex; flex-direction: column; gap: 16px }
-.about-card p { flex: 1; margin: 0; font-size: 16px; line-height: 1.7; color: var(--text-2) }
-.about-main p { font-size: 19px; line-height: 1.6; color: var(--text); letter-spacing: -.01em }
-.about-card-foot { display: flex; align-items: center; gap: 8px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; font-weight: 500; color: var(--text-3) }
-.education-card { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px; padding: 22px 26px }
 .education-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: var(--text); color: var(--invert) }
-.education-info h3 { margin: 6px 0 4px; font: 600 20px/1.3 var(--display); letter-spacing: -.02em }
-.education-info p { margin: 0; font-size: 15px; color: var(--text-3) }
-.education-year { font: 500 13px var(--mono); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border-strong); white-space: nowrap }
 
 /* Stack */
 
@@ -422,8 +413,6 @@ html.sidebar-collapsed { --side: 88px }
 @media (max-width: 1100px) {
   :root { --side: 220px }
   .hero-section { grid-template-columns: minmax(0, 1fr) minmax(260px, 380px) }
-  .about-grid { grid-template-columns: 1fr 1fr }
-  .about-main { grid-column: 1 / -1; min-height: 0 }
   .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
 }
 
@@ -458,11 +447,7 @@ html.sidebar-collapsed { --side: 88px }
   .hero-stats dt { font-size: 26px }
 
   .section-heading { margin-bottom: 30px }
-  .about-grid, .leadership-grid { grid-template-columns: 1fr }
-  .about-main { grid-column: auto }
-  .about-card { min-height: 0; padding: 22px }
-  .education-card { grid-template-columns: auto 1fr; padding: 20px }
-  .education-year { grid-column: 1 / -1; justify-self: start }
+  .leadership-grid { grid-template-columns: 1fr }
   .projects-grid { grid-template-columns: 1fr }
   .project-group + .project-group { margin-top: 44px }
   .tech-chip { height: 52px; font-size: 15px }
@@ -569,14 +554,7 @@ html.sidebar-collapsed { --side: 88px }
 .kicker-icon { width: 26px; height: 26px; display: inline-grid; place-items: center; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text) }
 .card-mesh { position: absolute !important; inset: -40%; z-index: 0; pointer-events: none; opacity: .9; background: radial-gradient(35% 35% at 30% 30%, var(--glow), transparent 70%), radial-gradient(30% 30% at 70% 60%, var(--glow), transparent 70%), radial-gradient(25% 25% at 40% 80%, var(--spot), transparent 70%); filter: blur(20px); animation: mesh 14s ease-in-out infinite alternate }
 @keyframes mesh { 50% { transform: translate(8%, -6%) rotate(20deg) scale(1.1) } 100% { transform: translate(-6%, 8%) rotate(-15deg) } }
-.edu-timeline { display: flex; align-items: center; gap: 12px; font: 500 13px var(--mono); color: var(--text-2); min-width: 240px }
-.edu-track { position: relative; flex: 1; height: 2px; border-radius: 2px; background: var(--border-strong) }
-.edu-track i { position: absolute; inset: 0; border-radius: inherit; background: var(--text); transform: scaleX(0); transform-origin: left; transition: transform 1.6s var(--ease) .5s }
-.edu-track b { position: absolute; top: 50%; left: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--text); box-shadow: 0 0 0 4px var(--glow); transition: left 1.6s var(--ease) .5s }
-.education-card.is-visible .edu-track i { transform: scaleX(1) }
-.education-card.is-visible .edu-track b { left: 100%; animation: node-pulse 2s ease-out 2.1s infinite }
 @keyframes node-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--text) 40%, transparent) } 100% { box-shadow: 0 0 0 12px transparent } }
-.education-card { grid-template-columns: auto 1fr minmax(220px, 300px) }
 
 /* Stack */
 @keyframes chip-in { from { opacity: 0; transform: translateY(10px) scale(.8) } }
@@ -646,8 +624,6 @@ html.sidebar-collapsed { --side: 88px }
   .skills-bento { grid-template-columns: repeat(2, minmax(0, 1fr)) }
   .skill-1, .skill-6 { grid-column: span 1 }
   .skill-7 { grid-column: span 2 }
-  .education-card { grid-template-columns: auto 1fr }
-  .edu-timeline { grid-column: 1 / -1 }
 }
 @media (max-width: 760px) {
   .skills-bento { grid-template-columns: 1fr }
@@ -659,14 +635,12 @@ html.sidebar-collapsed { --side: 88px }
   .timeline-node { left: -38px; top: 10px; margin-top: 0 }
   .interest-row { grid-template-columns: 40px 1fr auto }
   .section-ghost { display: none }
-  .edu-timeline { min-width: 0 }
 }
 @media (prefers-reduced-motion: reduce) {
   .skill-check circle, .skill-check path { stroke-dashoffset: 0 }
   .timeline-year, .timeline-item .leadership-card { opacity: 1; transform: none }
   .timeline-node { transform: none }
-  .timeline-line i, .edu-track i { transform: none }
-  .edu-track b { left: 100% }
+  .timeline-line i { transform: none }
 }
 
 /* ══ Advanced section effects ═══════════════════════════════════════ */
@@ -679,7 +653,6 @@ html.sidebar-collapsed { --side: 88px }
 @keyframes char-flip { from { opacity: 0; transform: translateY(45%) rotateX(-95deg) } }
 
 /* Scroll-scrubbed words */
-.about-main .scrub { flex: 1; margin: 0; font-size: 19px; line-height: 1.6; letter-spacing: -.01em; color: var(--text) }
 .quote-section blockquote.scrub { color: var(--text) }
 
 /* Dot-matrix that lights up around the cursor */
@@ -843,8 +816,6 @@ html:not([data-theme="dark"]) .status-card { background: linear-gradient(120deg,
 
 /* Section accents */
 html:not([data-theme="dark"]) .education-icon { background: var(--ocean); box-shadow: 0 10px 22px -10px rgb(2 132 199 / .8) }
-html:not([data-theme="dark"]) .edu-track i { background: var(--sunset) }
-html:not([data-theme="dark"]) .edu-track b { background: var(--sun); box-shadow: 0 0 0 4px rgb(249 115 22 / .2) }
 html:not([data-theme="dark"]) .skill-check { stroke: var(--aqua) }
 html:not([data-theme="dark"]) .skill-check circle { stroke: rgb(20 184 166 / .35) }
 html:not([data-theme="dark"]) .timeline-line i { background: linear-gradient(var(--sea), var(--aqua), var(--sun)) }
@@ -1000,9 +971,6 @@ html:not([data-theme="dark"]) .quote-section { animation: none; background-size:
 @keyframes ping { from { transform: scale(1); opacity: .55 } to { transform: scale(2.8); opacity: 0 } }
 .live-dot, .status-dot { position: relative; animation: none; box-shadow: none }
 .live-dot:after, .status-dot:after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit; animation: ping 2s ease-out infinite }
-.education-card.is-visible .edu-track b { animation: none }
-.edu-track b:after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit; opacity: 0 }
-.education-card.is-visible .edu-track b:after { animation: ping 2.2s ease-out 2.1s infinite }
 .timeline.is-visible .timeline-node { animation: none }
 .timeline-node:before { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid; border-color: inherit; opacity: 0 }
 .timeline.is-visible .timeline-node:before { animation: ping 2.4s ease-out calc(var(--d) + .6s) infinite }
@@ -1672,3 +1640,139 @@ html:not([data-theme="dark"]) .layers-tab[data-on] { background: #fff }
   .layers-tools { grid-template-columns: 1fr }
 }
 @media (prefers-reduced-motion: reduce) { .layers-float, .tool-tile, .layer-plate[data-on] { animation: none } .layer-plate { transition: none } }
+
+/* ══ About: intro, developer pass on a lanyard, education journey ════ */
+.me { display: grid; grid-template-columns: minmax(0, 1fr) 330px; grid-template-areas: "main badge" "journey journey"; gap: 16px; align-items: start }
+.me-main { grid-area: main; display: flex; flex-direction: column; gap: 16px }
+.me-intro { padding: 28px; display: flex; flex-direction: column; gap: 18px; overflow: hidden }
+.me-intro .scrub { position: relative; z-index: 1; margin: 0; font: 500 clamp(20px, 1.9vw, 26px)/1.5 var(--display); letter-spacing: -.02em; color: var(--text) }
+.me-facts { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px }
+.me-fact { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); font: 600 13px var(--body); color: var(--text-2) }
+.me-fact svg { color: var(--accent-2) }
+.me-intro.is-visible .me-fact { animation: tool-in .5s var(--ease) calc(var(--k) * 80ms + .5s) backwards }
+.me-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px }
+.me-note { padding: 24px; display: flex; flex-direction: column; gap: 10px }
+.me-note-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); color: var(--accent-2) }
+.me-note h3 { margin: 6px 0 0; font: 650 20px var(--display); letter-spacing: -.02em }
+.me-note p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text-2) }
+
+/* Developer pass: the lanyard sways while idle; when handled, JS drives the strap, card and flip */
+.me-badge-wrap { grid-area: badge; position: relative; height: 610px; margin-top: -40px }
+.me-lanyard { position: absolute; inset: 0 0 34px; transform-origin: 50% 0; animation: badge-swing 7s ease-in-out infinite }
+.me-lanyard[data-live] { animation: none }
+@keyframes badge-swing { 0%, 100% { transform: rotate(0) } 25% { transform: rotate(2deg) } 75% { transform: rotate(-2deg) } }
+.me-strap { position: absolute; left: 50%; top: 0; width: 24px; height: 92px; margin-left: -12px; transform-origin: 50% 0; will-change: transform; border-radius: 0 0 6px 6px;
+  background: repeating-linear-gradient(180deg, var(--accent) 0 10px, color-mix(in srgb, var(--accent) 70%, #000) 10px 12px);
+  -webkit-mask-image: linear-gradient(transparent, #000 40%); mask-image: linear-gradient(transparent, #000 40%) }
+html:not([data-theme="dark"]) .me-strap { background: repeating-linear-gradient(180deg, var(--sea) 0 10px, #075985 10px 12px) }
+.me-hang { position: absolute; left: 0; right: 0; top: 92px; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 0; will-change: transform; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; outline: none }
+.me-hang:active { cursor: grabbing }
+.me-hang:focus-visible .me-face { box-shadow: var(--shadow-lg), 0 0 0 3px var(--accent-2) }
+.me-clip { position: relative; z-index: 2; width: 46px; height: 24px; margin-top: -6px; border-radius: 8px; background: linear-gradient(180deg, #e4e4e7, #a1a1aa); box-shadow: 0 3px 8px rgb(0 0 0 / .25) }
+.me-clip:after { content: ""; position: absolute; left: 50%; bottom: 5px; width: 18px; height: 5px; margin-left: -9px; border-radius: 3px; background: #52525b }
+.me-card3d { width: 100%; margin-top: -10px; perspective: 1100px }
+.me-flip { position: relative; transform-style: preserve-3d; will-change: transform }
+.me-face { backface-visibility: hidden; -webkit-backface-visibility: hidden }
+.me-badge.me-back { position: absolute; inset: 0; transform: rotateY(180deg); display: flex; flex-direction: column }
+.me-back-mark { display: grid; place-items: center; width: 120px; height: 120px; margin: 26px auto 18px; border-radius: 32px; background: var(--text); color: var(--invert); font: 800 44px var(--display); letter-spacing: -.04em; box-shadow: 0 16px 30px rgb(0 0 0 / .25) }
+html:not([data-theme="dark"]) .me-back-mark { background: var(--ocean); color: #fff }
+.me-fields.me-back-fields { grid-template-columns: 1fr; margin-top: auto; text-align: center }
+.me-back-fields dd { overflow-wrap: anywhere; font-size: 14px }
+.me-back .me-barcode { margin-top: 0 }
+.me-hint { position: absolute; left: 50%; bottom: 0; translate: -50% 0; padding: 6px 12px; border-radius: 999px; border: 1px dashed var(--border-strong); font: 600 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); white-space: nowrap }
+.me-badge { position: relative; width: 100%; padding: 26px 20px 18px; border-radius: 24px; background: var(--screen); border: 1px solid var(--border-strong); box-shadow: var(--shadow-lg); text-align: center }
+html:not([data-theme="dark"]) .me-badge { background: linear-gradient(170deg, #ffffff 40%, #eaf6fc) }
+.me-badge:before { content: ""; position: absolute; top: 12px; left: 50%; width: 46px; height: 7px; margin-left: -23px; border-radius: 4px; background: var(--bg-2); box-shadow: inset 0 1px 2px rgb(0 0 0 / .25) }
+.me-badge-top { display: flex; align-items: center; gap: 8px; margin-top: 8px; font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3) }
+.me-badge-top .brand-mark { width: 26px; height: 26px; font-size: 10px }
+.me-badge-top em { margin-left: auto; font-style: normal; color: var(--accent-2) }
+.me-photo { margin: 16px auto 14px; width: 150px; height: 150px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 50% 30%, var(--surface-2), var(--bg-2)); border: 3px solid var(--screen); box-shadow: 0 0 0 1px var(--border-strong), 0 12px 24px rgb(0 0 0 / .18) }
+html:not([data-theme="dark"]) .me-photo { background: radial-gradient(circle at 50% 30%, #fde68a, #7dd3fc) }
+.me-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; transform: scale(1.35) translateY(14%) }
+:root[data-theme="dark"] .me-photo img { filter: grayscale(1) contrast(1.05) }
+.me-badge h3 { margin: 0; font: 700 19px/1.2 var(--display); letter-spacing: -.02em }
+.me-role { margin: 4px 0 14px; font: 600 13px var(--body); color: var(--accent-2) }
+.me-fields { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; padding: 14px 4px; border-top: 1px dashed var(--border-strong); text-align: left }
+.me-fields div { min-width: 0 }
+.me-fields dt { font: 600 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3) }
+.me-fields dd { margin: 2px 0 0; font: 600 13px var(--body); color: var(--text) }
+.me-open { display: flex; align-items: center; gap: 6px; color: #10b981 !important }
+.me-open i { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #10b981 }
+.me-open i:after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit; animation: ping 2s ease-out infinite }
+.me-barcode { display: block; height: 30px; margin-top: 4px; border-radius: 4px; opacity: .7;
+  background: repeating-linear-gradient(90deg, var(--text) 0 2px, transparent 2px 4px, var(--text) 4px 5px, transparent 5px 8px, var(--text) 8px 11px, transparent 11px 13px) }
+
+/* Education journey */
+.me-journey { grid-area: journey; padding: 24px 26px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 28px }
+.me-journey-head { display: flex; align-items: center; gap: 18px }
+.me-journey-head h3 { margin: 6px 0 4px; font: 600 20px/1.3 var(--display); letter-spacing: -.02em }
+.me-journey-head p { margin: 0; font-size: 14px; color: var(--text-3) }
+.me-steps { position: relative }
+.me-steps ol { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; padding: 0; list-style: none }
+.me-steps li { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding: 0 4px }
+.me-steps-line { position: absolute; left: 12.5%; right: 12.5%; top: 6px; height: 2px; border-radius: 2px; background: var(--border-strong) }
+.me-steps-line i { position: absolute; inset: 0; border-radius: inherit; background: var(--text); transform: scaleX(0); transform-origin: left; transition: transform 1.8s cubic-bezier(.65, 0, .35, 1) .4s }
+html:not([data-theme="dark"]) .me-steps-line i { background: var(--sunset) }
+.me-journey.is-visible .me-steps-line i { transform: none }
+.me-dot { position: relative; width: 14px; height: 14px; border-radius: 50%; background: var(--screen); border: 2px solid var(--border-strong); transition: background-color .3s, border-color .3s, transform .3s }
+.me-journey.is-visible .me-dot { animation: me-dot .4s ease calc(var(--k) * .55s + .4s) forwards }
+@keyframes me-dot { to { background: var(--text); border-color: var(--text); transform: scale(1.15) } }
+html:not([data-theme="dark"]) .me-journey.is-visible .me-dot { animation-name: me-dot-l }
+@keyframes me-dot-l { to { background: var(--sun); border-color: var(--sun); transform: scale(1.15) } }
+.me-steps b { font: 700 13px var(--mono); color: var(--text) }
+.me-steps li > span:last-child { font: 500 13px/1.35 var(--body); color: var(--text-3) }
+
+@media (max-width: 1100px) {
+  .me { grid-template-columns: 1fr; grid-template-areas: "badge" "main" "journey" }
+  .me-badge-wrap { margin-top: 0; width: min(330px, 100%); justify-self: center }
+  .me-journey { grid-template-columns: 1fr }
+}
+@media (max-width: 760px) {
+  .me-pair { grid-template-columns: 1fr }
+  .me-intro, .me-note { padding: 22px }
+  .me-steps ol { grid-template-columns: 1fr; gap: 14px }
+  .me-steps li { flex-direction: row; text-align: left; gap: 12px }
+  .me-steps li > span:last-child { flex: 1 }
+  .me-steps-line { left: 6px; right: auto; top: 8px; bottom: 8px; width: 2px; height: auto }
+  .me-steps-line i { transform: scaleY(0); transform-origin: top }
+}
+@media (prefers-reduced-motion: reduce) { .me-lanyard { animation: none } .me-steps-line i { transform: none } }
+
+/* ── About background: glows, rays, rising dust, dot grid and pointer light ── */
+.me { position: relative; isolation: isolate }
+.me-bg { position: absolute; z-index: -1; inset: -150px -60px -60px; pointer-events: none; overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent) }
+.me-bg > * { position: absolute; display: block }
+.me-grid { inset: 0; background-image: radial-gradient(var(--grid-line) 1.2px, transparent 1.6px); background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(60% 55% at 50% 45%, #000, transparent 75%); mask-image: radial-gradient(60% 55% at 50% 45%, #000, transparent 75%) }
+.me-blob { width: 560px; aspect-ratio: 1; border-radius: 50%; will-change: transform; animation: me-drift 22s ease-in-out infinite alternate }
+.me-blob.b1 { left: -6%; top: 2%; background: radial-gradient(circle, rgb(255 255 255 / .07), transparent 65%) }
+.me-blob.b2 { right: 4%; top: -4%; width: 640px; background: radial-gradient(circle, rgb(212 212 216 / .08), transparent 65%); animation-duration: 27s; animation-direction: alternate-reverse }
+.me-blob.b3 { left: 32%; bottom: -12%; width: 600px; background: radial-gradient(circle, rgb(161 161 170 / .07), transparent 65%); animation-duration: 31s }
+html:not([data-theme="dark"]) .me-blob.b1 { background: radial-gradient(circle, rgb(56 189 248 / .26), transparent 65%) }
+html:not([data-theme="dark"]) .me-blob.b2 { background: radial-gradient(circle, rgb(251 191 36 / .3), transparent 65%) }
+html:not([data-theme="dark"]) .me-blob.b3 { background: radial-gradient(circle, rgb(45 212 191 / .2), transparent 65%) }
+/* Translate only: scaling these large gradients would make the browser redraw them every frame */
+@keyframes me-drift { 0% { transform: translate3d(0, 0, 0) } 50% { transform: translate3d(90px, 50px, 0) } 100% { transform: translate3d(-60px, 90px, 0) } }
+/* Rays fan out from just above the developer pass */
+.me-rays { right: calc(60px + 165px - 450px); top: 60px; width: 900px; aspect-ratio: 1; border-radius: 50%; will-change: transform; animation: spin 90s linear infinite;
+  background: repeating-conic-gradient(from 0deg, rgb(255 255 255 / .045) 0 4deg, transparent 4deg 14deg);
+  -webkit-mask-image: radial-gradient(circle, #000 8%, transparent 62%); mask-image: radial-gradient(circle, #000 8%, transparent 62%) }
+html:not([data-theme="dark"]) .me-rays { background: repeating-conic-gradient(from 0deg, rgb(251 191 36 / .2) 0 4deg, transparent 4deg 14deg) }
+@keyframes spin { to { transform: rotate(360deg) } }
+/* Rising dust: two tiled layers of specks, each drifting up as a single composited layer.
+   Each layer moves by a whole number of tiles per loop (1040 = 4 x 260 = 8 x 130, 1360 = 4 x 340 = 8 x 170),
+   so the loop is seamless. */
+.me-dust { left: 0; right: 0; top: 0; bottom: -1400px; will-change: transform; animation: me-dust-a 46s linear infinite;
+  background-image: radial-gradient(circle, rgb(255 255 255 / .55) 1.4px, transparent 2.4px), radial-gradient(circle, rgb(255 255 255 / .3) 1px, transparent 2px);
+  background-size: 220px 260px, 150px 130px; background-position: 30px 40px, 100px 70px }
+.me-dust.d2 { opacity: .7; animation-name: me-dust-b; animation-duration: 80s; background-size: 300px 340px, 190px 170px; background-position: 140px 10px, 20px 120px }
+html:not([data-theme="dark"]) .me-dust { background-image: radial-gradient(circle, rgb(251 191 36 / .9) 1.6px, transparent 2.6px), radial-gradient(circle, rgb(56 189 248 / .7) 1.2px, transparent 2.2px) }
+@keyframes me-dust-a { to { transform: translate3d(0, -1040px, 0) } }
+@keyframes me-dust-b { to { transform: translate3d(0, -1360px, 0) } }
+.me-pointer { left: -260px; top: -260px; width: 520px; height: 520px; border-radius: 50%; opacity: 0; will-change: transform, opacity; transition: opacity .5s ease;
+  background: radial-gradient(circle, rgb(255 255 255 / .09), transparent 62%) }
+html:not([data-theme="dark"]) .me-pointer { background: radial-gradient(circle, rgb(253 186 116 / .35), rgb(125 211 252 / .12) 40%, transparent 65%) }
+@media (max-width: 1100px) { .me-rays { right: 50%; margin-right: -450px; top: -80px } }
+@media (max-width: 760px) { .me-bg { inset: -120px -16px -40px } .me-blob { width: 380px } .me-blob.b2, .me-blob.b3 { width: 420px } }
+@media (prefers-reduced-motion: reduce) { .me-blob, .me-rays, .me-dust { animation: none } }
