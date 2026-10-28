@@ -1,3 +1,5 @@
+import { docTop, onLayoutChange } from './layoutCache'
+
 // Motion layer: custom cursor, magnetic buttons, 3D tilt, depth parallax, stat counters,
 // scroll progress and the velocity-driven statement band. Everything is skipped for reduced motion.
 export function initEffects() {
@@ -7,14 +9,8 @@ export function initEffects() {
   const cleanups = []
   const on = (target, type, fn, opts) => { target.addEventListener(type, fn, opts); cleanups.push(() => target.removeEventListener(type, fn, opts)) }
 
-  // Scroll progress bar
+  // Scroll progress bar (updated in scrollPass)
   const bar = document.querySelector('.scroll-progress')
-  const onScroll = () => {
-    const max = root.scrollHeight - window.innerHeight
-    if (bar) bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`
-  }
-  on(window, 'scroll', onScroll, { passive: true })
-  onScroll()
 
   // Stat counters count up the first time they scroll into view
   const counters = document.querySelectorAll('[data-count]')
@@ -69,44 +65,72 @@ export function initEffects() {
   // Stacked project cards: as the next card slides over, the pinned one recedes (--stack 0 → 1)
   const stackItems = reduced ? [] : [...document.querySelectorAll('[data-stack] .showcase-item')]
   const stackOn = window.matchMedia('(min-width: 761px)')
-  const relayout = () => queueScroll()
-  on(window, 'resize', relayout)
-
-  // One scroll-synced pass per frame: read every measurement first, then write every style,
-  // so the browser never has to recalculate layout in between.
   const parallaxEls = reduced ? [] : [...document.querySelectorAll('[data-parallax]')]
+
+  // Geometry is measured here (on load and whenever the page changes size), never while scrolling
+  let geo = { max: 0, scrubs: [], stack: [], stackEnd: 0, para: [] }
+  const measure = () => {
+    const stack = []
+    let stackEnd = 0
+    if (stackOn.matches && stackItems.length) {
+      // Read each card's natural (un-stuck) position by briefly turning sticky off
+      stackItems.forEach((el) => { el.style.position = 'static' })
+      stackItems.forEach((el) => stack.push({ top: docTop(el), height: el.offsetHeight }))
+      stackItems.forEach((el, i) => { el.style.position = ''; stack[i].stick = parseFloat(getComputedStyle(el).top) || 0 })
+      const box = stackItems[0].parentElement
+      stackEnd = docTop(box) + box.offsetHeight
+    }
+    geo = {
+      max: root.scrollHeight - window.innerHeight,
+      scrubs: scrubs.map((el) => docTop(el)),
+      stack,
+      stackEnd,
+      para: parallaxEls.map((el) => ({ top: docTop(el.parentElement), height: el.parentElement.offsetHeight })),
+    }
+    queueScroll()
+  }
+  // Where a sticky card sits on screen at scroll position y: pinned at its offset, but never past its container
+  const stackTop = (g, y) => Math.min(Math.max(g.top - y, g.stick), geo.stackEnd - y - g.height)
+
+  // One scroll-synced pass per frame. It only does arithmetic on cached geometry and writes styles,
+  // so the browser never has to recalculate layout in between.
   let scrollQueued = false
   function scrollPass() {
     scrollQueued = false
     const vh = window.innerHeight
-    // read
-    const scrubVals = scrubs.map((el) => {
-      if (reduced) return null
-      const box = el.getBoundingClientRect()
-      const progress = Math.min(1, Math.max(0, (vh * 0.95 - box.top) / (vh * 0.45)))
-      return (progress * (Number(el.dataset.scrub) + 2)).toFixed(2)
+    const y = window.scrollY
+    if (bar) bar.style.transform = `scaleX(${geo.max > 0 ? Math.min(1, y / geo.max) : 0})`
+    if (!reduced) scrubs.forEach((el, i) => {
+      const top = geo.scrubs[i] - y
+      const progress = Math.min(1, Math.max(0, (vh * 0.95 - top) / (vh * 0.45)))
+      const v = (progress * (Number(el.dataset.scrub) + 2)).toFixed(2)
+      if (el.dataset.p !== v) { el.dataset.p = v; el.style.setProperty('--p', v) }
     })
-    const stackBoxes = stackOn.matches ? stackItems.map((el) => el.getBoundingClientRect()) : []
-    const paraVals = parallaxEls.map((el) => {
-      const box = el.parentElement.getBoundingClientRect()
-      if (box.bottom < -200 || box.top > vh + 200) return null
-      return ((box.top + box.height / 2 - vh / 2) * Number(el.dataset.parallax)).toFixed(1)
-    })
-    // write (only when a value actually changed)
-    scrubs.forEach((el, i) => { const v = scrubVals[i]; if (v !== null && el.dataset.p !== v) { el.dataset.p = v; el.style.setProperty('--p', v) } })
     stackItems.forEach((el, i) => {
-      const box = stackBoxes[i]
-      const next = stackBoxes[i + 1]
+      const g = geo.stack[i]
+      const next = geo.stack[i + 1]
       // 0 while the next card is still a full card-height below, 1 once it has slid all the way over
-      const p = !box || !next ? 0 : Math.min(1, Math.max(0, 1 - (next.top - box.top - 14) / box.height))
+      const p = !g || !next ? 0 : Math.min(1, Math.max(0, 1 - (stackTop(next, y) - stackTop(g, y) - 14) / g.height))
       const v = p.toFixed(3)
-      if (el.dataset.s !== v) { el.dataset.s = v; el.style.setProperty('--stack', v) }
+      if (el.dataset.s !== v) {
+        el.dataset.s = v
+        el.style.setProperty('--stack', v)
+        // Fully covered by the next card: its screen animations can't be seen, so let them rest
+        el.toggleAttribute('data-covered', p > 0.98)
+      }
     })
-    parallaxEls.forEach((el, i) => { const v = paraVals[i]; if (v !== null && el.dataset.y !== v) { el.dataset.y = v; el.style.transform = `translate3d(0, ${v}px, 0)` } })
+    parallaxEls.forEach((el, i) => {
+      const g = geo.para[i]
+      const top = g.top - y
+      if (top + g.height < -200 || top > vh + 200) return
+      const v = ((top + g.height / 2 - vh / 2) * Number(el.dataset.parallax)).toFixed(1)
+      if (el.dataset.y !== v) { el.dataset.y = v; el.style.transform = `translate3d(0, ${v}px, 0)` }
+    })
   }
   function queueScroll() { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(scrollPass) } }
   on(window, 'scroll', queueScroll, { passive: true })
-  scrollPass()
+  cleanups.push(onLayoutChange(measure))
+  on(stackOn, 'change', measure)
 
   if (reduced) return () => cleanups.forEach((fn) => fn())
 

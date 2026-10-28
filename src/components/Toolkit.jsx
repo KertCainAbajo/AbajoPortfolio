@@ -26,7 +26,7 @@ export default function Toolkit({ techs }) {
             </button>
           )
         })}
-        <p className="toolkit-total"><b>16</b> tools across web, mobile, data and delivery.</p>
+        <p className="toolkit-total"><b>16</b> tools I’ve worked with so far.</p>
       </div>
 
       <div className="orbit-stage reveal" aria-label="Technologies I use">

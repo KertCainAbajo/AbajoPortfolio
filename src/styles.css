@@ -1262,7 +1262,7 @@ html:not([data-theme="dark"]) .interest-panel[data-open] .icon-tile { background
 .interest-panel[data-open] .ia { opacity: 1; transform: none; transition-delay: .35s }
 .ia i, .ia b, .ia em, .ia small { font-style: normal }
 @keyframes ix-in { from { opacity: 0; transform: translateY(8px) } }
-.ix-card, .ix-editor, .ix-req, .ix-res, .ix-case, .ix-cov, .ix-pr { border-radius: 12px; background: var(--screen); border: 1px solid var(--border); box-shadow: var(--shadow) }
+.ix-card, .ix-req, .ix-res, .ix-case, .ix-cov, .ix-pr { border-radius: 12px; background: var(--screen); border: 1px solid var(--border); box-shadow: var(--shadow) }
 
 /* 01 scalable apps */
 .ix-card { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px 8px }
@@ -1274,36 +1274,37 @@ html:not([data-theme="dark"]) .ix-card svg { stroke: var(--sea) }
 .interest-panel[data-open] .ix-card svg { animation: ix-draw 1.6s var(--ease) .6s forwards }
 @keyframes ix-draw { to { stroke-dashoffset: 0 } }
 .ix-servers { display: flex; align-items: center; gap: 6px }
-.ix-servers i { padding: 5px 8px; border-radius: 8px; background: var(--screen-2); border: 1px solid var(--border); font: 600 10.5px var(--mono); color: var(--text-2) }
+.ix-servers { flex-wrap: wrap }
+.ix-servers i { padding: 5px 9px; border-radius: 999px; background: var(--screen-2); border: 1px solid var(--border); font: 600 11px var(--body); color: var(--text-2) }
 .ix-servers i:before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 5px; border-radius: 50%; background: #10b981 }
-.ix-servers em { margin-left: auto; font: 600 10.5px var(--mono); color: var(--text-3) }
 .interest-panel[data-open] .ix-servers i { animation: ix-in .45s var(--ease) calc(var(--k) * .55s + .9s) both }
 
-/* 02 AI-assisted */
-.ix-editor { display: flex; flex-direction: column; padding: 12px 14px; background: #0d0d10; border-color: #222; font: 500 11px/1.7 var(--mono); color: #d4d4d8; white-space: pre }
-.ix-editor b { font-weight: 500 }
-.ix-ghost { opacity: .35; font-style: italic; clip-path: inset(0 100% 0 0) }
-.interest-panel[data-open] .ix-ghost { animation: ix-reveal 1.2s steps(28) .6s forwards, ix-accept .3s ease 2.6s forwards }
+/* 02 working with AI */
+.ix-ask { align-self: flex-end; max-width: 85%; padding: 8px 12px; border-radius: 14px 14px 4px 14px; background: var(--accent); color: var(--invert); font: 600 11.5px var(--body) }
+html:not([data-theme="dark"]) .ix-ask { background: var(--ocean); color: #fff }
+.ix-reply { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 14px 14px 14px 4px; background: var(--screen); border: 1px solid var(--border); box-shadow: var(--shadow); font: 500 11.5px/1.6 var(--body); color: var(--text) }
+.ix-reply small { font: 700 10.5px var(--body); color: var(--text-3) } .ix-reply small i { color: var(--accent-2) }
+.ix-ghost { opacity: .45; clip-path: inset(0 0 100% 0) }
+.interest-panel[data-open] .ix-ask { animation: ix-in .45s var(--ease) .2s both }
+.interest-panel[data-open] .ix-reply { animation: ix-in .45s var(--ease) .6s both }
+.interest-panel[data-open] .ix-ghost { animation: ix-reveal 1.1s steps(3) .9s forwards, ix-accept .3s ease 2.2s forwards }
 @keyframes ix-reveal { to { clip-path: inset(0 0 0 0) } }
-@keyframes ix-accept { to { opacity: 1; font-style: normal } }
-.ix-hint { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: var(--surface-solid); border: 1px solid var(--border); box-shadow: var(--shadow); font: 600 11px var(--body); color: var(--text-2) }
-.ix-hint i { color: var(--accent-2) }
-.ix-hint kbd { padding: 1px 6px; border-radius: 5px; border: 1px solid var(--border-strong); font: 600 10px var(--mono) }
-.interest-panel[data-open] .ix-hint { animation: ix-in .4s var(--ease) 1.8s both }
+@keyframes ix-accept { to { opacity: 1 } }
+.ix-hint { align-self: flex-end; padding: 6px 11px; border-radius: 999px; background: rgb(16 185 129 / .14); color: #10b981; font: 700 11px var(--body) }
+.interest-panel[data-open] .ix-hint { animation: ix-in .4s var(--ease) 2.5s both }
 
 /* 03 API */
-.ix-req { align-self: flex-start; padding: 8px 12px; font: 600 11.5px var(--mono); color: var(--text) }
-.ix-req em { margin-right: 6px; padding: 2px 6px; border-radius: 5px; background: rgb(16 185 129 / .15); color: #10b981 }
+.ix-req { align-self: flex-start; padding: 8px 12px; font: 600 11.5px var(--body); color: var(--text) }
+.ix-req em { margin-right: 4px }
 .ix-wire { position: relative; height: 26px; margin-left: 30px; width: 2px; background: repeating-linear-gradient(var(--border-strong) 0 4px, transparent 4px 8px) }
 .ix-wire i { position: absolute; left: -4px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 10px var(--accent-2) }
 .interest-panel[data-open] .ix-wire i { animation: ix-packet 1.4s ease-in-out .5s infinite }
 @keyframes ix-packet { 0% { transform: translateY(-4px); opacity: 0 } 20%, 80% { opacity: 1 } 100% { transform: translateY(20px); opacity: 0 } }
 .ix-res { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px }
-.ix-status { display: flex; align-items: center; gap: 6px; font: 700 11.5px var(--mono); color: #10b981 }
+.ix-status { display: flex; align-items: center; gap: 6px; font: 700 12px var(--body); color: #10b981 }
 .ix-status i { width: 7px; height: 7px; border-radius: 50%; background: #10b981 }
-.ix-status small { margin-left: auto; font: 500 10.5px var(--mono); color: var(--text-3) }
-.ix-res code { display: block; padding: 8px 10px; border-radius: 8px; background: #0d0d10; color: #d4d4d8; font: 500 10.5px var(--mono); white-space: nowrap; overflow: hidden }
-.ix-res code b { font-weight: 500 }
+.ix-status small { margin-left: auto; font: 500 10.5px var(--body); color: var(--text-3) }
+.ix-note { padding: 8px 10px; border-radius: 8px; background: var(--screen-2); font: 500 11px var(--body); color: var(--text-2) }
 .interest-panel[data-open] .ix-res { animation: ix-in .5s var(--ease) 1.1s both }
 
 /* 04 QA */
@@ -1329,12 +1330,12 @@ html:not([data-theme="dark"]) .ix-card svg { stroke: var(--sea) }
 .interest-panel[data-open] .ix-branch { animation: ix-draw 1.6s var(--ease) .4s forwards }
 .interest-panel[data-open] .ix-git circle { animation: ix-dot .35s var(--ease) calc(var(--k) * .3s + .3s) forwards }
 @keyframes ix-dot { from { opacity: 0; transform: scale(0) } to { opacity: 1; transform: none } }
-.ix-pr { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font: 500 11px var(--mono); color: var(--text-3) }
+.ix-pr { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font: 500 11px var(--body); color: var(--text-3) }
 .ix-pr b { font: 700 11.5px var(--body); color: var(--text) }
 .ix-pr em { margin-left: auto; padding: 2px 8px; border-radius: 999px; background: rgb(139 92 246 / .15); color: #8b5cf6; font: 700 10.5px var(--body) }
 .interest-panel[data-open] .ix-pr { animation: ix-in .45s var(--ease) 2.1s both }
 .ix-checks { display: flex; gap: 6px }
-.ix-checks i { padding: 4px 8px; border-radius: 999px; background: rgb(16 185 129 / .13); color: #10b981; font: 700 10.5px var(--mono) }
+.ix-checks i { padding: 4px 9px; border-radius: 999px; background: rgb(16 185 129 / .13); color: #10b981; font: 700 11px var(--body) }
 .interest-panel[data-open] .ix-checks i { animation: ix-in .35s var(--ease) calc(var(--k) * .2s + 2.4s) both }
 
 @media (max-width: 1100px) {
@@ -1444,17 +1445,17 @@ html:not([data-theme="dark"]) .skill-stage-copy h3 { background: linear-gradient
 /* ── Skill scenes: readable mini-demos ─────────────────────────────── */
 .sc { width: 92%; height: 88% }
 .sc i, .sc b, .sc em, .sc small { font-style: normal }
-.tk-k { color: #c084fc } .tk-f { color: #f472b6 } .tk-n { color: #38bdf8 } .tk-t { color: #34d399 } .tk-a { color: #fbbf24 } .tk-p { color: #d4d4d8 }
 
 /* 01 web */
 .sx-window { width: 100%; max-width: 560px; border-radius: 14px; overflow: hidden; background: var(--screen); box-shadow: var(--shadow-lg), 0 0 0 1px var(--border-strong) }
 .sx-bar { display: flex; align-items: center; gap: 12px; height: 32px; padding: 0 12px; background: var(--screen-2); border-bottom: 1px solid var(--screen-line) }
 .sx-dots { display: flex; gap: 5px } .sx-dots i { width: 9px; height: 9px; border-radius: 50%; background: #fb7185 } .sx-dots i + i { background: #fbbf24 } .sx-dots i + i + i { background: #34d399 }
 .sx-url { font: 500 10.5px var(--mono); color: var(--text-3) }
-.sx-split { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 220px }
-.sx-code { margin: 0; padding: 14px; background: #0d0d10; font: 500 11px/1.75 var(--mono); white-space: pre; overflow: hidden }
-.sx-code span { animation: sx-type .01s step-end calc(var(--k) * 70ms + .2s) backwards }
-@keyframes sx-type { from { visibility: hidden } }
+.sx-split { display: grid; grid-template-columns: 128px 1fr; min-height: 220px }
+.sx-side { display: flex; flex-direction: column; gap: 4px; padding: 14px 10px; background: var(--screen-2); border-right: 1px solid var(--screen-line) }
+.sx-side b { margin: 0 6px 8px; font: 800 13px var(--display); letter-spacing: -.02em; color: var(--text) }
+.sx-side span { padding: 7px 8px; border-radius: 8px; font: 600 11.5px var(--body); color: var(--text-3) }
+.sx-side span.on { background: var(--screen); color: var(--text); box-shadow: 0 1px 3px rgb(0 0 0 / .08) }
 .sx-app { display: flex; flex-direction: column; gap: 10px; padding: 12px }
 .sx-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px }
 .sx-stats span { display: flex; flex-direction: column; gap: 2px; padding: 8px; border-radius: 9px; background: var(--screen-2) }
@@ -1492,9 +1493,8 @@ html:not([data-theme="dark"]) .skill-stage-copy h3 { background: linear-gradient
 .sx-msg { max-width: 82%; padding: 10px 14px; border-radius: 16px; font: 500 13px var(--body); box-shadow: var(--shadow) }
 .sx-msg.me { align-self: flex-end; background: var(--accent); color: var(--invert); border-bottom-right-radius: 4px }
 html:not([data-theme="dark"]) .sx-msg.me { background: var(--ocean); color: #fff }
-.sx-msg.bot { align-self: flex-start; display: flex; flex-direction: column; gap: 8px; background: var(--screen); color: var(--text); border-bottom-left-radius: 4px }
+.sx-msg.bot { align-self: flex-start; display: flex; flex-direction: column; gap: 6px; line-height: 1.5; background: var(--screen); color: var(--text); border-bottom-left-radius: 4px }
 .sx-msg.bot small { font: 600 11px var(--body); color: var(--text-3) } .sx-msg.bot small i { color: var(--accent-2) }
-.sx-msg code { display: block; padding: 10px 12px; border-radius: 10px; background: #0d0d10; color: #e4e4e7; font: 500 11px/1.7 var(--mono); white-space: pre }
 .sx-msg.typing { flex-direction: row; gap: 5px; padding: 14px 16px }
 .sx-msg.typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); animation: sx-dot 1s ease-in-out infinite }
 .sx-msg.typing i:nth-child(2) { animation-delay: .15s } .sx-msg.typing i:nth-child(3) { animation-delay: .3s }
@@ -1510,13 +1510,11 @@ html:not([data-theme="dark"]) .sx-pulse { stroke: var(--sun) }
 .sx-node { position: absolute; transform: translate(-50%, -50%); display: grid; grid-template-columns: auto 1fr; column-gap: 8px; align-items: center; padding: 9px 12px; border-radius: 12px; background: var(--screen); border: 1px solid var(--border-strong); box-shadow: var(--shadow); white-space: nowrap }
 .sx-node i { grid-row: span 2; font-size: 18px }
 .sx-node b { font: 700 12px var(--body); color: var(--text) }
-.sx-node small { font: 500 10px var(--mono); color: var(--text-3) }
-.sx-chip { position: absolute; padding: 3px 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font: 600 9.5px var(--mono); color: var(--accent) }
-.sx-chip.c1 { left: 27%; top: 28% } .sx-chip.c2 { right: 23%; top: 28% }
+.sx-node small { font: 500 10.5px var(--body); color: var(--text-3) }
 
 /* 05 testing */
 .sx-test { width: min(470px, 92%); height: auto; display: flex; flex-direction: column; gap: 12px }
-.sx-term { width: 100%; display: flex; flex-direction: column; gap: 7px; padding: 16px 18px; border-radius: 14px; background: #0d0d10; box-shadow: var(--shadow-lg); font: 500 12px var(--mono); color: #d4d4d8 }
+.sx-term { width: 100%; display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-radius: 14px; background: #0d0d10; box-shadow: var(--shadow-lg); font: 500 13px var(--body); color: #d4d4d8 }
 .sx-cmd { color: #a1a1aa; margin-bottom: 4px }
 .sx-term .pass { color: #34d399 }
 .sx-term .fail { position: relative; color: #fb7185; animation: sc-in .55s var(--ease) calc(var(--k) * 140ms + .15s) backwards, sx-heal .4s ease 2.6s forwards }
@@ -1558,7 +1556,7 @@ html:not([data-theme="dark"]) .sx-steps i { animation-name: sx-step-l }
 
 @media (max-width: 760px) {
   .sx-split { grid-template-columns: 1fr }
-  .sx-app { display: none }
+  .sx-side { display: none }
   .sx-phone { width: 180px; height: 350px }
   .sx-toast { left: -20px; right: -20px }
   .sx-page { width: 240px }
@@ -1570,14 +1568,32 @@ html:not([data-theme="dark"]) .sx-steps i { animation-name: sx-step-l }
   .sx-ring { width: 58px; height: 58px }
   .sx-habit { padding: 5px 6px; font-size: 9.5px }
   .sx-toast { left: -24px; right: -24px; top: 30px; font-size: 9.5px }
-  .sx-ai { gap: 7px } .sx-msg { padding: 7px 10px; font-size: 11.5px } .sx-msg code { font-size: 9.5px; padding: 8px }
+  .sx-ai { gap: 7px } .sx-msg { padding: 7px 10px; font-size: 11.5px }
   .sx-system { width: 100% }
   .sx-node { padding: 6px 8px; column-gap: 5px; border-radius: 10px } .sx-node i { font-size: 14px } .sx-node b { font-size: 10.5px }
-  .sx-chip { display: none }
   .sx-term { padding: 12px; font-size: 10px }
   .sx-steps { gap: 5px } .sx-steps span { padding: 6px 10px; font-size: 12px } .sx-solve { gap: 10px }
   .sx-page { padding: 16px 18px 20px } .sx-page h5 { font-size: 17px }
 }
 
 /* Decorative rings and glows must never widen the page */
-body { overflow-x: clip }
+body, main { overflow-x: clip }
+
+/* ══ Smoothness pass 2 ═══════════════════════════════════════════════
+   Same effects, cheaper to draw:
+   - the cursor uses theme colours instead of mix-blend-mode (a blend forces the whole page
+     underneath to be re-composited every frame), and grows with `scale` instead of width/height
+   - the light-theme grain overlay no longer blends
+   - project cards fully covered by the stack pause their screen animations */
+.cursor-dot, .cursor-ring { mix-blend-mode: normal }
+.cursor-dot { background: var(--cursor); box-shadow: 0 0 0 1px var(--cursor-edge) }
+/* The element only carries the JS-driven position; the visible ring is a pseudo-element that grows */
+.cursor-ring, .cursor-ring.is-hover, .cursor-ring.is-down { width: 38px; height: 38px; margin: -19px 0 0 -19px; border: 0; background: none; transition: opacity .3s }
+.cursor-ring:before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--cursor); box-shadow: 0 0 0 1px var(--cursor-edge); transition: transform .35s var(--ease), background-color .35s, border-width .2s }
+.cursor-ring.is-hover:before { transform: scale(1.95); background: var(--cursor-fill); border-width: .5px }
+.cursor-ring.is-down:before { border-width: 3px }
+/* A faint opposite-colour outline keeps the cursor readable over both light buttons and dark panels */
+:root { --cursor: #fafafa; --cursor-edge: rgb(0 0 0 / .45); --cursor-fill: rgb(130 130 140 / .28) }
+html:not([data-theme="dark"]) { --cursor: #0b3a52; --cursor-edge: rgb(255 255 255 / .6); --cursor-fill: rgb(14 116 144 / .18) }
+html:not([data-theme="dark"]) body:after { mix-blend-mode: normal; opacity: .035 }
+.showcase-item[data-covered] *, .showcase-item[data-covered] *:before, .showcase-item[data-covered] *:after { animation-play-state: paused !important }

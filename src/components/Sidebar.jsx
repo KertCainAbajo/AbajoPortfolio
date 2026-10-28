@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { scrollToSection } from '../lib/smoothScroll.js'
+import { docTop, onLayoutChange } from '../lib/layoutCache.js'
 import { Menu, X, ChevronsLeft, ChevronsRight, Github, Mail, MapPin, House, UserRound, Layers3, Zap, Award, FolderKanban, Lightbulb, Cpu, Activity, Send } from 'lucide-react'
 
 const groups = [
@@ -29,29 +30,30 @@ export default function Sidebar() {
 
   useEffect(() => {
     let frame = 0
+    // Section positions are cached (refreshed on layout changes) so scrolling never forces a layout
+    let sections = []
     const updateActiveSection = () => {
       if (frame) return
       frame = window.requestAnimationFrame(() => {
         frame = 0
-        const marker = window.innerHeight * 0.38
-        let current = links[0][0]
-        for (const [id] of links) {
-          const section = document.getElementById(id)
-          if (section && section.getBoundingClientRect().top <= marker) current = id
-        }
-        setActive((previous) => previous === current ? previous : current)
+        const marker = window.scrollY + window.innerHeight * 0.38
+        let current = sections[0]
+        for (const section of sections) if (section.top <= marker) current = section
+        if (!current) return
+        setActive((previous) => previous === current.id ? previous : current.id)
         // How far through the active section the reader is (fills the bar inside the active pill)
-        const box = document.getElementById(current)?.getBoundingClientRect()
-        if (box && navRef.current) navRef.current.style.setProperty('--progress', String(Math.min(1, Math.max(0, (marker - box.top) / box.height))))
+        if (navRef.current) navRef.current.style.setProperty('--progress', String(Math.min(1, Math.max(0, (marker - current.top) / current.height))))
       })
     }
+    const stopMeasuring = onLayoutChange(() => {
+      sections = links.map(([id]) => document.getElementById(id)).filter(Boolean).map((el) => ({ id: el.id, top: docTop(el), height: el.offsetHeight }))
+      updateActiveSection()
+    })
     window.addEventListener('scroll', updateActiveSection, { passive: true })
-    window.addEventListener('resize', updateActiveSection)
-    updateActiveSection()
     return () => {
       window.cancelAnimationFrame(frame)
+      stopMeasuring()
       window.removeEventListener('scroll', updateActiveSection)
-      window.removeEventListener('resize', updateActiveSection)
     }
   }, [])
 

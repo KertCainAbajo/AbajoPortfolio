@@ -20,23 +20,23 @@ import SplitText, { ScrubText } from './components/SplitText.jsx'
 import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin } from 'simple-icons'
 
 const projects = [
-  { platform: 'web', number: 1, mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'A streamlined application process for the Innovation and Technology Support Office, from document submission through status tracking.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
-  { platform: 'web', number: 2, mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'An organized home for research workflows, defense schedules, document storage, and publication tracking.', tags: ['Research', 'Scheduling', 'Data organization'] },
-  { platform: 'web', number: 3, mock: 'booking', url: 'Mechanic · Book a service', title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'A service platform for choosing repairs, booking appointments, and managing mechanic schedules.', tags: ['Booking', 'Scheduling', 'Services'] },
-  { platform: 'web', number: 4, mock: 'shop', url: 'Crochet · Shop', title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop for browsing handmade crochet, placing orders, and requesting custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
-  { platform: 'web', number: 5, mock: 'scan', url: 'Gym · Check-in', title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'A simple gym attendance and membership system that checks members in with a unique ID.', tags: ['Attendance', 'Membership', 'Member ID'] },
-  { platform: 'mobile', number: 6, mock: 'habit', url: '', title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app encouraging everyday eco-friendly habits with practical tools, tips, and personal tracking.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
-  { platform: 'mobile', number: 7, mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals, symptoms, and habits that reveals patterns and possible triggers over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
+  { platform: 'web', number: 1, mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
+  { platform: 'web', number: 2, mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'Keeps research papers, defense schedules, files, and publications in one place, so nothing gets lost along the way.', tags: ['Research', 'Scheduling', 'Data organization'] },
+  { platform: 'web', number: 3, mock: 'booking', url: 'Mechanic · Book a service', title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'Customers pick a repair and book a time, and the shop keeps its mechanics’ schedules organized.', tags: ['Booking', 'Scheduling', 'Services'] },
+  { platform: 'web', number: 4, mock: 'shop', url: 'Crochet · Shop', title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop where people can browse handmade crochet, place orders, and ask for custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
+  { platform: 'web', number: 5, mock: 'scan', url: 'Gym · Check-in', title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'Members check in and out with their own ID, and the gym keeps track of attendance and memberships.', tags: ['Attendance', 'Membership', 'Member ID'] },
+  { platform: 'mobile', number: 6, mock: 'habit', url: '', title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
+  { platform: 'mobile', number: 7, mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals and symptoms that helps spot what might be causing flare-ups over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
 ]
 
 const skills = [
-  { name: 'Web & application development', icon: Globe, note: 'Full-stack web apps, from interface to database.' },
-  { name: 'Mobile application development', icon: Smartphone, note: 'Cross-platform apps with Flutter and Expo.' },
-  { name: 'AI-assisted software development', icon: Bot, note: 'Using AI tools to build faster and cleaner.' },
-  { name: 'System design & architecture', icon: Network, note: 'Structuring data, flows, and services.' },
-  { name: 'Software testing & debugging', icon: Bug, note: 'QA testing and tracking down root causes.' },
-  { name: 'Problem solving & analytical thinking', icon: Brain, note: 'Breaking real needs into workable steps.' },
-  { name: 'Technical documentation & reporting', icon: FileText, note: 'Clear write-ups for users, teams, and reviewers.' },
+  { name: 'Building websites & web apps', icon: Globe, note: 'From the screens people click on to the data behind them.' },
+  { name: 'Making mobile apps', icon: Smartphone, note: 'Apps for Android and iPhone, built with Flutter and Expo.' },
+  { name: 'Working smarter with AI', icon: Bot, note: 'I use AI to get unstuck faster, and I still check every answer myself.' },
+  { name: 'Planning how a system fits together', icon: Network, note: 'Deciding what each part does before writing the code.' },
+  { name: 'Testing & fixing bugs', icon: Bug, note: 'Trying to break things on purpose, so users never have to.' },
+  { name: 'Solving real problems', icon: Brain, note: 'Breaking a messy problem into small steps I can actually finish.' },
+  { name: 'Writing clear guides & reports', icon: FileText, note: 'Plain write-ups that users, teammates, and teachers can follow.' },
 ]
 const techs = [
   { name: 'HTML5', icon: siHtml5 }, { name: 'CSS3', icon: siCss }, { name: 'JavaScript', icon: siJavascript }, { name: 'React', icon: siReact },
@@ -54,7 +54,7 @@ const leadership = [
   { years: '2023 — 2024', role: 'Officer · Legislative', org: 'Society of Information Technology Education Students', mark: 'SITES' },
 ]
 const stats = [['07', 'Projects built'], ['16', 'Tools & technologies'], ['02', 'Leadership roles']]
-const statement = ['Web development', 'Mobile apps', 'System design', 'UI engineering', 'Problem solving']
+const statement = ['Web development', 'Mobile apps', 'System design', 'Clean design', 'Problem solving']
 const floaters = [{ tech: siReact, label: 'React', cls: 'float-a', depth: 30 }, { tech: siFlutter, label: 'Flutter', cls: 'float-b', depth: -40 }, { tech: siLaravel, label: 'Laravel', cls: 'float-c', depth: 24 }]
 
 // Types the name, holds it for 5s, erases it, then types it again.
@@ -116,7 +116,7 @@ function App() {
           <div className="hero-copy">
             <span className="hero-badge reveal" style={{ '--d': '150ms' }}><Sparkles size={14} /> IT Graduate <i /> Web &amp; Mobile Developer</span>
             <h1 className="reveal" style={{ '--d': '250ms' }} aria-label={title}><span className="hero-name-ghost" aria-hidden="true">{title}</span><TypedName text={title} /></h1>
-            <p className="hero-description reveal" style={{ '--d': '380ms' }}>I build web applications, mobile apps, and digital systems that address practical needs — from clean interfaces to the data behind them.</p>
+            <p className="hero-description reveal" style={{ '--d': '380ms' }}>I build websites and mobile apps that make everyday tasks easier, like booking a service, tracking a request, or checking in at the gym.</p>
             <div className="hero-actions reveal" style={{ '--d': '480ms' }}>
               <a className="btn btn-primary" href="#projects" data-magnetic>Explore my work <ArrowUpRight size={16} /></a>
               <a className="btn btn-ghost" href="#contact" data-magnetic>Let’s connect</a>
@@ -149,9 +149,9 @@ function App() {
 
         <Section id="education" number="01" title="A little about me" eyebrow="About">
           <div className="bento about-grid">
-            <article className="card about-card about-main reveal"><span className="card-mesh" aria-hidden="true" /><span className="card-kicker"><span className="kicker-icon"><UserRound size={14} /></span>The person</span><ScrubText text="I am a Bachelor of Science in Information Technology graduate from the University of the Immaculate Conception. I build web applications, mobile apps, and digital systems that address practical needs." /><div className="about-card-foot"><MapPin size={14} /> Davao City, Philippines</div></article>
-            <article className="card about-card reveal" style={{ '--d': '90ms' }}><span className="card-kicker"><span className="kicker-icon"><Code2 size={14} /></span>How I work</span><p>I work across frontend and backend development, including technical support and QA testing, with a focus on efficient, user-centered solutions. I use AI-assisted tools to improve productivity, code quality, and problem-solving.</p><div className="about-card-foot"><Layers3 size={14} /> Frontend ↔ Backend</div></article>
-            <article className="card about-card reveal" style={{ '--d': '180ms' }}><span className="card-kicker"><span className="kicker-icon"><Rocket size={14} /></span>What’s next</span><p>I aim to apply my technical and leadership experience to improve how organizations work through useful digital systems. I keep learning and follow modern development practices.</p><div className="about-card-foot"><Sparkles size={14} /> Always learning</div></article>
+            <article className="card about-card about-main reveal"><span className="card-mesh" aria-hidden="true" /><span className="card-kicker"><span className="kicker-icon"><UserRound size={14} /></span>The person</span><ScrubText text="I’m an IT graduate from the University of the Immaculate Conception in Davao City. I enjoy taking slow, paper-heavy processes and turning them into simple apps people actually like using." /><div className="about-card-foot"><MapPin size={14} /> Davao City, Philippines</div></article>
+            <article className="card about-card reveal" style={{ '--d': '90ms' }}><span className="card-kicker"><span className="kicker-icon"><Code2 size={14} /></span>How I work</span><p>I work on both what users see and what runs behind it. I test my own work carefully, help out with tech support, and use AI tools to move faster, but I always double-check the result.</p><div className="about-card-foot"><Layers3 size={14} /> Front end to back end</div></article>
+            <article className="card about-card reveal" style={{ '--d': '180ms' }}><span className="card-kicker"><span className="kicker-icon"><Rocket size={14} /></span>What’s next</span><p>I’m looking for a team where I can keep learning and build tools that save people time. Leading student organizations taught me to listen first, then build.</p><div className="about-card-foot"><Sparkles size={14} /> Always learning</div></article>
             <article className="card education-card reveal" style={{ '--d': '120ms' }}>
               <span className="education-icon"><GraduationCap size={24} /></span>
               <div className="education-info"><span className="card-kicker">Education</span><h3>Bachelor of Science in Information Technology</h3><p>University of the Immaculate Conception · Davao City, Philippines</p></div>
@@ -160,11 +160,11 @@ function App() {
           </div>
         </Section>
 
-        <Section id="projects" number="02" title="Selected projects" eyebrow="Work" description="Systems and apps designed around everyday workflows — five web applications and two mobile apps, 2023 — 2026." className="projects-section">
+        <Section id="projects" number="02" title="Selected projects" eyebrow="Work" description="Five web apps and two mobile apps I built from 2023 to 2026, each one for a real need." className="projects-section">
           <ProjectShowcase projects={projects} />
         </Section>
 
-        <Section id="stack" number="03" title="Tech stack" eyebrow="Stack" description="The languages, frameworks, and tools I reach for across the whole product.">
+        <Section id="stack" number="03" title="Tech stack" eyebrow="Stack" description="The languages and tools I use most, grouped by what they’re for.">
           <div className="stack-grid">
             {stack.map((group, i) => (
               <article className="card stack-card reveal" key={group.name} style={{ '--d': `${i * 90}ms` }}>
@@ -178,24 +178,24 @@ function App() {
           </div>
         </Section>
 
-        <Section id="skills" number="04" title="Things I do well" eyebrow="Skills" description="Seven core skills I bring to a team. Pick one, or let them play through.">
+        <Section id="skills" number="04" title="Things I do well" eyebrow="Skills" description="What I can bring to your team. Pick one to see a quick example.">
           <Skills skills={skills} />
         </Section>
 
-        <Section id="leadership" number="05" title="Leadership in practice" eyebrow="Leadership" description="Two years of student leadership, serving the computing community at the University of the Immaculate Conception.">
+        <Section id="leadership" number="05" title="Student leadership" eyebrow="Leadership" description="Two years as an officer in student organizations at the University of the Immaculate Conception.">
           <Leadership items={leadership} />
         </Section>
 
 
-        <Section id="interests" number="06" title="Always curious about" eyebrow="Interests" description="Topics I keep exploring and getting better at — hover or tap a panel to open it, click again to close.">
+        <Section id="interests" number="06" title="Always curious about" eyebrow="Interests" description="Things I’m learning more about. Tap a panel to open it, and tap again to close it.">
           <Interests />
         </Section>
 
-        <Section id="technologies" number="07" title="In my toolkit" eyebrow="Technologies" description="Tools change. Curiosity compounds. Hover a ring to explore it.">
+        <Section id="technologies" number="07" title="In my toolkit" eyebrow="Technologies" description="Everything I’ve worked with so far. Hover a ring to see that group.">
           <Toolkit techs={techs} />
         </Section>
 
-        <Section id="contributions" number="08" title="Showing up, consistently" eyebrow="Activity">
+        <Section id="contributions" number="08" title="My GitHub activity" eyebrow="Activity">
           <ContributionGraph />
         </Section>
 

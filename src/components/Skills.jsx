@@ -5,19 +5,16 @@ const CYCLE_MS = 5000
 // One animated mini-demo per skill (illustrative sample content)
 function Scene({ index }) {
   switch (index) {
-    // 01 Web & application development: code on the left builds the dashboard on the right
+    // 01 Websites & web apps: a working dashboard with a menu, live numbers and a request list
     case 0: return (
       <div className="sc sx-web">
         <div className="sx-window">
-          <div className="sx-bar"><span className="sx-dots"><i /><i /><i /></span><span className="sx-url">localhost:5173/dashboard</span></div>
+          <div className="sx-bar"><span className="sx-dots"><i /><i /><i /></span><span className="sx-url">rpic.app/requests</span></div>
           <div className="sx-split">
-            <pre className="sx-code">{[
-              ['k', 'export default '], ['f', 'function '], ['n', 'Dashboard'], ['p', '() {'], ['br'],
-              ['p', '  '], ['k', 'return '], ['p', '('], ['br'],
-              ['p', '    <'], ['t', 'Stats '], ['a', 'total'], ['p', '={'], ['n', '128'], ['p', '} />'], ['br'],
-              ['p', '    <'], ['t', 'Table '], ['a', 'rows'], ['p', '={'], ['n', 'requests'], ['p', '} />'], ['br'],
-              ['p', '  )'], ['br'], ['p', '}'],
-            ].map(([c, s], k) => (c === 'br' ? <br key={k} /> : <span key={k} className={`tk-${c}`} style={{ '--k': k }}>{s}</span>))}</pre>
+            <div className="sx-side">
+              <b>RPIC</b>
+              {['Dashboard', 'Requests', 'Schedule', 'Reports'].map((t, k) => <span key={t} className={k === 1 ? 'on' : ''} style={{ '--k': k }}>{t}</span>)}
+            </div>
             <div className="sx-app">
               <div className="sx-stats">{[['Requests', '128'], ['Approved', '96'], ['Pending', '32']].map(([l, v], k) => <span key={l} style={{ '--k': k + 3 }}><small>{l}</small><b>{v}</b></span>)}</div>
               <div className="sx-table">{['IP-0412 · Patent', 'IP-0413 · Copyright', 'IP-0414 · Trademark'].map((r, k) => <span key={r} style={{ '--k': k + 6 }}>{r}<em className={k === 1 ? 'wait' : ''}>{k === 1 ? 'Review' : 'Done'}</em></span>)}</div>
@@ -43,15 +40,15 @@ function Scene({ index }) {
         </div>
       </div>
     )
-    // 03 AI-assisted development: prompt → suggested code → follow-up
+    // 03 Working with AI: asking for help in plain words, then checking the answer
     case 2: return (
       <div className="sc sx-ai">
-        <span className="sx-msg me" style={{ '--k': 0 }}>Make this loop cleaner</span>
+        <span className="sx-msg me" style={{ '--k': 0 }}>Why does the cart total show “NaN”?</span>
         <span className="sx-msg bot" style={{ '--k': 1 }}>
           <small><i>✦</i> AI assistant</small>
-          <code><span className="tk-k">const</span> total = items<br />{'  '}.<span className="tk-n">filter</span>(i =&gt; i.active)<br />{'  '}.<span className="tk-n">reduce</span>((s, i) =&gt; s + i.price, <span className="tk-a">0</span>)</code>
+          The prices are saved as text, so they can’t be added up. Turn them into numbers first.
         </span>
-        <span className="sx-msg me" style={{ '--k': 2 }}>Now write a unit test for it</span>
+        <span className="sx-msg me" style={{ '--k': 2 }}>Checked it. That was it, thanks!</span>
         <span className="sx-msg bot typing" style={{ '--k': 3 }}><i /><i /><i /></span>
       </div>
     )
@@ -61,23 +58,23 @@ function Scene({ index }) {
         <svg viewBox="0 0 400 240" aria-hidden="true">
           {[['M80 120 L200 60', 0], ['M80 120 L200 180', 1], ['M200 60 L320 120', 2], ['M200 180 L320 120', 3]].map(([d, k]) => <g key={k}><path className="sx-edge" d={d} /><path className="sx-pulse" d={d} style={{ '--k': k }} /></g>)}
         </svg>
-        {[['🌐', 'Web client', 'React', 20, 50], ['⚙️', 'API server', 'Laravel', 50, 25], ['🔐', 'Auth', 'Sessions', 50, 75], ['🗄️', 'Database', 'MySQL', 80, 50]].map(([e, t, s, x, y], k) => (
+        {[['🌐', 'Website', 'what people see', 20, 50], ['⚙️', 'Server', 'does the work', 50, 25], ['🔐', 'Login', 'keeps accounts safe', 50, 75], ['🗄️', 'Database', 'saves everything', 80, 50]].map(([e, t, s, x, y], k) => (
           <span className="sx-node" key={t} style={{ left: `${x}%`, top: `${y}%`, '--k': k }}><i>{e}</i><b>{t}</b><small>{s}</small></span>
         ))}
-        <span className="sx-chip c1">REST · JSON</span><span className="sx-chip c2">SQL</span>
+        
       </div>
     )
     // 05 Software testing & debugging: a test run that finds and fixes a failure
     case 4: return (
       <div className="sc sx-test">
         <div className="sx-term">
-          <span className="sx-cmd" style={{ '--k': 0 }}>$ npm test</span>
-          {['✓ login form validates email', '✓ booking saves a time slot', '✓ admin approves a request', 'payment handles empty cart', '✓ report exports to PDF'].map((t, k) => (
+          <span className="sx-cmd" style={{ '--k': 0 }}>Running checks…</span>
+          {['✓ Wrong password is rejected', '✓ A booking saves the right time', '✓ Admin can approve a request', 'Empty cart shows a ₱0 total', '✓ Report downloads as PDF'].map((t, k) => (
             <span key={t} style={{ '--k': k + 1 }} className={k === 3 ? 'fail' : 'pass'}>{k === 3 ? <><b className="x">✕</b><b className="ok">✓</b></> : null}{k === 3 ? ' ' + t : t}</span>
           ))}
-          <span className="sx-sum" style={{ '--k': 6 }}>Tests: <b>5 passed</b>, 5 total · 1.8s</span>
+          <span className="sx-sum" style={{ '--k': 6 }}><b>All 5 checks passed</b></span>
         </div>
-        <span className="sx-bugfix"><i>🐞</i> Bug fixed: empty-cart total was <em>NaN</em></span>
+        <span className="sx-bugfix"><i>🐞</i> Bug fixed: an empty cart showed <em>NaN</em></span>
       </div>
     )
     // 06 Problem solving: a real need broken down into steps, ticked off in turn

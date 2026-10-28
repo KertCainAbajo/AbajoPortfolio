@@ -134,10 +134,10 @@ export default function Contact() {
   const coolingDown = cooldown > 0 && !sending
   return (
     <section id="contact" className="contact-section">
-      <header className="section-heading reveal"><span className="eyebrow"><span className="eyebrow-no">09</span><span className="scramble" data-text="Contact">Contact</span></span><h2><SplitText text="Have a good idea?" /></h2><p className="section-description">I’m open to roles, freelance work, and collaborations. Messages go straight to my inbox.</p></header>
+      <header className="section-heading reveal"><span className="eyebrow"><span className="eyebrow-no">09</span><span className="scramble" data-text="Contact">Contact</span></span><h2><SplitText text="Let’s talk" /></h2><p className="section-description">I’m open to roles, freelance work, and collaborations. Messages go straight to my inbox.</p></header>
       <div className="card contact-grid reveal">
         <div className="contact-info">
-          <p className="contact-lede">Let’s make something useful.<br /><span>Tell me what you’re thinking.</span></p>
+          <p className="contact-lede">Hiring, or have a project in mind?<br /><span>Send me a message and I’ll get back to you.</span></p>
           <div className="contact-details">
             <span className="contact-label">Get in touch</span>
             <a href={`mailto:${contact.email}`}><Mail size={16} />{contact.email}<ArrowUpRight size={14} /></a>
@@ -154,7 +154,7 @@ export default function Contact() {
           <input type="hidden" name="_autoresponse" value={AUTO_REPLY} />
           <label>Your name<input name="name" placeholder="How should I call you?" autoComplete="name" required minLength={2} maxLength={80} disabled={sending} /></label>
           <label>Email address<input name="email" type="email" placeholder="you@example.com" autoComplete="email" required maxLength={120} disabled={sending} /></label>
-          <label>Your message<textarea name="message" rows="4" placeholder="A little about your project..." required minLength={10} maxLength={2000} disabled={sending} /></label>
+          <label>Your message<textarea name="message" rows="4" placeholder="A little about the role or project..." required minLength={10} maxLength={2000} disabled={sending} /></label>
           <button type="submit" className="send-button" data-magnetic disabled={sending || coolingDown}>
             {sending ? 'Sending…' : coolingDown ? `Send again in ${cooldown}s` : 'Send message'}
             {sending ? <Loader2 size={15} className="send-spinner" /> : <Send size={15} />}

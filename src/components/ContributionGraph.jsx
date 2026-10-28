@@ -69,7 +69,7 @@ export default function ContributionGraph() {
   return (
     <div className="card contribution-card reveal">
       <div className="contribution-head">
-        <div><span className="card-kicker">A small view of the big picture</span><h3>Progress is a practice.</h3></div>
+        <div><span className="card-kicker">Last 12 months</span><h3>What I’ve been coding lately</h3></div>
         <a className="contribution-profile-link" href={GITHUB_PROFILE} target="_blank" rel="noreferrer"><Github size={14} /> GitHub profile <ArrowUpRight size={13} /></a>
       </div>
       {weeks.length ? (

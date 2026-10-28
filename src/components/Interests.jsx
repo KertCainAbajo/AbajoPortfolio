@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { Layers, Sparkles, Plug, ShieldCheck, Workflow } from 'lucide-react'
 
 const ITEMS = [
-  { title: 'Scalable web and mobile applications', short: 'Scalable apps', icon: Layers, note: 'Building systems that stay fast and maintainable as users and data grow.', art: 'bars' },
-  { title: 'AI-assisted development and productivity', short: 'AI-assisted dev', icon: Sparkles, note: 'Using AI tools to write, review and debug code faster without losing quality.', art: 'nodes' },
-  { title: 'API development and integration', short: 'APIs & integration', icon: Plug, note: 'Designing clean APIs and connecting services so data flows where it is needed.', art: 'link' },
-  { title: 'Software quality assurance and testing', short: 'QA & testing', icon: ShieldCheck, note: 'Catching issues early with structured testing and careful debugging.', art: 'checks' },
-  { title: 'Modern full-stack development workflows', short: 'Full-stack workflows', icon: Workflow, note: 'Version control, reviews and tooling that keep a project moving smoothly.', art: 'loop' },
+  { title: 'Apps that keep up as they grow', short: 'Growing apps', icon: Layers, note: 'Making apps that stay quick and easy to update as more people start using them.', art: 'bars' },
+  { title: 'Working smarter with AI', short: 'Working with AI', icon: Sparkles, note: 'Using AI to brainstorm and track down bugs, while still checking the answers myself.', art: 'nodes' },
+  { title: 'Connecting apps together', short: 'Connecting apps', icon: Plug, note: 'Getting different apps and services to share information without anyone retyping it.', art: 'link' },
+  { title: 'Testing and quality', short: 'Testing', icon: ShieldCheck, note: 'Finding problems early, before the people using the app ever see them.', art: 'checks' },
+  { title: 'Working well as a team', short: 'Teamwork', icon: Workflow, note: 'Sharing code, reviewing each other’s work, and keeping a group project on track.', art: 'loop' },
 ]
 
 const reset = (a) => (a === null ? null : 0)
@@ -20,26 +20,23 @@ function Art({ kind }) {
         <b>12.4k <em>↑ 38%</em></b>
         <svg viewBox="0 0 200 50" aria-hidden="true"><path d="M0 44 C30 42 45 36 70 34 S110 22 130 20 S170 8 200 4" /></svg>
       </span>
-      <span className="ix-servers">{['srv-1', 'srv-2', 'srv-3'].map((t, k) => <i key={t} style={{ '--k': k }}>{t}</i>)}<em>p95 · 42 ms</em></span>
+      <span className="ix-servers">{['Fast', 'Mobile-ready', 'Easy updates'].map((t, k) => <i key={t} style={{ '--k': k }}>{t}</i>)}</span>
     </span>
   )
   if (kind === 'nodes') return (
     <span className="ia ix-ai">
-      <span className="ix-editor">
-        <span><b className="tk-k">function</b> <b className="tk-n">total</b>(cart) {'{'}</span>
-        <span className="ix-ghost">{'  '}<b className="tk-k">return</b> cart.<b className="tk-n">reduce</b>(addPrice, <b className="tk-a">0</b>)</span>
-        <span>{'}'}</span>
-      </span>
-      <span className="ix-hint"><i>✦</i> Suggestion · <kbd>Tab</kbd> to accept</span>
+      <span className="ix-ask">Give me 3 ideas for the booking page</span>
+      <span className="ix-reply"><small><i>✦</i> AI</small><span className="ix-ghost">1. Show open time slots first<br />2. Add a reminder text<br />3. Let users reschedule</span></span>
+      <span className="ix-hint">✓ I picked #1 and #3</span>
     </span>
   )
   if (kind === 'link') return (
     <span className="ia ix-api">
-      <span className="ix-req"><em>GET</em> /api/bookings/42</span>
+      <span className="ix-req"><em>📅</em> Booking app: “New booking for Sat, 10 AM”</span>
       <span className="ix-wire"><i /></span>
       <span className="ix-res">
-        <span className="ix-status"><i /> 200 OK <small>86 ms</small></span>
-        <code>{'{'} <b className="tk-a">"id"</b>: <b className="tk-n">42</b>, <b className="tk-a">"status"</b>: <b className="tk-t">"confirmed"</b> {'}'}</code>
+        <span className="ix-status"><i /> Calendar updated <small>just now</small></span>
+        <span className="ix-note">✉️ Confirmation email sent to the customer</span>
       </span>
     </span>
   )
@@ -48,7 +45,7 @@ function Art({ kind }) {
       {['Login rejects wrong password', 'Booking blocks double slots', 'Report totals match'].map((t, k) => (
         <span className="ix-case" key={t} style={{ '--k': k }}><i>✓</i>{t}</span>
       ))}
-      <span className="ix-cov"><small>Coverage</small><span><i /></span><b>92%</b></span>
+      <span className="ix-cov"><small>Checks passed</small><span><i /></span><b>3/3</b></span>
     </span>
   )
   return (
@@ -58,8 +55,8 @@ function Art({ kind }) {
         <path className="ix-branch" d="M50 50 C70 50 70 18 90 18 H140 C160 18 160 50 180 50" />
         {[[8, 50], [50, 50], [90, 18], [140, 18], [180, 50], [212, 50]].map(([x, y], k) => <circle key={k} cx={x} cy={y} r="5" style={{ '--k': k }} />)}
       </svg>
-      <span className="ix-pr"><b>PR #12</b> feature/booking-form <em>Merged</em></span>
-      <span className="ix-checks">{['lint', 'tests', 'build', 'deploy'].map((t, k) => <i key={t} style={{ '--k': k }}>✓ {t}</i>)}</span>
+      <span className="ix-pr"><b>New booking form</b> by Kert <em>Approved</em></span>
+      <span className="ix-checks">{['Reviewed', 'Tested', 'Live'].map((t, k) => <i key={t} style={{ '--k': k }}>✓ {t}</i>)}</span>
     </span>
   )
 }
