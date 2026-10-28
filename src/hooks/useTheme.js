@@ -41,13 +41,16 @@ export default function useTheme() {
 
     const { x, y } = origin
     const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
-    const transition = document.startViewTransition(commit)
+    // The reveal shows the change, so hover colour transitions stay off while the new theme is applied.
+    // The class goes on together with the theme (one style pass) and comes off once the reveal is done.
+    const transition = document.startViewTransition(() => { root.classList.add('theme-instant'); commit() })
     transition.ready.then(() => {
       root.animate(
         { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
-        { duration: 700, easing: 'cubic-bezier(.65, 0, .35, 1)', pseudoElement: '::view-transition-new(root)' },
+        { duration: 850, easing: 'cubic-bezier(.4, 0, .2, 1)', pseudoElement: '::view-transition-new(root)' },
       )
     }).catch(() => {})
+    transition.finished.finally(() => root.classList.remove('theme-instant'))
   }
 
   return [theme, applyTheme]

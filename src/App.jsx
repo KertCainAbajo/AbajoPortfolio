@@ -5,6 +5,7 @@ import Section from './components/Section.jsx'
 import ProjectShowcase from './components/ProjectShowcase.jsx'
 import Toolkit from './components/Toolkit.jsx'
 import Interests from './components/Interests.jsx'
+import TechStack from './components/TechStack.jsx'
 import Leadership from './components/Leadership.jsx'
 import Skills from './components/Skills.jsx'
 import Contact from './components/Contact.jsx'
@@ -44,10 +45,11 @@ const techs = [
   { name: 'MongoDB', icon: siMongodb }, { name: 'Flutter', icon: siFlutter }, { name: 'Dart', icon: siDart }, { name: 'Git', icon: siGit },
   { name: 'GitHub', icon: siGithub }, { name: 'Postman', icon: siPostman }, { name: 'Expo Go', icon: siExpo }, { name: 'phpMyAdmin', icon: siPhpmyadmin },
 ]
+// Each tool: [name, logo, what I use it for (plain words)]
 const stack = [
-  { name: 'Frontend', icon: <Code2 size={20} />, items: [['HTML', siHtml5], ['CSS', siCss], ['JavaScript', siJavascript], ['React', siReact], ['TypeScript', siTypescript]] },
-  { name: 'Backend & data', icon: <Layers3 size={20} />, items: [['PHP', siPhp], ['Laravel', siLaravel], ['MySQL', siMysql], ['MongoDB', siMongodb]] },
-  { name: 'Mobile & tools', icon: <Smartphone size={20} />, items: [['Flutter', siFlutter], ['Dart', siDart], ['Expo Go', siExpo], ['Git', siGit], ['GitHub', siGithub], ['Postman', siPostman], ['phpMyAdmin', siPhpmyadmin]] },
+  { name: 'Frontend', plain: 'What people see', icon: <Code2 size={20} />, items: [['HTML', siHtml5, 'Page structure'], ['CSS', siCss, 'Layout and style'], ['JavaScript', siJavascript, 'Makes pages interactive'], ['React', siReact, 'Reusable screen parts'], ['TypeScript', siTypescript, 'Catches mistakes early']] },
+  { name: 'Backend & data', plain: 'What runs behind it', icon: <Layers3 size={20} />, items: [['PHP', siPhp, 'Server-side logic'], ['Laravel', siLaravel, 'Builds web apps faster'], ['MySQL', siMysql, 'Stores app data'], ['MongoDB', siMongodb, 'Flexible data storage']] },
+  { name: 'Mobile & tools', plain: 'Phones and daily tools', icon: <Smartphone size={20} />, items: [['Flutter', siFlutter, 'Android and iPhone apps'], ['Dart', siDart, 'The language behind Flutter'], ['Expo Go', siExpo, 'Tries apps on a real phone'], ['Git', siGit, 'Tracks every change'], ['GitHub', siGithub, 'Shares and backs up code'], ['Postman', siPostman, 'Tests app connections'], ['phpMyAdmin', siPhpmyadmin, 'Manages the database']] },
 ]
 const leadership = [
   { years: '2024 — 2025', role: 'Officer · Auditor', org: 'College of Computer Studies', mark: 'CCS' },
@@ -160,30 +162,20 @@ function App() {
           </div>
         </Section>
 
-        <Section id="projects" number="02" title="Selected projects" eyebrow="Work" description="Five web apps and two mobile apps I built from 2023 to 2026, each one for a real need." className="projects-section">
-          <ProjectShowcase projects={projects} />
+        <Section id="stack" number="02" title="Tech stack" eyebrow="Stack" description="The languages and tools I use most, grouped by what they’re for.">
+          <TechStack groups={stack} />
         </Section>
 
-        <Section id="stack" number="03" title="Tech stack" eyebrow="Stack" description="The languages and tools I use most, grouped by what they’re for.">
-          <div className="stack-grid">
-            {stack.map((group, i) => (
-              <article className="card stack-card reveal" key={group.name} style={{ '--d': `${i * 90}ms` }}>
-                <span className="dot-reveal" aria-hidden="true" />
-                <span className="card-ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <span className="icon-tile">{group.icon}</span>
-                <div><h3>{group.name}</h3><span className="stack-count">{group.items.length} tools</span></div>
-                <div className="chip-row">{group.items.map(([item, logo], c) => <span className="chip chip-logo" key={item} style={{ '--c': c, '--brand': `#${logo.hex}` }}><svg viewBox="0 0 24 24" aria-hidden="true"><path d={logo.path} /></svg>{item}</span>)}</div>
-              </article>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="skills" number="04" title="Things I do well" eyebrow="Skills" description="What I can bring to your team. Pick one to see a quick example.">
+        <Section id="skills" number="03" title="Things I do well" eyebrow="Skills" description="What I can bring to your team. Pick one to see a quick example.">
           <Skills skills={skills} />
         </Section>
 
-        <Section id="leadership" number="05" title="Student leadership" eyebrow="Leadership" description="Two years as an officer in student organizations at the University of the Immaculate Conception.">
+        <Section id="leadership" number="04" title="Student leadership" eyebrow="Leadership" description="Two years as an officer in student organizations at the University of the Immaculate Conception.">
           <Leadership items={leadership} />
+        </Section>
+
+        <Section id="projects" number="05" title="Selected projects" eyebrow="Work" description="Five web apps and two mobile apps I built from 2023 to 2026, each one for a real need." className="projects-section">
+          <ProjectShowcase projects={projects} />
         </Section>
 
 

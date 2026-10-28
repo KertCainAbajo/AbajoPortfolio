@@ -273,10 +273,6 @@ html.sidebar-collapsed { --side: 88px }
 .education-year { font: 500 13px var(--mono); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border-strong); white-space: nowrap }
 
 /* Stack */
-.stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px }
-.stack-card { padding: 26px; display: flex; flex-direction: column; gap: 18px; min-height: 230px }
-.stack-card h3 { margin: 4px 0 0; font: 600 24px/1.15 var(--display); letter-spacing: -.03em }
-.stack-card .chip-row { margin-top: auto }
 
 /* Skills */
 
@@ -462,7 +458,7 @@ html.sidebar-collapsed { --side: 88px }
   .hero-stats dt { font-size: 26px }
 
   .section-heading { margin-bottom: 30px }
-  .about-grid, .stack-grid, .leadership-grid { grid-template-columns: 1fr }
+  .about-grid, .leadership-grid { grid-template-columns: 1fr }
   .about-main { grid-column: auto }
   .about-card { min-height: 0; padding: 22px }
   .education-card { grid-template-columns: auto 1fr; padding: 20px }
@@ -583,11 +579,6 @@ html.sidebar-collapsed { --side: 88px }
 .education-card { grid-template-columns: auto 1fr minmax(220px, 300px) }
 
 /* Stack */
-.stack-card { min-height: 260px }
-.stack-count { display: block; margin-top: 6px; font: 500 12px var(--mono); color: var(--text-3) }
-.stack-card.is-visible .chip { animation: chip-in .5s cubic-bezier(.34, 1.56, .64, 1) calc(var(--c) * 60ms + var(--d, 0ms) + 250ms) backwards }
-.stack-card .chip { transition: background-color .2s, color .2s, border-color .2s, transform .3s var(--ease) }
-.stack-card .chip:hover { background: var(--text); color: var(--invert); border-color: var(--text); transform: translateY(-2px) }
 @keyframes chip-in { from { opacity: 0; transform: translateY(10px) scale(.8) } }
 
 /* Skills bento */
@@ -764,10 +755,18 @@ html:not([data-theme="dark"]) .hero-name-typed { background: linear-gradient(100
 html:not([data-theme="dark"]) .typing-cursor { background: var(--sun) }
 
 /* Hero: rising sun behind the portrait + rolling waves along the bottom */
-.hero-sun, .hero-waves { display: none }
-html:not([data-theme="dark"]) .hero-sun { display: block; position: absolute; z-index: 0; right: clamp(80px, 12vw, 200px); top: 4%; width: clamp(260px, 32vw, 460px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #fde68a 0%, #fbbf24 35%, rgb(249 115 22 / .55) 60%, transparent 72%); filter: blur(6px); opacity: .75; animation: sun-breathe 7s ease-in-out infinite; pointer-events: none }
-@keyframes sun-breathe { 50% { transform: scale(1.08) translateY(-10px); opacity: .9 } }
-html:not([data-theme="dark"]) .hero-waves { display: block; position: absolute; z-index: 0; left: calc(-1 * clamp(20px, 5vw, 80px)); right: calc(-1 * clamp(20px, 5vw, 80px)); bottom: 0; height: 120px; pointer-events: none; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent) }
+/* Sunrise: the sun and waves stay in the page in both themes (invisible in dark) so a theme
+   switch can animate them: the sun rises and fades in for light mode, and sets for dark mode. */
+.hero-sun { display: block; position: absolute; z-index: 0; right: clamp(80px, 12vw, 200px); top: 4%; width: clamp(260px, 32vw, 460px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #fde68a 0%, #fbbf24 35%, rgb(249 115 22 / .55) 60%, transparent 72%); filter: blur(6px); opacity: 0; translate: 0 55%; scale: .8; animation: sun-breathe 7s ease-in-out infinite; pointer-events: none;
+  transition: translate 1.6s cubic-bezier(.22, 1, .36, 1) .15s, scale 1.6s cubic-bezier(.22, 1, .36, 1) .15s, opacity 1s ease .15s }
+html:not([data-theme="dark"]) .hero-sun { opacity: .8; translate: 0 0; scale: 1 }
+:root[data-theme="dark"] .hero-sun { animation-play-state: paused; transition-duration: 1s, 1s, .7s; transition-delay: 0s }
+@keyframes sun-breathe { 50% { transform: scale(1.08) translateY(-10px) } }
+.hero-waves { display: block; position: absolute; z-index: 0; left: calc(-1 * clamp(20px, 5vw, 80px)); right: calc(-1 * clamp(20px, 5vw, 80px)); bottom: 0; height: 120px; pointer-events: none; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  opacity: 0; translate: 0 40px; transition: opacity 1s ease .35s, translate 1.4s cubic-bezier(.22, 1, .36, 1) .35s }
+html:not([data-theme="dark"]) .hero-waves { opacity: 1; translate: 0 0 }
+:root[data-theme="dark"] .hero-waves { transition-duration: .6s, .8s; transition-delay: 0s }
+:root[data-theme="dark"] .hero-waves i { animation-play-state: paused }
 .hero-waves i { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; background-repeat: repeat-x; background-position: 0 bottom; background-size: 50% 100%; animation: wave-roll 14s linear infinite }
 .hero-waves i:nth-child(1) { opacity: .5; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 70 C150 30 300 110 600 70 S1050 30 1200 70 V120 H0Z' fill='%2338bdf8' fill-opacity='.35'/%3E%3C/svg%3E") }
 .hero-waves i:nth-child(2) { opacity: .6; animation-duration: 10s; animation-direction: reverse; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 85 C200 55 400 115 600 85 S1000 55 1200 85 V120 H0Z' fill='%2314b8a6' fill-opacity='.3'/%3E%3C/svg%3E") }
@@ -799,7 +798,6 @@ html:not([data-theme="dark"]) .card-ghost { -webkit-text-stroke-color: rgb(2 132
 html:not([data-theme="dark"]) .card:hover .card-ghost { -webkit-text-stroke-color: rgb(249 115 22 / .45) }
 html:not([data-theme="dark"]) .dot-reveal { background-image: radial-gradient(var(--aqua) 1.2px, transparent 1.6px) }
 html:not([data-theme="dark"]) .chip { background: rgb(255 255 255 / .8); border-color: rgb(2 132 199 / .16); color: var(--text-2) }
-html:not([data-theme="dark"]) .stack-card .chip:hover { background: var(--ocean); border-color: transparent; color: #fff }
 html:not([data-theme="dark"]) .card-mesh { background: radial-gradient(35% 35% at 30% 30%, rgb(56 189 248 / .25), transparent 70%), radial-gradient(30% 30% at 70% 60%, rgb(251 191 36 / .25), transparent 70%), radial-gradient(25% 25% at 40% 80%, rgb(20 184 166 / .2), transparent 70%) }
 
 /* Section chrome: wave divider + sunny headings */
@@ -885,8 +883,8 @@ html:not([data-theme="dark"]) .footer-mark .split-char:hover { color: var(--sun)
 html:not([data-theme="dark"]) .footer-brand .brand-mark { background: var(--ocean) }
 
 @media (max-width: 760px) {
-  html:not([data-theme="dark"]) .hero-sun { right: -40px; top: 40%; width: 280px }
-  html:not([data-theme="dark"]) .hero-waves { left: -16px; right: -16px; height: 80px }
+  .hero-sun { right: -40px; top: 40%; width: 280px }
+  .hero-waves { left: -16px; right: -16px; height: 80px }
 }
 @media (prefers-reduced-motion: reduce) {
   html:not([data-theme="dark"]) .backdrop:before, .hero-waves i, html:not([data-theme="dark"]) .hero-sun { animation: none }
@@ -990,7 +988,7 @@ html:not([data-theme="dark"]) .pre-count { color: var(--pre-fg) }
 .backdrop-glow { filter: none; background: radial-gradient(circle, var(--glow), transparent 68%); will-change: transform }
 .hero-copy:before { filter: none; background: radial-gradient(circle, var(--glow), transparent 70%) }
 .card-mesh { filter: none }
-html:not([data-theme="dark"]) .hero-sun { filter: none; will-change: transform }
+.hero-sun { filter: none; will-change: transform, opacity }
 
 /* Stop endless repaints */
 .side-indicator:after { animation: none; --angle: 200deg }
@@ -1039,7 +1037,6 @@ html:not([data-theme="dark"]) .quote-section + .contact-section:after { display:
 .chip-logo svg { width: 14px; height: 14px; flex: none; fill: currentColor; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1) }
 html:not([data-theme="dark"]) .chip-logo svg { fill: var(--brand) }
 .chip-logo:hover svg { transform: scale(1.2) rotate(-8deg) }
-html:not([data-theme="dark"]) .stack-card .chip-logo:hover svg { fill: #fff }
 @media (prefers-reduced-motion: reduce) { .section-shell:after, .contact-section:after { display: none } }
 
 /* ══ Projects: sticky stacked showcase ══════════════════════════════ */
@@ -1597,3 +1594,81 @@ body, main { overflow-x: clip }
 html:not([data-theme="dark"]) { --cursor: #0b3a52; --cursor-edge: rgb(255 255 255 / .6); --cursor-fill: rgb(14 116 144 / .18) }
 html:not([data-theme="dark"]) body:after { mix-blend-mode: normal; opacity: .035 }
 .showcase-item[data-covered] *, .showcase-item[data-covered] *:before, .showcase-item[data-covered] *:after { animation-play-state: paused !important }
+
+/* Theme switch: the circular reveal already shows the change, so the hover colour transitions on
+   cards, chips and links are switched off for that moment (otherwise ~500 of them animate on the
+   main thread during the reveal). The switch, sun, waves and portrait keep their own motion. */
+.theme-instant :not(.theme-toggle, .theme-toggle *, .hero-sun, .hero-waves, .portrait-art, .portrait-art *),
+.theme-instant :not(.theme-toggle, .theme-toggle *, .portrait-art, .portrait-art *)::before,
+.theme-instant :not(.theme-toggle, .theme-toggle *, .portrait-art, .portrait-art *)::after { transition: none !important }
+
+/* ══ Tech stack: layers of an app ═══════════════════════════════════
+   A 3D stack of three plates (one per tool group). The chosen plate lifts out of the stack;
+   the panel lists its tools in plain words. Only transforms and opacity animate. */
+.layers { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr); gap: 20px; align-items: stretch }
+.layers-visual { position: relative; min-height: 470px; display: grid; place-items: center; perspective: 1500px; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden;
+  background: radial-gradient(60% 55% at 50% 45%, var(--surface-2), transparent 70%), var(--bg-2) }
+html:not([data-theme="dark"]) .layers-visual { background: radial-gradient(45% 40% at 80% 10%, rgb(253 230 138 / .6), transparent 70%), linear-gradient(170deg, #d4eef9, #eef7fb 55%, #f7ead6) }
+.layers-visual:before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000, transparent 72%); mask-image: radial-gradient(circle at 50% 50%, #000, transparent 72%) }
+.layers-float { transform-style: preserve-3d; animation: layers-float 6s ease-in-out infinite alternate; will-change: transform }
+@keyframes layers-float { from { transform: translateY(10px) } to { transform: translateY(-10px) } }
+.layers-scene { position: relative; width: 250px; height: 250px; transform-style: preserve-3d; transform: translateY(40px) rotateX(58deg) rotateZ(-42deg) }
+.layer-plate { position: absolute; inset: 0; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 14px; padding: 30px; border-radius: 30px; cursor: pointer; transform-style: preserve-3d;
+  background: linear-gradient(140deg, #26262c, #141418); border: 1px solid rgb(255 255 255 / .1); box-shadow: 0 30px 50px rgb(0 0 0 / .35);
+  transform: translateZ(calc((var(--n) - 1 - var(--p)) * 78px)); opacity: .5; transition: transform .8s cubic-bezier(.65, 0, .35, 1), opacity .45s ease, border-color .45s }
+html:not([data-theme="dark"]) .layer-plate { background: linear-gradient(140deg, #ffffff, #e3f3fa); border-color: rgb(2 132 199 / .2); box-shadow: 0 30px 50px rgb(14 74 110 / .18) }
+/* Plate thickness: a darker copy just underneath */
+.layer-plate:before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #0b0b0d; transform: translateZ(-10px); pointer-events: none }
+html:not([data-theme="dark"]) .layer-plate:before { background: #9fcfe3 }
+/* The chosen plate rises to the top: it slides out of the stack, climbs, then slides back in on top
+   (the side-step uses `translate`, which moves it along the plate's own plane so it never cuts through the others) */
+.layer-plate[data-on] { opacity: 1; border-color: var(--accent); transform: translateZ(calc((var(--n) - 1) * 78px + 24px)); animation: plate-rise .8s cubic-bezier(.65, 0, .35, 1) }
+@keyframes plate-rise { 0%, 100% { translate: 0 0 } 45%, 60% { translate: 0 -52% } }
+html:not([data-theme="dark"]) .layer-plate[data-on] { border-color: var(--sun) }
+.plate-logo { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 13px; background: #fff; box-shadow: 0 6px 14px rgb(0 0 0 / .18); transform: translateZ(1px) }
+.plate-logo svg { width: 24px; height: 24px; fill: var(--brand) }
+.layers-caption { position: absolute; left: 50%; bottom: 22px; translate: -50% 0; padding: 7px 14px; border-radius: 999px; background: var(--surface-solid); border: 1px solid var(--border); box-shadow: var(--shadow); font: 600 13px var(--body); color: var(--text-2); white-space: nowrap }
+
+.layers-panel { padding: 14px; display: flex; flex-direction: column; gap: 14px }
+.layers-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px }
+.layers-tab { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; padding: 12px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface-2); font: inherit; color: inherit; text-align: left; cursor: pointer; transition: border-color .3s, background-color .3s, transform .3s var(--ease) }
+.layers-tab:hover { transform: translateY(-2px) }
+.layers-tab[data-on] { border-color: var(--border-strong); background: var(--screen); box-shadow: var(--shadow) }
+.layers-tab .icon-tile { width: 38px; height: 38px; transition: background-color .3s, color .3s }
+.layers-tab[data-on] .icon-tile { background: var(--text); color: var(--invert) }
+html:not([data-theme="dark"]) .layers-tab[data-on] .icon-tile { background: var(--ocean); color: #fff }
+.layers-tab-copy { min-width: 0; display: flex; flex-direction: column; gap: 2px }
+.layers-tab-copy b { font: 650 15px var(--display); letter-spacing: -.02em; color: var(--text) }
+.layers-foot { margin: auto 4px 4px; padding-top: 12px; border-top: 1px dashed var(--border); font: 500 13px var(--body); color: var(--text-3) }
+.layers-tab em { position: absolute; top: 10px; right: 12px; font: 600 11px var(--mono); font-style: normal; color: var(--text-3) }
+.layers-tools { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 4px }
+.tool-tile { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface-2); animation: tool-in .5s var(--ease) calc(var(--k) * 60ms) backwards; transition: transform .3s var(--ease), border-color .3s }
+.tool-tile:hover { transform: translateY(-3px); border-color: var(--border-strong) }
+@keyframes tool-in { from { opacity: 0; transform: translateY(12px) scale(.97) } }
+.tool-logo { width: 46px; height: 46px; flex: none; display: grid; place-items: center; border-radius: 13px; background: #fff; box-shadow: 0 4px 12px rgb(0 0 0 / .12); transition: transform .4s cubic-bezier(.34, 1.56, .64, 1) }
+.tool-tile:hover .tool-logo { transform: rotate(-8deg) scale(1.08) }
+.tool-logo svg { width: 24px; height: 24px; fill: var(--brand) }
+.tool-copy { min-width: 0; display: flex; flex-direction: column; gap: 3px }
+.tool-copy b { font: 650 16px var(--display); letter-spacing: -.02em; color: var(--text) }
+.tool-copy small { font: 500 13px var(--body); color: var(--text-3) }
+html:not([data-theme="dark"]) .layers-tab, html:not([data-theme="dark"]) .tool-tile { background: rgb(255 255 255 / .7); border-color: rgb(2 132 199 / .14) }
+html:not([data-theme="dark"]) .layers-tab[data-on] { background: #fff }
+
+@media (max-width: 1100px) {
+  .layers { grid-template-columns: 1fr }
+  .layers-visual { min-height: 380px }
+}
+@media (max-width: 760px) {
+  .layers-visual { min-height: 320px }
+  .layers-scene { width: 190px; height: 190px; translate: 0 10px }
+  .layer-plate { gap: 9px; padding: 20px; border-radius: 22px; transform: translateZ(calc((var(--n) - 1 - var(--p)) * 58px)) }
+  .layer-plate[data-on] { transform: translateZ(calc((var(--n) - 1) * 58px + 18px)) }
+  .plate-logo { width: 34px; height: 34px; border-radius: 10px } .plate-logo svg { width: 18px; height: 18px }
+  .layers-tabs { grid-template-columns: 1fr 1fr 1fr; gap: 6px }
+  .layers-tab { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 10px 6px; gap: 6px }
+  .layers-tab em { display: none }
+  .layers-foot { font-size: 12px }
+  .layers-tab-copy b { font-size: 13px }
+  .layers-tools { grid-template-columns: 1fr }
+}
+@media (prefers-reduced-motion: reduce) { .layers-float, .tool-tile, .layer-plate[data-on] { animation: none } .layer-plate { transition: none } }

@@ -5,7 +5,7 @@ import { Menu, X, ChevronsLeft, ChevronsRight, Github, Mail, MapPin, House, User
 
 const groups = [
   { label: 'Profile', links: [['about', 'Intro', House], ['education', 'About Me', UserRound]] },
-  { label: 'Work', links: [['projects', 'Projects', FolderKanban], ['stack', 'Stack', Layers3], ['skills', 'Skills', Zap], ['leadership', 'Leadership', Award]] },
+  { label: 'Work', links: [['stack', 'Stack', Layers3], ['skills', 'Skills', Zap], ['leadership', 'Leadership', Award], ['projects', 'Projects', FolderKanban]] },
   { label: 'More', links: [['interests', 'Interests', Lightbulb], ['technologies', 'Technologies', Cpu], ['contributions', 'Activity', Activity]] },
   { label: 'Connect', links: [['contact', 'Contact', Send]] },
 ]
