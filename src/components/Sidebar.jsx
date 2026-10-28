@@ -3,8 +3,9 @@ import { scrollToSection } from '../lib/smoothScroll.js'
 import { Menu, X, ChevronsLeft, ChevronsRight, Github, Mail, MapPin, House, UserRound, Layers3, Zap, Award, FolderKanban, Lightbulb, Cpu, Activity, Send } from 'lucide-react'
 
 const groups = [
-  { label: 'Profile', links: [['about', 'Intro', House], ['education', 'About Me', UserRound], ['stack', 'Stack', Layers3], ['skills', 'Skills', Zap], ['leadership', 'Leadership', Award]] },
-  { label: 'Work', links: [['projects', 'Projects', FolderKanban], ['interests', 'Interests', Lightbulb], ['technologies', 'Technologies', Cpu], ['contributions', 'Activity', Activity]] },
+  { label: 'Profile', links: [['about', 'Intro', House], ['education', 'About Me', UserRound]] },
+  { label: 'Work', links: [['projects', 'Projects', FolderKanban], ['stack', 'Stack', Layers3], ['skills', 'Skills', Zap], ['leadership', 'Leadership', Award]] },
+  { label: 'More', links: [['interests', 'Interests', Lightbulb], ['technologies', 'Technologies', Cpu], ['contributions', 'Activity', Activity]] },
   { label: 'Connect', links: [['contact', 'Contact', Send]] },
 ]
 const links = groups.flatMap((group) => group.links)

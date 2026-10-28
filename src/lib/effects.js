@@ -66,30 +66,11 @@ export function initEffects() {
     cleanups.push(() => scrambleIo.disconnect())
   }
 
-  // Pinned horizontal gallery (projects): vertical scroll drives the track sideways on wide screens
-  const hs = document.querySelector('[data-hscroll]')
-  const hTrack = hs?.querySelector('.h-track')
-  const hSticky = hs?.querySelector('.h-sticky')
-  const hBar = hs?.querySelector('.h-progress i')
-  const wide = window.matchMedia('(min-width: 1101px)')
-  let hDist = 0
-  const layoutH = () => {
-    if (!hs) return
-    hs.classList.toggle('is-pinned', wide.matches && !reduced)
-    if (wide.matches && !reduced) {
-      hDist = Math.max(0, hTrack.scrollWidth - hSticky.clientWidth)
-      hs.style.height = `${hDist + window.innerHeight}px`
-    } else {
-      hDist = 0
-      hs.style.height = ''
-      hTrack.style.transform = ''
-    }
-  }
-  layoutH()
-  const relayout = () => { layoutH(); queueScroll() }
+  // Stacked project cards: as the next card slides over, the pinned one recedes (--stack 0 → 1)
+  const stackItems = reduced ? [] : [...document.querySelectorAll('[data-stack] .showcase-item')]
+  const stackOn = window.matchMedia('(min-width: 761px)')
+  const relayout = () => queueScroll()
   on(window, 'resize', relayout)
-  const relayoutTimer = window.setTimeout(relayout, 600)
-  cleanups.push(() => { window.clearTimeout(relayoutTimer); if (hs) { hs.classList.remove('is-pinned'); hs.style.height = ''; hTrack.style.transform = '' } })
 
   // One scroll-synced pass per frame: read every measurement first, then write every style,
   // so the browser never has to recalculate layout in between.
@@ -105,7 +86,7 @@ export function initEffects() {
       const progress = Math.min(1, Math.max(0, (vh * 0.95 - box.top) / (vh * 0.45)))
       return (progress * (Number(el.dataset.scrub) + 2)).toFixed(2)
     })
-    const hBox = hDist ? hs.getBoundingClientRect() : null
+    const stackBoxes = stackOn.matches ? stackItems.map((el) => el.getBoundingClientRect()) : []
     const paraVals = parallaxEls.map((el) => {
       const box = el.parentElement.getBoundingClientRect()
       if (box.bottom < -200 || box.top > vh + 200) return null
@@ -113,11 +94,14 @@ export function initEffects() {
     })
     // write (only when a value actually changed)
     scrubs.forEach((el, i) => { const v = scrubVals[i]; if (v !== null && el.dataset.p !== v) { el.dataset.p = v; el.style.setProperty('--p', v) } })
-    if (hBox) {
-      const p = Math.min(1, Math.max(0, -hBox.top / (hBox.height - vh)))
-      hTrack.style.transform = `translate3d(${(-p * hDist).toFixed(1)}px, 0, 0)`
-      if (hBar) hBar.style.transform = `scaleX(${p.toFixed(4)})`
-    }
+    stackItems.forEach((el, i) => {
+      const box = stackBoxes[i]
+      const next = stackBoxes[i + 1]
+      // 0 while the next card is still a full card-height below, 1 once it has slid all the way over
+      const p = !box || !next ? 0 : Math.min(1, Math.max(0, 1 - (next.top - box.top - 14) / box.height))
+      const v = p.toFixed(3)
+      if (el.dataset.s !== v) { el.dataset.s = v; el.style.setProperty('--stack', v) }
+    })
     parallaxEls.forEach((el, i) => { const v = paraVals[i]; if (v !== null && el.dataset.y !== v) { el.dataset.y = v; el.style.transform = `translate3d(0, ${v}px, 0)` } })
   }
   function queueScroll() { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(scrollPass) } }

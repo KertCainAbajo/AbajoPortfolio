@@ -2,7 +2,11 @@ import { Fragment, useEffect, useState } from 'react'
 import { ArrowDown, ArrowUpRight, Code2, Smartphone, Layers3, Sparkles, GraduationCap, MapPin, UserRound, Rocket, Globe, Bot, Network, Bug, Brain, FileText } from 'lucide-react'
 import Sidebar from './components/Sidebar.jsx'
 import Section from './components/Section.jsx'
-import ProjectCard from './components/ProjectCard.jsx'
+import ProjectShowcase from './components/ProjectShowcase.jsx'
+import Toolkit from './components/Toolkit.jsx'
+import Interests from './components/Interests.jsx'
+import Leadership from './components/Leadership.jsx'
+import Skills from './components/Skills.jsx'
 import Contact from './components/Contact.jsx'
 import ContributionGraph from './components/ContributionGraph.jsx'
 import ThemeSwitch from './components/ThemeSwitch.jsx'
@@ -16,17 +20,13 @@ import SplitText, { ScrubText } from './components/SplitText.jsx'
 import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin } from 'simple-icons'
 
 const projects = [
-  { platform: 'web', number: 1, title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'A streamlined application process for the Innovation and Technology Support Office, from document submission through status tracking.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
-  { platform: 'web', number: 2, title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'An organized home for research workflows, defense schedules, document storage, and publication tracking.', tags: ['Research', 'Scheduling', 'Data organization'] },
-  { platform: 'web', number: 3, title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'A service platform for choosing repairs, booking appointments, and managing mechanic schedules.', tags: ['Booking', 'Scheduling', 'Services'] },
-  { platform: 'web', number: 4, title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop for browsing handmade crochet, placing orders, and requesting custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
-  { platform: 'web', number: 5, title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'A simple gym attendance and membership system that checks members in with a unique ID.', tags: ['Attendance', 'Membership', 'Member ID'] },
-  { platform: 'mobile', number: 6, title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app encouraging everyday eco-friendly habits with practical tools, tips, and personal tracking.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
-  { platform: 'mobile', number: 7, title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals, symptoms, and habits that reveals patterns and possible triggers over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
-]
-const projectGroups = [
-  { platform: 'web', title: 'Web applications', note: 'Systems for offices, services, and shops' },
-  { platform: 'mobile', title: 'Mobile applications', note: 'Apps for everyday habits and health' },
+  { platform: 'web', number: 1, mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'A streamlined application process for the Innovation and Technology Support Office, from document submission through status tracking.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
+  { platform: 'web', number: 2, mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'An organized home for research workflows, defense schedules, document storage, and publication tracking.', tags: ['Research', 'Scheduling', 'Data organization'] },
+  { platform: 'web', number: 3, mock: 'booking', url: 'Mechanic · Book a service', title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'A service platform for choosing repairs, booking appointments, and managing mechanic schedules.', tags: ['Booking', 'Scheduling', 'Services'] },
+  { platform: 'web', number: 4, mock: 'shop', url: 'Crochet · Shop', title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop for browsing handmade crochet, placing orders, and requesting custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
+  { platform: 'web', number: 5, mock: 'scan', url: 'Gym · Check-in', title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'A simple gym attendance and membership system that checks members in with a unique ID.', tags: ['Attendance', 'Membership', 'Member ID'] },
+  { platform: 'mobile', number: 6, mock: 'habit', url: '', title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app encouraging everyday eco-friendly habits with practical tools, tips, and personal tracking.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
+  { platform: 'mobile', number: 7, mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals, symptoms, and habits that reveals patterns and possible triggers over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
 ]
 
 const skills = [
@@ -45,22 +45,17 @@ const techs = [
   { name: 'GitHub', icon: siGithub }, { name: 'Postman', icon: siPostman }, { name: 'Expo Go', icon: siExpo }, { name: 'phpMyAdmin', icon: siPhpmyadmin },
 ]
 const stack = [
-  { name: 'Frontend', icon: <Code2 size={20} />, items: ['HTML', 'CSS', 'JavaScript', 'React', 'TypeScript'] },
-  { name: 'Backend & data', icon: <Layers3 size={20} />, items: ['PHP', 'Laravel', 'MySQL', 'MongoDB'] },
-  { name: 'Mobile & tools', icon: <Smartphone size={20} />, items: ['Flutter', 'Dart', 'Expo Go', 'Git', 'GitHub', 'Postman', 'phpMyAdmin'] },
+  { name: 'Frontend', icon: <Code2 size={20} />, items: [['HTML', siHtml5], ['CSS', siCss], ['JavaScript', siJavascript], ['React', siReact], ['TypeScript', siTypescript]] },
+  { name: 'Backend & data', icon: <Layers3 size={20} />, items: [['PHP', siPhp], ['Laravel', siLaravel], ['MySQL', siMysql], ['MongoDB', siMongodb]] },
+  { name: 'Mobile & tools', icon: <Smartphone size={20} />, items: [['Flutter', siFlutter], ['Dart', siDart], ['Expo Go', siExpo], ['Git', siGit], ['GitHub', siGithub], ['Postman', siPostman], ['phpMyAdmin', siPhpmyadmin]] },
 ]
 const leadership = [
   { years: '2024 — 2025', role: 'Officer · Auditor', org: 'College of Computer Studies', mark: 'CCS' },
   { years: '2023 — 2024', role: 'Officer · Legislative', org: 'Society of Information Technology Education Students', mark: 'SITES' },
 ]
-const interests = ['Scalable web and mobile applications', 'AI-assisted development and productivity', 'API development and integration', 'Software quality assurance and testing', 'Modern full-stack development workflows']
 const stats = [['07', 'Projects built'], ['16', 'Tools & technologies'], ['02', 'Leadership roles']]
 const statement = ['Web development', 'Mobile apps', 'System design', 'UI engineering', 'Problem solving']
 const floaters = [{ tech: siReact, label: 'React', cls: 'float-a', depth: 30 }, { tech: siFlutter, label: 'Flutter', cls: 'float-b', depth: -40 }, { tech: siLaravel, label: 'Laravel', cls: 'float-c', depth: 24 }]
-
-function TechLogo({ tech }) {
-  return <span className="tech-chip" style={{ '--brand': `#${tech.icon.hex}` }}><svg viewBox="0 0 24 24" aria-hidden="true"><path d={tech.icon.path} /></svg>{tech.name}</span>
-}
 
 // Types the name, holds it for 5s, erases it, then types it again.
 // Kept in its own component so each keystroke re-renders only this span, not the whole page.
@@ -101,7 +96,6 @@ function App() {
   useEffect(() => (ready ? initInteractions() : undefined), [ready])
   useEffect(() => (ready ? initEffects() : undefined), [ready])
 
-  const half = Math.ceil(techs.length / 2)
   return (
     <div className="app-frame" id="top">
       <Preloader onReveal={() => setReady(true)} />
@@ -166,7 +160,11 @@ function App() {
           </div>
         </Section>
 
-        <Section id="stack" number="02" title="Tech stack" eyebrow="Stack" description="The languages, frameworks, and tools I reach for across the whole product.">
+        <Section id="projects" number="02" title="Selected projects" eyebrow="Work" description="Systems and apps designed around everyday workflows — five web applications and two mobile apps, 2023 — 2026." className="projects-section">
+          <ProjectShowcase projects={projects} />
+        </Section>
+
+        <Section id="stack" number="03" title="Tech stack" eyebrow="Stack" description="The languages, frameworks, and tools I reach for across the whole product.">
           <div className="stack-grid">
             {stack.map((group, i) => (
               <article className="card stack-card reveal" key={group.name} style={{ '--d': `${i * 90}ms` }}>
@@ -174,76 +172,27 @@ function App() {
                 <span className="card-ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <span className="icon-tile">{group.icon}</span>
                 <div><h3>{group.name}</h3><span className="stack-count">{group.items.length} tools</span></div>
-                <div className="chip-row">{group.items.map((item, c) => <span className="chip" key={item} style={{ '--c': c }}>{item}</span>)}</div>
+                <div className="chip-row">{group.items.map(([item, logo], c) => <span className="chip chip-logo" key={item} style={{ '--c': c, '--brand': `#${logo.hex}` }}><svg viewBox="0 0 24 24" aria-hidden="true"><path d={logo.path} /></svg>{item}</span>)}</div>
               </article>
             ))}
           </div>
         </Section>
 
-        <Section id="skills" number="03" title="Things I do well" eyebrow="Skills">
-          <div className="skills-bento">
-            {skills.map(({ name, icon: Icon, note }, index) => (
-              <article className={`card skill-tile reveal skill-${index + 1}`} key={name} style={{ '--d': `${index * 60}ms` }}>
-                <span className="dot-reveal" aria-hidden="true" />
-                <span className="card-ghost" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-                <div className="skill-top">
-                  <span className="icon-tile"><Icon size={20} /></span>
-                  <svg className="skill-check" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m7.5 12.5 3 3 6-7" /></svg>
-                </div>
-                <h3>{name}</h3>
-                <p>{note}</p>
-              </article>
-            ))}
-          </div>
+        <Section id="skills" number="04" title="Things I do well" eyebrow="Skills" description="Seven core skills I bring to a team. Pick one, or let them play through.">
+          <Skills skills={skills} />
         </Section>
 
-        <Section id="leadership" number="04" title="Leadership in practice" eyebrow="Leadership">
-          <div className="timeline reveal">
-            <span className="timeline-line" aria-hidden="true"><i /></span>
-            {leadership.map((item, i) => (
-              <div className="timeline-item" key={item.mark} style={{ '--d': `${i * 220 + 200}ms` }}>
-                <span className="timeline-node" aria-hidden="true" />
-                <span className="timeline-year">{item.years}</span>
-                <article className="card leadership-card"><div className="leadership-mark">{item.mark}</div><div className="leadership-body"><span className="card-kicker">Student leadership</span><h3>{item.role}</h3><p>{item.org}</p></div></article>
-              </div>
-            ))}
-          </div>
+        <Section id="leadership" number="05" title="Leadership in practice" eyebrow="Leadership" description="Two years of student leadership, serving the computing community at the University of the Immaculate Conception.">
+          <Leadership items={leadership} />
         </Section>
 
-        <Section id="projects" number="05" title="Selected projects" eyebrow="Work" description="A selection of systems and apps designed around everyday workflows · 2023 — 2026." className="projects-section">
-          <div className="h-scroll" data-hscroll>
-            <div className="h-sticky">
-              <div className="h-track">
-                {projectGroups.map((group, g) => {
-                  const items = projects.filter((project) => project.platform === group.platform)
-                  return (
-                    <Fragment key={group.platform}>
-                      <div className="card h-intro reveal">
-                        <span className="card-kicker">{String(g + 1).padStart(2, '0')} · {group.platform === 'web' ? 'Web' : 'Mobile'}</span>
-                        <h3>{group.title}</h3>
-                        <p>{group.note}</p>
-                        <span className="h-count">{String(items.length).padStart(2, '0')}<small>{items.length === 1 ? 'project' : 'projects'}</small></span>
-                        {g === 0 && <span className="h-hint">Keep scrolling <ArrowUpRight size={14} /></span>}
-                      </div>
-                      {items.map((project, i) => <ProjectCard key={project.number} project={project} delay={i * 70} />)}
-                    </Fragment>
-                  )
-                })}
-              </div>
-              <div className="h-progress" aria-hidden="true"><i /></div>
-            </div>
-          </div>
+
+        <Section id="interests" number="06" title="Always curious about" eyebrow="Interests" description="Topics I keep exploring and getting better at — hover or tap a panel to open it, click again to close.">
+          <Interests />
         </Section>
 
-        <Section id="interests" number="06" title="Always curious about" eyebrow="Interests">
-          <div className="interest-list">{interests.map((item, i) => <div className="interest-row reveal" key={item} style={{ '--d': `${i * 70}ms` }}><span className="interest-no">{String(i + 1).padStart(2, '0')}</span><span className="interest-text">{item}</span><ArrowUpRight className="interest-arrow" size={26} /></div>)}</div>
-        </Section>
-
-        <Section id="technologies" number="07" title="In my toolkit" eyebrow="Technologies" description="Tools change. Curiosity compounds.">
-          <div className="marquee reveal">
-            <div className="marquee-row"><div className="marquee-track">{[...techs.slice(0, half), ...techs.slice(0, half)].map((tech, i) => <TechLogo tech={tech} key={`a${i}`} />)}</div></div>
-            <div className="marquee-row marquee-reverse"><div className="marquee-track">{[...techs.slice(half), ...techs.slice(half)].map((tech, i) => <TechLogo tech={tech} key={`b${i}`} />)}</div></div>
-          </div>
+        <Section id="technologies" number="07" title="In my toolkit" eyebrow="Technologies" description="Tools change. Curiosity compounds. Hover a ring to explore it.">
+          <Toolkit techs={techs} />
         </Section>
 
         <Section id="contributions" number="08" title="Showing up, consistently" eyebrow="Activity">

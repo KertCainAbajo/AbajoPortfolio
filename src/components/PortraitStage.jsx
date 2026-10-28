@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useCurrentTheme } from '../hooks/useTheme.js'
 import BeachVideo from './BeachVideo.jsx'
 
-const ZOOM_MS = 900
-const OUTFIT_MS = 1000
+const LEAD_MS = 450 // zoom gets a head start before the outfit change overlaps it
+const OUTFIT_MS = 1100
 const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms))
 
 // Photo layers plus the beach clip. Light mode: zoom in, suit fades into the clip's first frame,
@@ -48,7 +48,7 @@ export default function PortraitStage({ children }) {
       }
       phase.current = 'zooming-in'
       setZoom('in')
-      await Promise.all([wait(ZOOM_MS), clip.show('in-start')])
+      await Promise.all([wait(LEAD_MS), clip.show('in-start')])
       if (!live()) return
       phase.current = 'fading-in'
       setOutfit('beach')
