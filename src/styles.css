@@ -1776,3 +1776,162 @@ html:not([data-theme="dark"]) .me-pointer { background: radial-gradient(circle, 
 @media (max-width: 1100px) { .me-rays { right: 50%; margin-right: -450px; top: -80px } }
 @media (max-width: 760px) { .me-bg { inset: -120px -16px -40px } .me-blob { width: 380px } .me-blob.b2, .me-blob.b3 { width: 420px } }
 @media (prefers-reduced-motion: reduce) { .me-blob, .me-rays, .me-dust { animation: none } }
+
+/* Deployed projects: a real link styled like the highlight label, with a live dot and pill outline */
+.showcase-live { align-self: flex-start; padding: 9px 16px 9px 14px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text); text-decoration: none; transition: background-color .3s, color .3s, border-color .3s, transform .3s var(--ease) }
+.showcase-live:hover { background: var(--text); color: var(--invert); border-color: var(--text); transform: translateY(-2px) }
+.showcase-live:hover svg { transform: translate(3px, -3px) }
+html:not([data-theme="dark"]) .showcase-live { background: #fff; border-color: rgb(2 132 199 / .25); color: var(--sea) }
+html:not([data-theme="dark"]) .showcase-live:hover { background: var(--sea); border-color: var(--sea); color: #fff }
+
+/* ══ Crochet shop walkthrough (real screenshots, one shared 18s timeline) ══
+   Windows: home 0–18%, shop 18–43%, product 43–68%, custom 68–96%, then back to home.
+   Pointer/targets are the real button positions as % of the 1440×900 screen. */
+.browser .device-screen.cdemo { --T: 18s; position: relative; display: block; height: auto; aspect-ratio: 16 / 10; overflow: hidden; background: #fff8f6 }
+.cdemo-scene { position: absolute; inset: 0; overflow: hidden; opacity: 0; will-change: opacity }
+.cdemo-scene img { display: block; width: 100%; height: auto; will-change: transform }
+.cdemo .cd-on0 { animation: cd-on0 var(--T) linear infinite }
+.cdemo .cd-on1 { animation: cd-on1 var(--T) linear infinite }
+.cdemo .cd-on2 { animation: cd-on2 var(--T) linear infinite }
+.cdemo .cd-on3 { animation: cd-on3 var(--T) linear infinite }
+@keyframes cd-on0 { 0%, 17% { opacity: 1 } 19%, 95% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes cd-on1 { 0%, 17% { opacity: 0 } 19%, 42% { opacity: 1 } 44%, 100% { opacity: 0 } }
+@keyframes cd-on2 { 0%, 42% { opacity: 0 } 44%, 67% { opacity: 1 } 69%, 100% { opacity: 0 } }
+@keyframes cd-on3 { 0%, 67% { opacity: 0 } 69%, 95% { opacity: 1 } 100% { opacity: 0 } }
+/* Shop: scroll the catalogue down 450px of 1800 (25% of the tall screenshot) */
+.cdemo-scene.cd-on1 img { animation: cd-scroll var(--T) cubic-bezier(.65, 0, .35, 1) infinite }
+@keyframes cd-scroll { 0%, 21% { transform: translateY(0) } 30%, 100% { transform: translateY(-25%) } }
+
+/* Pointer: the track spans the whole screen, so translate % = % of the screen */
+.cdemo-track { position: absolute; inset: 0; z-index: 4; pointer-events: none; will-change: transform; animation: cd-move var(--T) cubic-bezier(.45, 0, .25, 1) infinite }
+@keyframes cd-move {
+  0% { transform: translate(62%, 72%) }
+  8%, 19% { transform: translate(16.4%, 63.8%) }
+  31% { transform: translate(30%, 50%) }
+  35%, 44% { transform: translate(39.8%, 39.7%) }
+  52%, 69% { transform: translate(75.9%, 85.8%) }
+  80%, 94% { transform: translate(16.3%, 60%) }
+  100% { transform: translate(62%, 72%) }
+}
+.cdemo-pointer { position: absolute; left: -3px; top: -2px; display: block; width: 22px; height: 22px; animation: cd-press var(--T) ease infinite }
+.cdemo-pointer svg { position: relative; width: 22px; height: 22px; fill: #1f1418; stroke: #fff; stroke-width: 1.6; stroke-linejoin: round; filter: drop-shadow(0 2px 3px rgb(0 0 0 / .35)) }
+@keyframes cd-press { 0%, 10%, 13%, 36%, 39%, 54%, 57%, 82%, 85%, 100% { transform: scale(1) } 11.5%, 37.5%, 55.5%, 83.5% { transform: scale(.82) } }
+.cdemo-ripple { position: absolute; left: -14px; top: -14px; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #c2577a; opacity: 0; animation: cd-ripple var(--T) ease-out infinite }
+@keyframes cd-ripple {
+  0%, 11% { opacity: 0; transform: scale(.3) } 11.5% { opacity: .9; transform: scale(.4) } 15% { opacity: 0; transform: scale(1.8) }
+  37% { opacity: 0; transform: scale(.3) } 37.5% { opacity: .9; transform: scale(.4) } 41% { opacity: 0; transform: scale(1.8) }
+  55% { opacity: 0; transform: scale(.3) } 55.5% { opacity: .9; transform: scale(.4) } 59% { opacity: 0; transform: scale(1.8) }
+  83% { opacity: 0; transform: scale(.3) } 83.5% { opacity: .9; transform: scale(.4) } 87%, 100% { opacity: 0; transform: scale(1.8) }
+}
+
+/* "Added to cart": toast + a count on the real cart icon (76.2%, 9.2%) */
+.cdemo-toast { position: absolute; z-index: 3; right: 3%; top: 17%; display: flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 10px; background: #2b1a20; color: #fff; font: 600 10px var(--body); box-shadow: 0 8px 20px rgb(0 0 0 / .25); opacity: 0; animation: cd-toast var(--T) cubic-bezier(.22, 1, .36, 1) infinite }
+.cdemo-toast b { display: grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; background: #34d399; color: #08291c; font-size: 9px }
+@keyframes cd-toast { 0%, 56% { opacity: 0; transform: translateY(-8px) } 58%, 66% { opacity: 1; transform: none } 68%, 100% { opacity: 0; transform: translateY(-8px) } }
+.cdemo-badge { position: absolute; z-index: 3; left: calc(76.2% + 7px); top: calc(9.2% - 11px); display: grid; place-items: center; width: 13px; height: 13px; border-radius: 50%; background: #c2577a; color: #fff; font: 700 8px var(--body); box-shadow: 0 0 0 2px #fff; opacity: 0; animation: cd-badge var(--T) cubic-bezier(.34, 1.56, .64, 1) infinite }
+@keyframes cd-badge { 0%, 56% { opacity: 0; transform: scale(0) } 58%, 67% { opacity: 1; transform: none } 69%, 100% { opacity: 0; transform: scale(0) } }
+
+/* Step guide along the bottom */
+.cdemo-steps { position: absolute; z-index: 3; left: 2.5%; bottom: 3.5%; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgb(43 26 32 / .78); white-space: nowrap }
+.cdemo .cd-step { position: relative; isolation: isolate; display: flex; align-items: center; gap: 5px; padding: 4px 9px 4px 4px; border-radius: 999px; font: 600 9.5px var(--body); font-style: normal; color: rgb(255 255 255 / .85); opacity: 1; animation: none }
+.cd-step b { display: grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; background: rgb(255 255 255 / .18); color: #fff; font-size: 8.5px }
+/* The active step gets a pink highlight that fades in and out with its screen */
+.cd-step:before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: #c2577a; opacity: 0 }
+.cdemo .cd-step.cd-on0:before { animation: cd-on0 var(--T) linear infinite }
+.cdemo .cd-step.cd-on1:before { animation: cd-on1 var(--T) linear infinite }
+.cdemo .cd-step.cd-on2:before { animation: cd-on2 var(--T) linear infinite }
+.cdemo .cd-step.cd-on3:before { animation: cd-on3 var(--T) linear infinite }
+
+/* Address bar: host stays, the path changes with each screen */
+.cdemo-url { display: inline-flex; min-width: 0; white-space: nowrap; overflow: hidden }
+.cdemo-paths { position: relative; display: inline-block; min-width: 190px; height: 1.3em }
+.cdemo-paths i { position: absolute; left: 0; top: 0; font-style: normal; opacity: 0 }
+.cdemo-paths .cd-on0 { animation: cd-on0 18s linear infinite }
+.cdemo-paths .cd-on1 { animation: cd-on1 18s linear infinite }
+.cdemo-paths .cd-on2 { animation: cd-on2 18s linear infinite }
+.cdemo-paths .cd-on3 { animation: cd-on3 18s linear infinite }
+
+@media (max-width: 760px) { .cdemo-steps { display: none } .cdemo-paths { min-width: 0 } }
+@media (prefers-reduced-motion: reduce) {
+  .cdemo *, .cdemo-paths i { animation: none !important }
+  .cdemo-scene.cd-on0, .cdemo-paths .cd-on0 { opacity: 1 }
+  .cdemo-track, .cdemo-toast, .cdemo-badge { display: none }
+}
+
+/* ══ Project details pop-up ═════════════════════════════════════════
+   No backdrop blur (it would re-blur the page every frame); instead the page behind is frozen:
+   scrolling stops and its animations pause while the dialog is open. */
+.modal-open { overflow: hidden }
+.modal-open main *, .modal-open main *::before, .modal-open main *::after { animation-play-state: paused !important }
+.pm { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 3vh 3vw; background: rgb(6 6 8 / .66); animation: pm-fade .35s ease }
+html:not([data-theme="dark"]) .pm { background: rgb(12 45 66 / .55) }
+@keyframes pm-fade { from { opacity: 0 } }
+.pm-panel { position: relative; width: min(1180px, 100%); max-height: 94vh; overflow-y: auto; overscroll-behavior: contain; padding: 0 30px 30px; border-radius: 28px; border: 1px solid var(--border-strong); box-shadow: 0 40px 120px rgb(0 0 0 / .45);
+  background: radial-gradient(55% 35% at 92% 0%, rgb(255 255 255 / .05), transparent 70%), var(--bg); animation: pm-in .55s cubic-bezier(.22, 1, .36, 1) }
+html:not([data-theme="dark"]) .pm-panel { background: radial-gradient(55% 35% at 92% 0%, rgb(253 230 138 / .55), transparent 70%), radial-gradient(45% 30% at 0% 20%, rgb(125 211 252 / .25), transparent 70%), var(--bg) }
+@keyframes pm-in { from { opacity: 0; transform: translateY(40px) scale(.97) } }
+.pm-top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; margin: 0 -30px; padding: 16px 30px; border-bottom: 1px solid var(--border); background: var(--bg) }
+.pm-index { font: 500 13px var(--mono); color: var(--text-3) } .pm-index b { color: var(--accent-2) }
+.pm-nav { margin-left: auto; display: flex; gap: 8px }
+.pm-icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text); cursor: pointer; transition: background-color .25s, color .25s, transform .25s var(--ease) }
+.pm-icon-btn:hover { background: var(--text); color: var(--invert); transform: translateY(-2px) }
+.pm-close { background: var(--text); color: var(--invert) }
+html:not([data-theme="dark"]) .pm-close { background: var(--sea); border-color: var(--sea); color: #fff }
+
+.pm-hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 34px; align-items: center; padding: 30px 0 24px }
+.pm-intro h2 { margin: 8px 0 14px; font: 750 clamp(32px, 4vw, 52px)/1.03 var(--display); letter-spacing: -.04em; color: var(--text) }
+html:not([data-theme="dark"]) .pm-intro h2 { background: linear-gradient(110deg, var(--text) 45%, var(--sea)); -webkit-background-clip: text; background-clip: text; color: transparent }
+.pm-lede { margin: 0 0 18px; font-size: 17px; line-height: 1.7; color: var(--text-2) }
+.pm-live { margin-top: 20px }
+.pm-visual { position: relative; display: grid; place-items: center; min-height: 360px; padding: 28px 22px; border-radius: 22px; border: 1px solid var(--border); overflow: hidden; background: radial-gradient(70% 60% at 70% 20%, var(--surface-2), transparent 70%), var(--bg-2) }
+html:not([data-theme="dark"]) .pm-visual { background: radial-gradient(45% 45% at 80% 15%, rgb(253 230 138 / .85), transparent 70%), linear-gradient(170deg, #cdebf8, #eef7fb 55%, #f7ead6) }
+.pm-glow { position: absolute; inset: 20% 10%; border-radius: 50%; background: radial-gradient(circle, rgb(255 255 255 / .12), transparent 65%) }
+.pm-visual .device { transform: none !important; box-shadow: 0 30px 60px -24px rgb(0 0 0 / .5), 0 0 0 1px var(--border-strong) }
+.pm-visual .browser { width: 100% }
+.pm-visual .browser .device-screen:not(.cdemo) { height: 330px }
+
+.pm-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 0 }
+.pm-facts div { padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface-2) }
+.pm-facts dt { font: 600 10.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3) }
+.pm-facts dd { margin: 5px 0 0; font: 600 15px var(--body); color: var(--text) }
+.pm-block { padding-top: 32px }
+.pm-h { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; font: 700 22px var(--display); letter-spacing: -.02em }
+.pm-h:before { content: ""; width: 18px; height: 3px; border-radius: 2px; background: var(--accent-2) }
+.pm-features { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px }
+.pm-feature { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 18px; border: 1px solid var(--border); background: var(--surface-2); animation: tool-in .5s var(--ease) calc(var(--k) * 50ms + .2s) backwards }
+.pm-feature-no { font: 600 11px var(--mono); color: var(--accent-2) }
+.pm-feature b { font: 650 16px var(--display); letter-spacing: -.01em; color: var(--text) }
+.pm-feature p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--text-3) }
+.pm-flow { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none }
+.pm-flow li { display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); font: 600 14px var(--body); color: var(--text-2); animation: tool-in .45s var(--ease) calc(var(--k) * 70ms + .25s) backwards }
+.pm-flow li span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--text); color: var(--invert); font: 700 12px var(--mono) }
+html:not([data-theme="dark"]) .pm-flow li span { background: var(--sea); color: #fff }
+.pm-stack { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px }
+.pm-stack-group { padding: 16px; border-radius: 18px; border: 1px solid var(--border); background: var(--surface-2) }
+.pm-stack-label { font: 600 10.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3) }
+.pm-stack-items { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px }
+.pm-tool { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 5px; border-radius: 999px; border: 1px solid var(--border); background: var(--screen); font: 600 13.5px var(--body); color: var(--text) }
+.pm-tool-logo { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgb(0 0 0 / .12) }
+.pm-tool-logo svg { width: 15px; height: 15px; fill: var(--brand) }
+.pm-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--border) }
+.pm-step { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--surface-2); font: 600 14px var(--body); color: var(--text); cursor: pointer; transition: background-color .25s, color .25s }
+.pm-step:hover { background: var(--text); color: var(--invert) }
+
+/* Card actions: "View full details" + (when deployed) "Visit live site" */
+.showcase-card { cursor: pointer }
+.showcase-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px }
+.showcase-actions .showcase-more { margin-top: 0 }
+.showcase-details { padding: 9px 16px; border-radius: 999px; border: 1px solid var(--text); background: var(--text); color: var(--invert); font: 600 14px var(--body); cursor: pointer; transition: transform .3s var(--ease), box-shadow .3s }
+.showcase-details:hover { transform: translateY(-2px); box-shadow: var(--shadow) }
+html:not([data-theme="dark"]) .showcase-details { border: 0; background: var(--ocean); color: #fff }
+
+@media (max-width: 900px) {
+  .pm { padding: 0 }
+  .pm-panel { max-height: 100dvh; height: 100dvh; border-radius: 0; padding: 0 16px 24px }
+  .pm-top { margin: 0 -16px; padding: 12px 16px }
+  .pm-hero { grid-template-columns: 1fr; gap: 22px; padding-top: 22px }
+  .pm-visual { min-height: 0; padding: 18px 12px }
+  .pm-visual .browser .device-screen:not(.cdemo) { height: 220px }
+  .pm-foot .pm-step { flex: 1; justify-content: center }
+}
+@media (prefers-reduced-motion: reduce) { .pm, .pm-panel, .pm-feature, .pm-flow li { animation: none } }

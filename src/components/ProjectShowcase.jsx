@@ -1,4 +1,7 @@
-import { ArrowUpRight, Globe, Smartphone } from 'lucide-react'
+import { useCallback, useState } from 'react'
+import { ArrowUpRight, Globe, Maximize2, Smartphone } from 'lucide-react'
+import CrochetDemo, { CrochetUrl } from './CrochetDemo.jsx'
+import ProjectModal from './ProjectModal.jsx'
 
 // Animated, illustrative UI sketch for each project (not a real screenshot).
 function MockScreen({ variant }) {
@@ -72,25 +75,32 @@ function Device({ project }) {
   }
   return (
     <div className="device browser">
-      <div className="browser-bar"><span className="dots"><i /><i /><i /></span><span className="url">{project.url}</span></div>
-      <div className="device-screen">
-        <aside className="ui-side"><b>{project.symbol}</b>{[0, 1, 2, 3].map((i) => <i key={i} className={i === 0 ? 'on' : ''} />)}</aside>
-        <MockScreen variant={project.mock} />
-      </div>
-      <span className="ui-cursor" />
+      <div className="browser-bar"><span className="dots"><i /><i /><i /></span>{project.demo === 'crochet' ? <CrochetUrl /> : <span className="url">{project.live ? new URL(project.live).host : project.url}</span>}</div>
+      {project.demo === 'crochet' ? <CrochetDemo /> : (
+        <>
+          <div className="device-screen">
+            <aside className="ui-side"><b>{project.symbol}</b>{[0, 1, 2, 3].map((i) => <i key={i} className={i === 0 ? 'on' : ''} />)}</aside>
+            <MockScreen variant={project.mock} />
+          </div>
+          <span className="ui-cursor" />
+        </>
+      )}
     </div>
   )
 }
 
 // Sticky stacked project cards: each card pins, the next slides over it and the previous ones recede
-// (scale/brightness driven by --stack, set in effects.js).
+// (scale/brightness driven by --stack, set in effects.js). Clicking a card opens its full details.
 export default function ProjectShowcase({ projects }) {
   const total = projects.length
+  const [open, setOpen] = useState(null)
+  const close = useCallback(() => setOpen(null), [])
+  const step = useCallback((dir) => setOpen((i) => (i + dir + total) % total), [total])
   return (
     <div className="showcase" data-stack>
       {projects.map((project, i) => (
         <article className="showcase-item" key={project.number} style={{ '--i': i }}>
-          <div className="card showcase-card reveal">
+          <div className="card showcase-card reveal" onClick={(event) => { if (!event.target.closest('a, button')) setOpen(i) }}>
             <div className="showcase-copy">
               <div className="showcase-top">
                 <span className="showcase-index"><b>{String(i + 1).padStart(2, '0')}</b> / {String(total).padStart(2, '0')}</span>
@@ -100,7 +110,10 @@ export default function ProjectShowcase({ projects }) {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               <div className="chip-row">{project.tags.map((tag) => <span className="chip" key={tag}>{tag}</span>)}</div>
-              <span className="showcase-more">Project highlight <ArrowUpRight size={16} /></span>
+              <div className="showcase-actions">
+                <button type="button" className="showcase-more showcase-details" onClick={() => setOpen(i)}><Maximize2 size={15} /> View full details</button>
+                {project.live && <a className="showcase-more showcase-live" href={project.live} target="_blank" rel="noopener noreferrer"><span className="live-dot" /> Visit live site <ArrowUpRight size={16} /></a>}
+              </div>
             </div>
             <div className="showcase-visual" aria-hidden="true">
               <span className="showcase-glow" />
@@ -110,6 +123,10 @@ export default function ProjectShowcase({ projects }) {
           </div>
         </article>
       ))}
+      {open !== null && (
+        <ProjectModal project={projects[open]} index={open} total={total} onClose={close} onStep={step}
+          visual={<Device project={projects[open]} />} />
+      )}
     </div>
   )
 }

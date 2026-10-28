@@ -19,15 +19,36 @@ import { initEffects } from './lib/effects.js'
 import Preloader from './components/Preloader.jsx'
 import HeroField from './components/HeroField.jsx'
 import SplitText, { ScrubText } from './components/SplitText.jsx'
-import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin } from 'simple-icons'
+import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa } from 'simple-icons'
 
 const projects = [
   { platform: 'web', number: 1, mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
   { platform: 'web', number: 2, mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'Keeps research papers, defense schedules, files, and publications in one place, so nothing gets lost along the way.', tags: ['Research', 'Scheduling', 'Data organization'] },
   { platform: 'web', number: 3, mock: 'booking', url: 'Mechanic · Book a service', title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'Customers pick a repair and book a time, and the shop keeps its mechanics’ schedules organized.', tags: ['Booking', 'Scheduling', 'Services'] },
-  { platform: 'web', number: 4, mock: 'shop', url: 'Crochet · Shop', title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop where people can browse handmade crochet, place orders, and ask for custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
+  { platform: 'web', number: 4, mock: 'shop', url: 'Crochet · Shop', live: 'https://jeny-crochet.onrender.com/home', demo: 'crochet', details: {
+      overview: 'Jeny Crochet Co. is a live online shop for handmade crochet. Customers browse more than 240 pieces across 12 collections, save favourites, order with cash on delivery, and can request a custom piece in their own colours and size.',
+      facts: [['Catalogue', '242+ pieces · 12 collections'], ['Payment', 'Cash on delivery'], ['Hosting', 'Render + Cloudflare']],
+      features: [
+        ['Shop the collection', 'Browse every piece by collection, search by name, and sort to find something quickly.'],
+        ['Product pages', 'Each piece has photos, price, stock status and a description of how it is made and what it is made from.'],
+        ['Cart and wishlist', 'Save favourites for later or add pieces to the cart and change quantities.'],
+        ['Cash on delivery', 'Customers pay when the order arrives, and can follow the delivery step by step.'],
+        ['Custom orders', 'A request form for one-of-a-kind pieces, with making time and reply time shown up front.'],
+        ['Accounts', 'Sign up with email or continue with Google, with a forgot-password option.'],
+        ['Reviews', 'Pieces show star ratings and customer reviews.'],
+        ['Install as an app', 'The site can be added to a phone home screen and opened like an app.'],
+      ],
+      flow: ['Browse the collection', 'Open a piece', 'Add it to the cart', 'Check out with cash on delivery', 'Follow the delivery', 'Or request a custom piece'],
+      stack: [
+        ['Backend', [['Laravel', siLaravel], ['PHP', siPhp]]],
+        ['Frontend', [['HTML', siHtml5], ['CSS', siCss], ['JavaScript', siJavascript], ['Vite', siVite], ['Font Awesome', siFontawesome]]],
+        ['Sign-in', [['Google sign-in', siGoogle]]],
+        ['App features', [['Installable web app (PWA)', siPwa]]],
+        ['Hosting', [['Render', siRender], ['Apache', siApache], ['Cloudflare', siCloudflare]]],
+      ],
+    }, title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop where people can browse handmade crochet, place orders, and ask for custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
   { platform: 'web', number: 5, mock: 'scan', url: 'Gym · Check-in', title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'Members check in and out with their own ID, and the gym keeps track of attendance and memberships.', tags: ['Attendance', 'Membership', 'Member ID'] },
-  { platform: 'mobile', number: 6, mock: 'habit', url: '', title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
+  { platform: 'mobile', number: 6, mock: 'habit', url: '', details: { stack: [['Mobile app', [['Flutter', siFlutter], ['Dart', siDart]]]] }, title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
   { platform: 'mobile', number: 7, mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals and symptoms that helps spot what might be causing flare-ups over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
 ]
 

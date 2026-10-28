@@ -24,6 +24,13 @@ export function initSmoothScroll() {
   }
 }
 
+// Freeze/unfreeze page scrolling (e.g. while a dialog is open); native scrolling inside the dialog still works
+export function setSmoothScrollPaused(paused) {
+  if (!lenis) return
+  if (paused) lenis.stop()
+  else lenis.start()
+}
+
 // Smoothly scroll to a section by id (falls back to native scrolling without Lenis)
 export function scrollToSection(id) {
   const target = document.getElementById(id)
