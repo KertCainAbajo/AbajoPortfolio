@@ -2090,7 +2090,7 @@ html:not([data-theme="dark"]) .ti-main h3 { background: linear-gradient(110deg, 
 .ti-side .showcase-actions { margin-top: 2px }
 
 /* Strip: every project, one click away */
-.theater-strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px }
+.theater-strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px }
 .strip-item { position: relative; display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 12px 14px 14px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); text-align: left; font: inherit; color: inherit; cursor: pointer; overflow: hidden; transition: border-color .3s, background-color .3s, transform .3s var(--ease) }
 .strip-item:after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--pc); transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.22, 1, .36, 1) }
 .strip-item:hover { transform: translateY(-2px); border-color: var(--border-strong) }
@@ -2115,3 +2115,40 @@ html:not([data-theme="dark"]) .ti-main h3 { background: linear-gradient(110deg, 
   .theater-info { padding: 20px }
 }
 @media (prefers-reduced-motion: reduce) { .slide, .theater-info > * { transition: none; animation: none } }
+/* Tools without a brand logo get even padding on both sides */
+.pm-tool:not(:has(.pm-tool-logo)) { padding-left: 12px }
+
+/* ══ Unified SmartPOS shop walkthrough (real screenshots, one shared 16s timeline) ══
+   Reuses the crochet demo's pointer, ripple and step-guide styles with its own keyframes.
+   Windows: store 0–20%, added 22–42%, delivery 44–62%, search 64–95%.
+   Pointer stops (% of 1440×900): "Add AA Batteries" (28.8, 71.8) · "Delivery" (91.3, 59.3) ·
+   search box (41, 3.8) · first result (25, 61.7). */
+.browser .device-screen.pdemo { --T: 16s; position: relative; display: block; height: auto; aspect-ratio: 16 / 10; overflow: hidden; background: #f6faf7 }
+.pdemo .pd-on0 { animation: md-on0 var(--T) linear infinite }
+.pdemo .pd-on1 { animation: md-on1 var(--T) linear infinite }
+.pdemo .pd-on2 { animation: md-on2 var(--T) linear infinite }
+.pdemo .pd-on3 { animation: md-on3 var(--T) linear infinite }
+.pdemo .pd-track { animation-name: pd-move }
+@keyframes pd-move {
+  0% { transform: translate(55%, 85%) }
+  9%, 21% { transform: translate(28.8%, 71.8%) }
+  32%, 43% { transform: translate(91.3%, 59.3%) }
+  53%, 63% { transform: translate(41%, 3.8%) }
+  76%, 94% { transform: translate(25%, 61.7%) }
+  100% { transform: translate(55%, 85%) }
+}
+.pdemo .pd-pointer { animation-name: md-press }
+.pdemo .pd-pointer svg { fill: #0f2a1d; stroke: #fff }
+.pdemo .pd-ripple { border-color: #16a34a; animation-name: md-ripple }
+.pdemo .pd-steps { background: rgb(6 30 18 / .82) }
+.pdemo .cd-step { position: relative; isolation: isolate; display: flex; align-items: center; gap: 5px; padding: 4px 9px 4px 4px; border-radius: 999px; font: 600 9.5px var(--body); font-style: normal; color: rgb(255 255 255 / .85) }
+.pdemo .cd-step:before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: #16a34a; opacity: 0 }
+.pdemo .pd-step0:before { animation: md-on0 var(--T) linear infinite }
+.pdemo .pd-step1:before { animation: md-on1 var(--T) linear infinite }
+.pdemo .pd-step2:before { animation: md-on2 var(--T) linear infinite }
+.pdemo .pd-step3:before { animation: md-on3 var(--T) linear infinite }
+@media (prefers-reduced-motion: reduce) {
+  .pdemo * { animation: none !important }
+  .pdemo .cdemo-scene.pd-on0 { opacity: 1 }
+  .pdemo .pd-track { display: none }
+}

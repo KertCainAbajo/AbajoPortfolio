@@ -19,7 +19,7 @@ import { initEffects } from './lib/effects.js'
 import Preloader from './components/Preloader.jsx'
 import HeroField from './components/HeroField.jsx'
 import SplitText, { ScrubText } from './components/SplitText.jsx'
-import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa, siReactrouter, siNodedotjs, siExpress, siLivewire, siAlpinedotjs, siTailwindcss, siNginx } from 'simple-icons'
+import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa, siReactrouter, siNodedotjs, siExpress, siLivewire, siTailwindcss, siNginx, siPostgresql, siSupabase, siDocker, siChartdotjs, siBrevo, siAxios, siReactquery, siLeaflet, siCapacitor, siResend, siVitest, siTestinglibrary, siVercel, siOpenapiinitiative } from 'simple-icons'
 
 // Order on the page: the three live projects first, then the rest
 const projects = [
@@ -39,30 +39,58 @@ const projects = [
       flow: ['Browse the collection', 'Open a piece', 'Add it to the cart', 'Check out with cash on delivery', 'Follow the delivery', 'Or request a custom piece'],
       stack: [
         ['Backend', [['Laravel', siLaravel], ['PHP', siPhp]]],
-        ['Frontend', [['HTML', siHtml5], ['CSS', siCss], ['JavaScript', siJavascript], ['Vite', siVite], ['Font Awesome', siFontawesome]]],
+        ['Frontend', [['Tailwind CSS', siTailwindcss], ['Vite', siVite], ['Axios', siAxios], ['Font Awesome', siFontawesome], ['Lenis (smooth scrolling)']]],
         ['Sign-in', [['Google sign-in', siGoogle]]],
         ['App features', [['Installable web app (PWA)', siPwa]]],
         ['Hosting', [['Render', siRender], ['Apache', siApache], ['Cloudflare', siCloudflare]]],
       ],
     }, title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop where people can browse handmade crochet, place orders, and ask for custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
+  { platform: 'web', number: 8, accent: '#059669', mock: 'shop', url: 'SmartPOS · Shop', live: 'https://alingnena-minimart.vercel.app/shop/aling-nena-mini-mart', demo: 'pos', details: {
+      overview: 'Unified SmartPOS is a multi-tenant point-of-sale system for Philippine businesses, shown here with the demo store Aling Nena Mini Mart. One Laravel API and one database serve the staff web app, the customer online shop and an Android app: staff run the till, stock and reports, while customers order online for pickup or delivery and pay in cash.',
+      facts: [['Demo store', 'Aling Nena Mini Mart · 3 branches'], ['Catalogue', '200 products · 10 categories'], ['API', '87 documented endpoints'], ['Hosting', 'Vercel + Supabase']],
+      features: [
+        ['Online shop', 'Customers browse the catalogue, search, save favourites and fill a basket, then choose pickup at a branch or delivery, and pay in cash.'],
+        ['Online orders for staff', 'New orders appear in the staff app to confirm and prepare; pickup is completed at the till.'],
+        ['POS checkout', 'Shifts with opening float and Z reading, barcode or SKU search, senior citizen and PWD discounts, VAT, split payments, receipts, voids and refunds.'],
+        ['Inventory', 'Stock per branch with a full history, adjustments, stock counts, transfers between branches and low-stock alerts.'],
+        ['Purchasing', 'Suppliers, purchase orders and receiving, with protection against receiving more than was ordered.'],
+        ['Reports and audit log', 'Daily and monthly sales, by branch, cashier and payment method, best sellers, profit, and an audit log.'],
+        ['Staff and roles', 'Owner, manager, cashier, inventory and custom roles with branch-level access; staff sign in with a business code and username.'],
+        ['Hiring', 'A public careers page, online applications and a full interview-to-onboarding pipeline.'],
+      ],
+      flow: ['Customer fills a basket online', 'Chooses pickup or delivery', 'Staff confirm and prepare the order', 'Cashier completes it at the POS', 'Stock and sales reports update'],
+      stack: [
+        ['Backend', [['Laravel 13', siLaravel], ['PHP 8.3', siPhp], ['Laravel Sanctum'], ['REST API (OpenAPI docs)', siOpenapiinitiative]]],
+        ['Web app', [['React 19', siReact], ['TypeScript', siTypescript], ['React Router', siReactrouter], ['TanStack Query', siReactquery], ['Tailwind CSS 4', siTailwindcss], ['Vite', siVite], ['Leaflet maps', siLeaflet]]],
+        ['Mobile app', [['Capacitor (Android app)', siCapacitor]]],
+        ['Database & storage', [['PostgreSQL', siPostgresql], ['Supabase (database + file storage)', siSupabase], ['MySQL (development)', siMysql]]],
+        ['Email', [['Resend', siResend], ['Brevo', siBrevo]]],
+        ['Testing', [['PHPUnit'], ['Vitest', siVitest], ['Testing Library', siTestinglibrary], ['Playwright']]],
+        ['Hosting', [['Vercel', siVercel], ['Docker', siDocker]]],
+      ],
+    }, title: 'Unified SmartPOS', category: 'Point of sale & online shop', symbol: 'POS', description: 'A point-of-sale system with an online shop. Staff run sales, stock and reports, and customers order online for pickup or delivery.', tags: ['Point of sale', 'Inventory', 'Online orders'] },
   { platform: 'web', number: 3, accent: '#16a34a', mock: 'booking', url: 'Mechanic · Book a service', live: 'https://dexter-auto.onrender.com/login', demo: 'mechanic', details: {
       overview: 'Dexter Auto Services is a live booking system for an auto repair shop. Customers sign in to book a service, follow their repair step by step, and see the price before any work begins.',
-      facts: [['Shop hours', 'Mon–Sat · 8AM–6PM'], ['Sign-in', 'Email or Google'], ['Hosting', 'Render + Cloudflare']],
+      facts: [['Shop hours', 'Mon–Sat · 8AM–6PM'], ['Sign-in', 'Email, Google, optional 2FA'], ['Database', 'PostgreSQL (Supabase)'], ['Hosting', 'Docker on Render']],
       features: [
         ['Online booking', 'Customers book a service online and pick their time.'],
         ['Live repair tracking', 'Customers can follow every step of their repair.'],
         ['Upfront prices', 'The price is shown before any work begins, so there are no bill surprises.'],
         ['Accounts', 'Create an account with name, email and password, or sign up with Google, and stay signed in.'],
+        ['Two-step login', 'Customers can protect their account with a second sign-in step (2FA).'],
         ['Password reset', 'A reset link is emailed when a customer forgets their password.'],
         ['Call the shop', 'Customers who prefer to talk can call the shop straight from the sign-in page.'],
         ['Shop policies', 'Privacy, terms, cookie and refund policies are linked on every page.'],
       ],
       flow: ['Create an account or sign in', 'Book a service and pick a time', 'See the price before work begins', 'Follow the repair step by step'],
       stack: [
-        ['Backend', [['Laravel', siLaravel], ['PHP', siPhp]]],
-        ['Frontend', [['Livewire', siLivewire], ['Alpine.js', siAlpinedotjs], ['Tailwind CSS', siTailwindcss], ['Vite', siVite]]],
-        ['Sign-in', [['Google sign-in', siGoogle]]],
-        ['Hosting', [['Render', siRender], ['nginx', siNginx], ['Cloudflare', siCloudflare]]],
+        ['Backend', [['Laravel 12', siLaravel], ['PHP 8.2', siPhp], ['Laravel Sanctum'], ['Laravel Breeze']]],
+        ['Frontend', [['Livewire 3 + Volt', siLivewire], ['Tailwind CSS', siTailwindcss], ['Vite', siVite], ['Chart.js', siChartdotjs], ['Lenis (smooth scrolling)']]],
+        ['Database', [['PostgreSQL', siPostgresql], ['Supabase', siSupabase]]],
+        ['Sign-in & security', [['Google sign-in (Socialite)', siGoogle], ['Two-factor login (2FA)'], ['Roles & permissions (Spatie)']]],
+        ['Email & notifications', [['Brevo email', siBrevo], ['Web push notifications']]],
+        ['Extras', [['PDF generation (dompdf)'], ['QR codes'], ['Laravel Pulse monitoring']]],
+        ['Hosting', [['Docker', siDocker], ['Render', siRender], ['nginx', siNginx], ['Cloudflare', siCloudflare]]],
       ],
     }, title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'Customers pick a repair and book a time, and the shop keeps its mechanics’ schedules organized.', tags: ['Booking', 'Scheduling', 'Services'] },
   { platform: 'web', number: 5, accent: '#dc2626', mock: 'scan', url: 'Gym · Check-in', live: 'https://ironclad-web.onrender.com/login', demo: 'gym', details: {
@@ -89,7 +117,25 @@ const projects = [
   { platform: 'web', number: 1, accent: '#0ea5e9', mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
   { platform: 'web', number: 2, accent: '#6366f1', mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'Keeps research papers, defense schedules, files, and publications in one place, so nothing gets lost along the way.', tags: ['Research', 'Scheduling', 'Data organization'] },
   { platform: 'mobile', number: 6, accent: '#10b981', mock: 'habit', url: '', details: { stack: [['Mobile app', [['Flutter', siFlutter], ['Dart', siDart]]]] }, title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
-  { platform: 'mobile', number: 7, accent: '#f59e0b', mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals and symptoms that helps spot what might be causing flare-ups over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
+  { platform: 'mobile', number: 7, accent: '#f59e0b', details: {
+      overview: 'A Laravel REST API with a web portal where patients log their meals, symptoms, sleep and stress, then see insights, likely triggers and recommendations over time. Admins manage users and food categories and review analytics.',
+      facts: [['Users', 'Patients · Admins'], ['Tracks', 'Food · symptoms · sleep & stress'], ['Database', 'MySQL']],
+      features: [
+        ['Quick daily logging', 'Patients log food, symptoms, and sleep and stress straight from their dashboard.'],
+        ['Insights and triggers', 'An insight service summarises the logs and lists likely triggers.'],
+        ['Recommendations', 'Personal recommendations based on what the patient has logged.'],
+        ['Timeline and history', 'A timeline of past entries, with history filtered by date range.'],
+        ['Accounts', 'Register or sign in with email or Google; API clients sign in with secure tokens.'],
+        ['Admin tools', 'User management, analytics, activity logs and food-category management.'],
+      ],
+      flow: ['Sign up or sign in with Google', 'Log meals, symptoms and sleep', 'Review the timeline and history', 'See insights and likely triggers', 'Follow the recommendations'],
+      stack: [
+        ['Backend', [['Laravel 13', siLaravel], ['PHP 8.3', siPhp], ['Laravel Sanctum'], ['REST API']]],
+        ['Frontend', [['Blade templates'], ['Tailwind CSS 4', siTailwindcss], ['Vite', siVite], ['Lenis (smooth scrolling)']]],
+        ['Database', [['MySQL', siMysql]]],
+        ['Sign-in', [['Google sign-in (Socialite)', siGoogle]]],
+      ],
+    }, mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals and symptoms that helps spot what might be causing flare-ups over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
 ]
 
 const skills = [
@@ -117,7 +163,7 @@ const leadership = [
   { years: '2024 — 2025', role: 'Officer · Auditor', org: 'College of Computer Studies', mark: 'CCS' },
   { years: '2023 — 2024', role: 'Officer · Legislative', org: 'Society of Information Technology Education Students', mark: 'SITES' },
 ]
-const stats = [['07', 'Projects built'], ['16', 'Tools & technologies'], ['02', 'Leadership roles']]
+const stats = [['08', 'Projects built'], ['16', 'Tools & technologies'], ['02', 'Leadership roles']]
 const statement = ['Web development', 'Mobile apps', 'System design', 'Clean design', 'Problem solving']
 const floaters = [{ tech: siReact, label: 'React', cls: 'float-a', depth: 30 }, { tech: siFlutter, label: 'Flutter', cls: 'float-b', depth: -40 }, { tech: siLaravel, label: 'Laravel', cls: 'float-c', depth: 24 }]
 
@@ -227,7 +273,7 @@ function App() {
           <Leadership items={leadership} />
         </Section>
 
-        <Section id="projects" number="05" title="Selected projects" eyebrow="Work" description="Five web apps and two mobile apps I built from 2023 to 2026, each one for a real need." className="projects-section">
+        <Section id="projects" number="05" title="Selected projects" eyebrow="Work" description="Six web apps and two mobile apps I built from 2023 to 2026, each one for a real need." className="projects-section">
           <ProjectShowcase projects={projects} />
         </Section>
 

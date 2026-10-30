@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Globe, Maximize2, MousePoin
 import CrochetDemo, { CrochetUrl } from './CrochetDemo.jsx'
 import GymDemo from './GymDemo.jsx'
 import MechanicDemo, { MechanicUrl } from './MechanicDemo.jsx'
+import PosDemo from './PosDemo.jsx'
 import ProjectModal from './ProjectModal.jsx'
 import { scrollToY } from '../lib/smoothScroll.js'
 
@@ -79,7 +80,7 @@ function Device({ project }) {
   return (
     <div className="device browser">
       <div className="browser-bar"><span className="dots"><i /><i /><i /></span>{project.demo === 'crochet' ? <CrochetUrl /> : project.demo === 'mechanic' ? <MechanicUrl /> : <span className="url">{project.live ? new URL(project.live).host : project.url}</span>}</div>
-      {project.demo === 'crochet' ? <CrochetDemo /> : project.demo === 'gym' ? <GymDemo /> : project.demo === 'mechanic' ? <MechanicDemo /> : (
+      {project.demo === 'crochet' ? <CrochetDemo /> : project.demo === 'gym' ? <GymDemo /> : project.demo === 'mechanic' ? <MechanicDemo /> : project.demo === 'pos' ? <PosDemo /> : (
         <>
           <div className="device-screen">
             <aside className="ui-side"><b>{project.symbol}</b>{[0, 1, 2, 3].map((i) => <i key={i} className={i === 0 ? 'on' : ''} />)}</aside>
