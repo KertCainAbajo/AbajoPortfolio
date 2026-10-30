@@ -669,8 +669,6 @@ html.sidebar-collapsed { --side: 88px }
 .footer-mark .split-char:hover { color: var(--text); -webkit-text-stroke-color: var(--text); transform: translateY(-10%) rotate(-4deg) }
 .reveal-ready .footer-mark.reveal.is-visible { animation: none }
 
-@media (max-width: 1100px) {
-}
 @media (max-width: 760px) {
   .footer-mark { font-size: calc((100vw - 32px) * .128) }
 }
@@ -1007,40 +1005,20 @@ html:not([data-theme="dark"]) .chip-logo svg { fill: var(--brand) }
 .chip-logo:hover svg { transform: scale(1.2) rotate(-8deg) }
 @media (prefers-reduced-motion: reduce) { .section-shell:after, .contact-section:after { display: none } }
 
-/* ══ Projects: sticky stacked showcase ══════════════════════════════ */
 :root { --accent: var(--text); --accent-2: var(--text-3); --screen: #0d0d10; --screen-2: #18181c; --screen-line: rgb(255 255 255 / .08) }
 html:not([data-theme="dark"]) { --accent: var(--sea); --accent-2: var(--sun); --screen: #ffffff; --screen-2: #eef6fb; --screen-line: rgb(2 132 199 / .1) }
 
-.showcase { display: flex; flex-direction: column; gap: 28px; padding-bottom: 40px }
-.showcase-item { --stack: 0; position: sticky; top: calc(48px + var(--i) * 14px) }
-.showcase-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); min-height: min(560px, 74vh); transform-origin: 50% 0; transform: scale(calc(1 - var(--stack) * .07)); filter: brightness(calc(1 - var(--stack) * .35)); transition: transform .12s linear, filter .12s linear, border-color .3s; will-change: transform }
-html:not([data-theme="dark"]) .showcase-card { filter: brightness(calc(1 - var(--stack) * .12)) saturate(calc(1 - var(--stack) * .4)) }
-.showcase-card:after { display: none }
-:root[data-theme="dark"] .showcase-card { background: linear-gradient(150deg, #151518, #0e0e11) }
 
-.showcase-copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 14px; padding: clamp(26px, 3.4vw, 46px) }
-.showcase-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: auto; padding-bottom: 26px }
 .showcase-index { font: 500 13px var(--mono); color: var(--text-3) }
 .showcase-index b { font-weight: 600; color: var(--accent) }
 .showcase-badge { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--border-strong); font-size: 12px; font-weight: 600; color: var(--text-2) }
-.showcase-copy h3 { margin: 0; font: 650 clamp(30px, 3.4vw, 50px)/1.02 var(--display); letter-spacing: -.045em }
-html:not([data-theme="dark"]) .showcase-copy h3 { background: linear-gradient(110deg, var(--text) 40%, var(--sea)); -webkit-background-clip: text; background-clip: text; color: transparent }
-.showcase-copy p { margin: 0; max-width: 46ch; font-size: 16px; line-height: 1.7; color: var(--text-3) }
 .showcase-more { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--accent) }
 .showcase-more svg { transition: transform .35s var(--ease) }
-.showcase-card:hover .showcase-more svg { transform: translate(3px, -3px) }
 
 /* Visual side */
-.showcase-visual { position: relative; display: grid; place-items: center; margin: 10px; border-radius: calc(var(--radius) - 6px); overflow: hidden; perspective: 1200px; background: radial-gradient(70% 60% at 70% 20%, var(--surface-2), transparent 70%), var(--bg-2); border: 1px solid var(--border) }
-html:not([data-theme="dark"]) .showcase-visual { background: radial-gradient(45% 45% at 80% 15%, rgb(253 230 138 / .85), transparent 70%), linear-gradient(170deg, #cdebf8, #eef7fb 55%, #f7ead6) }
-.showcase-visual:before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000, transparent 75%); mask-image: radial-gradient(circle at 50% 50%, #000, transparent 75%) }
-.showcase-glow { position: absolute; width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--glow), transparent 70%); transform: translateY(10%) }
-html:not([data-theme="dark"]) .showcase-glow { background: radial-gradient(circle, rgb(56 189 248 / .35), transparent 70%) }
-.showcase-number { position: absolute; right: 16px; bottom: -28px; font: 800 clamp(120px, 14vw, 200px)/1 var(--display); letter-spacing: -.07em; color: transparent; -webkit-text-stroke: 1.5px var(--border-strong); pointer-events: none }
 
 /* Devices */
 .device { position: relative; z-index: 1; transform: rotateY(-14deg) rotateX(8deg) rotateZ(1deg); transform-style: preserve-3d; transition: transform .8s var(--ease); box-shadow: 0 40px 70px -30px rgb(0 0 0 / .55), 0 0 0 1px var(--border-strong) }
-.showcase-card:hover .device { transform: rotateY(-4deg) rotateX(3deg) translateY(-8px) }
 .browser { width: 86%; border-radius: 14px; background: var(--screen-2); overflow: hidden }
 .browser-bar { display: flex; align-items: center; gap: 12px; height: 32px; padding: 0 12px; background: var(--screen-2); border-bottom: 1px solid var(--screen-line) }
 .dots { display: flex; gap: 5px }
@@ -1131,23 +1109,14 @@ html:not([data-theme="dark"]) .ui-bars span { background: linear-gradient(var(--
 html:not([data-theme="dark"]) .ui-cursor { background: var(--sun) }
 @keyframes ui-wander { 0%, 100% { translate: 0 0 } 25% { translate: -80px -60px } 50% { translate: 40px -100px } 75% { translate: -30px 30px } }
 
-@media (max-width: 1100px) {
-  .showcase-card { grid-template-columns: 1fr }
-  .showcase-visual { min-height: 360px; order: -1 }
-}
 @media (max-width: 760px) {
-  .showcase-item { position: relative; top: 0 }
-  .showcase-card { transform: none; filter: none; min-height: 0 }
-  .showcase-visual { min-height: 300px }
   .browser .device-screen { height: 220px }
   .phone { width: 170px; height: 330px }
   .device { transform: rotateY(-8deg) rotateX(5deg) }
 }
 @media (prefers-reduced-motion: reduce) {
-  .showcase-item { position: relative; top: 0 }
   .ui-cursor { display: none }
 }
-html:not([data-theme="dark"]) .showcase-card { background: linear-gradient(160deg, #ffffff, #fdf8f0) }
 
 /* ══ Toolkit: tech universe ═════════════════════════════════════════ */
 .toolkit { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 64px); align-items: center }
@@ -1561,7 +1530,6 @@ body, main { overflow-x: clip }
 :root { --cursor: #fafafa; --cursor-edge: rgb(0 0 0 / .45); --cursor-fill: rgb(130 130 140 / .28) }
 html:not([data-theme="dark"]) { --cursor: #0b3a52; --cursor-edge: rgb(255 255 255 / .6); --cursor-fill: rgb(14 116 144 / .18) }
 html:not([data-theme="dark"]) body:after { mix-blend-mode: normal; opacity: .035 }
-.showcase-item[data-covered] *, .showcase-item[data-covered] *:before, .showcase-item[data-covered] *:after { animation-play-state: paused !important }
 
 /* Theme switch: the circular reveal already shows the change, so the hover colour transitions on
    cards, chips and links are switched off for that moment (otherwise ~500 of them animate on the
@@ -1918,7 +1886,6 @@ html:not([data-theme="dark"]) .pm-flow li span { background: var(--sea); color: 
 .pm-step:hover { background: var(--text); color: var(--invert) }
 
 /* Card actions: "View full details" + (when deployed) "Visit live site" */
-.showcase-card { cursor: pointer }
 .showcase-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px }
 .showcase-actions .showcase-more { margin-top: 0 }
 .showcase-details { padding: 9px 16px; border-radius: 999px; border: 1px solid var(--text); background: var(--text); color: var(--invert); font: 600 14px var(--body); cursor: pointer; transition: transform .3s var(--ease), box-shadow .3s }
@@ -1938,48 +1905,13 @@ html:not([data-theme="dark"]) .showcase-details { border: 0; background: var(--o
 
 /* ══ Project dock: jump between the stacked projects ═════════════════
    Fixed to the bottom of the content area (beside the sidebar); slides in while the stack is on screen. */
-.pdock-wrap { position: fixed; z-index: 60; left: var(--side, 0px); right: 0; bottom: 22px; display: flex; justify-content: center; pointer-events: none; opacity: 0; transform: translateY(24px); transition: opacity .4s ease, transform .5s cubic-bezier(.22, 1, .36, 1) }
-.pdock-wrap[data-show] { opacity: 1; transform: none }
-.pdock-wrap[data-show] .pdock { pointer-events: auto }
-.modal-open .pdock-wrap { opacity: 0; transform: translateY(24px) }
-.pdock { display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 999px; border: 1px solid var(--border-strong); background: color-mix(in srgb, var(--surface-solid) 92%, transparent); box-shadow: 0 18px 40px -12px rgb(0 0 0 / .35) }
-.pdock-dots { display: flex; gap: 3px }
-.pdock-dot { position: relative; width: 36px; height: 34px; border-radius: 999px; border: 0; background: transparent; font: 600 12px var(--mono); color: var(--text-3); cursor: pointer; transition: background-color .25s, color .25s, transform .25s var(--ease) }
-.pdock-dot:hover { color: var(--text); transform: translateY(-2px) }
-.pdock-dot[data-on] { background: var(--text); color: var(--invert) }
-html:not([data-theme="dark"]) .pdock-dot[data-on] { background: var(--sea); color: #fff }
-.pdock-tip { position: absolute; left: 50%; bottom: calc(100% + 12px); translate: -50% 6px; padding: 6px 10px; border-radius: 9px; background: var(--text); color: var(--invert); font: 600 12px var(--body); font-style: normal; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s, translate .25s var(--ease) }
-.pdock-dot:hover .pdock-tip, .pdock-dot:focus-visible .pdock-tip { opacity: 1; translate: -50% 0 }
-.pdock-now { display: flex; align-items: center; gap: 8px; max-width: 230px; padding: 0 10px 0 12px; border-left: 1px solid var(--border); font: 600 13px var(--body); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
-.pdock-now b { font: 700 12px var(--mono); color: var(--accent-2) }
-.pdock-arrow { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; transition: background-color .25s, color .25s, opacity .25s }
-.pdock-arrow:hover:not(:disabled) { background: var(--text); color: var(--invert) }
-.pdock-arrow:disabled { opacity: .35; cursor: default }
-@media (max-width: 760px) {
-  .pdock-wrap { left: 0; bottom: 14px; padding: 0 10px }
-  .pdock-now { display: none }
-  .pdock-dot { width: 30px }
-}
-@media (prefers-reduced-motion: reduce) { .pdock-wrap { transition: none } }
 
 /* ══ Drag a project card to switch project ══════════════════════════
    While held the card follows the pointer (translate/rotate set inline); on release it springs back.
    A label says what letting go will do. */
 /* Picked up: lifts slightly (scale only; animating its large shadow would repaint the card every frame);
    let go: glides back over .7s */
-.showcase-card { transition: transform .12s linear, filter .12s linear, border-color .3s, translate .7s cubic-bezier(.22, 1, .36, 1), rotate .7s cubic-bezier(.22, 1, .36, 1), scale .45s cubic-bezier(.22, 1, .36, 1) }
-.showcase-card[data-dragging] { transition: transform .12s linear, filter .12s linear, border-color .3s, scale .35s cubic-bezier(.22, 1, .36, 1); scale: 1.015 }
-.showcase-drag { position: absolute; z-index: 6; left: 50%; top: 18px; translate: -50% -8px; padding: 8px 14px; border-radius: 999px; background: var(--text); color: var(--invert); font: 600 13px var(--body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s, translate .3s var(--ease) }
-html:not([data-theme="dark"]) .showcase-drag { background: var(--sea); color: #fff }
-.showcase-card[data-dragging] .showcase-drag { opacity: 1; translate: -50% 0 }
-.showcase-card[data-dir="hold"] .showcase-drag:before { content: "Pull further to switch project" }
-.showcase-card[data-dir="next"] .showcase-drag:before { content: "Let go for the next project →" }
-.showcase-card[data-dir="prev"] .showcase-drag:before { content: "←  Let go for the previous project" }
 /* Dock scrubbing: press on the numbers and slide */
-.pdock-dots { touch-action: none; cursor: grab }
-.pdock-dots[data-scrubbing] .pdock-dot { transition: background-color .12s, color .12s }
-.pdock-dots[data-scrubbing] .pdock-dot[data-on] .pdock-tip { opacity: 1; translate: -50% 0 }
-.pdock-dots[data-scrubbing] .pdock-dot:hover:not([data-on]) .pdock-tip { opacity: 0 }
 
 /* ══ Ironclad gym login tour (real screenshot, one shared 16s timeline) ══
    transform = translate(t) scale(s) around the centre; t brings the focus point to the middle and is
@@ -2004,3 +1936,182 @@ html:not([data-theme="dark"]) .showcase-drag { background: var(--sea); color: #f
 @keyframes gd-cap1 { 0%, 49% { opacity: 0; transform: translateY(6px) } 52%, 64% { opacity: 1; transform: none } 67%, 100% { opacity: 0; transform: translateY(-6px) } }
 @keyframes gd-cap2 { 0%, 75% { opacity: 0; transform: translateY(6px) } 78%, 88% { opacity: 1; transform: none } 91%, 100% { opacity: 0; transform: translateY(-6px) } }
 @media (prefers-reduced-motion: reduce) { .gdemo img, .gdemo-captions i { animation: none } }
+
+/* ══ Dexter Auto booking walkthrough (real screenshots, one shared 16s timeline) ══
+   Reuses the crochet demo's pointer, ripple and step-guide styles with its own keyframes.
+   Windows: login 0–20%, register 22–42%, login 44–62%, forgot password 64–95%.
+   Pointer stops (% of 1440×900): "Create an account" (75.5, 77.1) · "Create Account" button (70.5, 64.9) ·
+   "Log in" (76.5, 84) · "Forgot password?" (80.8, 52.8) · "Send Reset Link" (70.5, 60.8). */
+.browser .device-screen.mdemo { --T: 16s; position: relative; display: block; height: auto; aspect-ratio: 16 / 10; overflow: hidden; background: #0b1410 }
+.mdemo .md-on0 { animation: md-on0 var(--T) linear infinite }
+.mdemo .md-on1 { animation: md-on1 var(--T) linear infinite }
+.mdemo .md-on2 { animation: md-on2 var(--T) linear infinite }
+.mdemo .md-on3 { animation: md-on3 var(--T) linear infinite }
+.cdemo-paths .md-on0 { animation: md-on0 16s linear infinite }
+.cdemo-paths .md-on1 { animation: md-on1 16s linear infinite }
+.cdemo-paths .md-on2 { animation: md-on2 16s linear infinite }
+.cdemo-paths .md-on3 { animation: md-on3 16s linear infinite }
+@keyframes md-on0 { 0%, 20% { opacity: 1 } 22%, 95% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes md-on1 { 0%, 20% { opacity: 0 } 22%, 42% { opacity: 1 } 44%, 100% { opacity: 0 } }
+@keyframes md-on2 { 0%, 42% { opacity: 0 } 44%, 62% { opacity: 1 } 64%, 100% { opacity: 0 } }
+@keyframes md-on3 { 0%, 62% { opacity: 0 } 64%, 95% { opacity: 1 } 100% { opacity: 0 } }
+.mdemo .md-track { animation-name: md-move }
+@keyframes md-move {
+  0% { transform: translate(55%, 82%) }
+  9%, 21% { transform: translate(75.5%, 77.1%) }
+  29% { transform: translate(70.5%, 64.9%) }
+  35%, 43% { transform: translate(76.5%, 84%) }
+  53%, 63% { transform: translate(80.8%, 52.8%) }
+  76%, 94% { transform: translate(70.5%, 60.8%) }
+  100% { transform: translate(55%, 82%) }
+}
+.mdemo .md-pointer { animation-name: md-press }
+.mdemo .md-pointer svg { fill: #0f1d17; stroke: #fff }
+@keyframes md-press { 0%, 13%, 16%, 37%, 40%, 57%, 60%, 100% { transform: scale(1) } 14.5%, 38.5%, 58.5% { transform: scale(.82) } }
+.mdemo .md-ripple { border-color: #22c55e; animation-name: md-ripple }
+@keyframes md-ripple {
+  0%, 14% { opacity: 0; transform: scale(.3) } 14.5% { opacity: .9; transform: scale(.4) } 18% { opacity: 0; transform: scale(1.8) }
+  38% { opacity: 0; transform: scale(.3) } 38.5% { opacity: .9; transform: scale(.4) } 42% { opacity: 0; transform: scale(1.8) }
+  58% { opacity: 0; transform: scale(.3) } 58.5% { opacity: .9; transform: scale(.4) } 62%, 100% { opacity: 0; transform: scale(1.8) }
+}
+.mdemo .md-steps { background: rgb(6 20 13 / .82) }
+.mdemo .cd-step { position: relative; isolation: isolate; display: flex; align-items: center; gap: 5px; padding: 4px 9px 4px 4px; border-radius: 999px; font: 600 9.5px var(--body); font-style: normal; color: rgb(255 255 255 / .85) }
+.mdemo .cd-step:before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: #16a34a; opacity: 0 }
+.mdemo .md-step0:before { animation: md-on0 var(--T) linear infinite }
+.mdemo .md-step1:before { animation: md-on1 var(--T) linear infinite }
+.mdemo .md-step2:before { animation: md-on2 var(--T) linear infinite }
+.mdemo .md-step3:before { animation: md-on3 var(--T) linear infinite }
+@media (prefers-reduced-motion: reduce) {
+  .mdemo *, .cdemo-paths [class^="md-on"] { animation: none !important }
+  .mdemo .cdemo-scene.md-on0, .cdemo-paths .md-on0 { opacity: 1 }
+  .mdemo .md-track { display: none }
+}
+
+/* ══ Projects redesign: overview bar + per-project colour (--pc) ═════
+   Each card carries its project's signature colour in --pc (set inline), used for the top accent line,
+   number, kicker, status, highlights, stage glow and the primary button. */
+.sc-summary { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 16px 28px; margin-bottom: 28px; padding: 20px 24px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow) }
+:root[data-theme="dark"] .sc-summary { background: linear-gradient(150deg, #151518, #0e0e11) }
+html:not([data-theme="dark"]) .sc-summary { background: linear-gradient(160deg, #ffffff, #fdf8f0) }
+.sc-stats { display: flex; margin: 0 }
+.sc-stats div { padding: 0 22px; border-left: 1px solid var(--border) }
+.sc-stats div:first-child { padding-left: 0; border-left: 0 }
+.sc-stats dt { font: 750 32px/1 var(--display); letter-spacing: -.04em; color: var(--text) }
+.sc-stats dd { margin: 6px 0 0; font: 500 12.5px var(--body); color: var(--text-3); white-space: nowrap }
+.sc-label { font: 600 10.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3) }
+.sc-live { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px 12px }
+.sc-live-links { display: flex; flex-wrap: wrap; gap: 8px }
+.sc-live-links button { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--pc) 40%, var(--border)); background: color-mix(in srgb, var(--pc) 9%, transparent); font: 600 13px var(--body); color: var(--text); cursor: pointer; transition: background-color .25s, color .25s, transform .25s var(--ease) }
+.sc-live-links button:hover { background: var(--pc); border-color: var(--pc); color: #fff; transform: translateY(-2px) }
+
+/* Card */
+.showcase-index b { color: var(--pc) }
+.sc-status { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px dashed var(--border-strong); font: 600 12px var(--body); color: var(--text-3) }
+.sc-status[data-live] { border: 1px solid rgb(16 185 129 / .35); background: rgb(16 185 129 / .1); color: #10b981 }
+.sc-highlights { display: grid; gap: 8px; margin: 4px 0 0; padding: 0; list-style: none }
+.sc-highlights li { display: flex; align-items: center; gap: 10px; font: 600 14.5px var(--body); color: var(--text-2) }
+.sc-highlights li span { width: 20px; height: 20px; flex: none; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--pc) 16%, transparent); color: var(--pc) }
+.sc-tools { display: flex; align-items: center; gap: 12px; margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--border) }
+.sc-tool-row { display: flex; flex-wrap: wrap; gap: 6px }
+.sc-tool { position: relative; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgb(0 0 0 / .14), 0 0 0 1px var(--border); transition: transform .25s var(--ease) }
+.sc-tool svg { width: 16px; height: 16px; fill: var(--brand) }
+.sc-tool em { position: absolute; left: 50%; bottom: calc(100% + 8px); translate: -50% 4px; padding: 5px 9px; border-radius: 8px; background: var(--text); color: var(--invert); font: 600 11.5px var(--body); font-style: normal; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s, translate .25s var(--ease) }
+.sc-tool:hover { transform: translateY(-3px) }
+.sc-tool:hover em { opacity: 1; translate: -50% 0 }
+.sc-tool-more { background: var(--surface-2); font: 700 11px var(--mono); color: var(--text-2) }
+.showcase-details { border-color: var(--pc); background: var(--pc); color: #fff }
+html:not([data-theme="dark"]) .showcase-details { border: 1px solid var(--pc); background: var(--pc); color: #fff }
+.showcase-details:hover { box-shadow: 0 10px 24px -10px var(--pc) }
+
+/* Stage */
+
+@media (max-width: 1100px) {
+  .sc-summary { grid-template-columns: 1fr }
+  .sc-live { justify-content: flex-start }
+}
+@media (max-width: 760px) {
+  .sc-summary { padding: 16px }
+  .sc-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px }
+  .sc-stats div, .sc-stats div:first-child { padding: 0; border: 0 }
+  .sc-tools { flex-direction: column; align-items: flex-start; gap: 8px }
+}
+
+
+/* ══ Projects: 3D theater ═══════════════════════════════════════════
+   The active project stands centre stage; neighbours stand angled to either side (inline transforms
+   from ProjectShowcase). Only transform/opacity animate; side slides pause their screen animations. */
+.theater { position: relative; display: flex; flex-direction: column; gap: 22px }
+.theater-stage { position: relative; aspect-ratio: 2.1 / 1; max-height: 620px; perspective: 1600px; perspective-origin: 50% 40%; overflow: hidden; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent) }
+.theater-stage[data-dragging] { cursor: grabbing }
+.theater-stage[data-dragging] .slide { transition: none }
+.theater-spot { position: absolute; left: 50%; bottom: -30px; width: 70%; height: 160px; translate: -50% 0; border-radius: 50%; background: radial-gradient(ellipse at center, color-mix(in srgb, var(--pc) 34%, transparent), transparent 70%); pointer-events: none; transition: background .6s ease }
+.slide { position: absolute; left: 50%; top: 3%; width: min(780px, 62%); will-change: transform, opacity; transition: transform .85s cubic-bezier(.22, 1, .36, 1), opacity .6s ease }
+.slide[data-pos="0"] { cursor: pointer }
+.slide-frame { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 11; padding: 48px 24px 24px; border-radius: 28px; border: 1px solid var(--border-strong); overflow: hidden; box-shadow: 0 50px 90px -40px rgb(0 0 0 / .55);
+  background: radial-gradient(70% 60% at 70% 10%, color-mix(in srgb, var(--pc) 24%, transparent), transparent 70%), linear-gradient(160deg, #18181c, #0e0e11) }
+html:not([data-theme="dark"]) .slide-frame { background: radial-gradient(45% 45% at 85% 10%, rgb(253 230 138 / .75), transparent 70%), radial-gradient(60% 55% at 15% 90%, color-mix(in srgb, var(--pc) 24%, transparent), transparent 70%), linear-gradient(170deg, #d6eef9, #eef7fb 55%, #f7ead6); box-shadow: 0 50px 90px -40px rgb(14 74 110 / .45) }
+/* Side slides sit in shadow; the centre one is lit */
+.slide-frame:after { content: ""; position: absolute; inset: 0; z-index: 5; background: rgb(6 6 8 / .45); opacity: 1; pointer-events: none; transition: opacity .6s ease }
+html:not([data-theme="dark"]) .slide-frame:after { background: rgb(240 246 250 / .5) }
+.slide[data-pos="0"] .slide-frame:after { opacity: 0 }
+.slide[data-pos="0"] .slide-frame { border-color: color-mix(in srgb, var(--pc) 55%, var(--border-strong)) }
+.slide:not([data-pos="0"]) *, .slide:not([data-pos="0"]) *:before, .slide:not([data-pos="0"]) *:after { animation-play-state: paused !important }
+.slide-glow { position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--pc) 34%, transparent), transparent 68%); pointer-events: none }
+.slide .device { transform: none; box-shadow: 0 34px 60px -26px rgb(0 0 0 / .6), 0 0 0 1px var(--border-strong) }
+.slide .browser { width: 90% }
+.slide-tag { position: absolute; z-index: 3; left: 18px; top: 16px; display: inline-flex; align-items: center; gap: 8px; max-width: calc(100% - 36px); padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgb(17 17 20 / .8); font: 600 12px var(--body); color: #e4e4e7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+html:not([data-theme="dark"]) .slide-tag { background: rgb(255 255 255 / .88); color: #27272a }
+.slide-open { position: absolute; z-index: 6; left: 50%; bottom: 14px; translate: -50% 8px; display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; background: var(--pc); color: #fff; font: 600 12.5px var(--body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .3s, translate .35s var(--ease) }
+.slide[data-pos="0"]:hover .slide-open { opacity: 1; translate: -50% 0 }
+.theater-stage[data-dragging] .slide-open { opacity: 0 }
+.theater-arrow { position: absolute; z-index: 40; top: 46%; width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--border-strong); background: color-mix(in srgb, var(--surface-solid) 90%, transparent); color: var(--text); box-shadow: var(--shadow); cursor: pointer; transition: background-color .25s, color .25s, transform .3s var(--ease), opacity .25s }
+.theater-arrow.prev { left: 6% } .theater-arrow.next { right: 6% }
+.theater-arrow:hover:not(:disabled) { background: var(--pc); border-color: var(--pc); color: #fff; transform: scale(1.06) }
+.theater-arrow:disabled { opacity: .3; cursor: default }
+.theater-hint { position: absolute; z-index: 40; left: 50%; bottom: 10px; translate: -50% 0; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; border: 1px dashed var(--border-strong); font: 600 11px var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--text-3); pointer-events: none }
+
+/* Info about the active project (re-mounts on change, so it slides in fresh) */
+.theater-info { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; gap: 24px 44px; padding: 30px 34px; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: inset 0 2px 0 color-mix(in srgb, var(--pc) 75%, transparent), var(--shadow);
+  background: radial-gradient(50% 60% at 0% 0%, color-mix(in srgb, var(--pc) 10%, transparent), transparent 70%), linear-gradient(150deg, #151518, #0e0e11) }
+html:not([data-theme="dark"]) .theater-info { background: radial-gradient(50% 60% at 0% 0%, color-mix(in srgb, var(--pc) 8%, transparent), transparent 70%), linear-gradient(160deg, #ffffff, #fdf8f0) }
+.theater-info > * { animation: ti-in .6s cubic-bezier(.22, 1, .36, 1) backwards }
+.theater-info > :nth-child(2) { animation-delay: .08s }
+@keyframes ti-in { from { opacity: 0; transform: translateY(14px) } }
+.ti-main { display: flex; flex-direction: column; gap: 12px }
+.ti-top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 6px }
+.ti-top .showcase-index { margin-right: 4px }
+.theater .card-kicker, html:not([data-theme="dark"]) .theater .card-kicker { color: var(--pc) }
+.ti-main h3 { margin: 0; font: 700 clamp(32px, 3.6vw, 52px)/1.02 var(--display); letter-spacing: -.045em; color: var(--text) }
+html:not([data-theme="dark"]) .ti-main h3 { background: linear-gradient(110deg, var(--text) 50%, var(--pc)); -webkit-background-clip: text; background-clip: text; color: transparent }
+.ti-main p { margin: 0; max-width: 52ch; font-size: 16px; line-height: 1.7; color: var(--text-3) }
+.ti-side { display: flex; flex-direction: column; gap: 16px; padding-top: 4px }
+.ti-side .sc-tools { margin-top: 0 }
+.ti-side .showcase-actions { margin-top: 2px }
+
+/* Strip: every project, one click away */
+.theater-strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px }
+.strip-item { position: relative; display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 12px 14px 14px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); text-align: left; font: inherit; color: inherit; cursor: pointer; overflow: hidden; transition: border-color .3s, background-color .3s, transform .3s var(--ease) }
+.strip-item:after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--pc); transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.22, 1, .36, 1) }
+.strip-item:hover { transform: translateY(-2px); border-color: var(--border-strong) }
+.strip-item[data-on] { border-color: color-mix(in srgb, var(--pc) 55%, var(--border)); background: color-mix(in srgb, var(--pc) 9%, var(--surface)) }
+.strip-item[data-on]:after { transform: none }
+.strip-no { display: flex; align-items: center; gap: 6px; font: 700 11px var(--mono); color: var(--pc) }
+.strip-item b { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; min-height: 2.6em; font: 650 13px/1.3 var(--display); color: var(--text); overflow: hidden }
+.strip-item small { font: 500 11px var(--body); color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+
+@media (max-width: 1100px) {
+  .theater-info { grid-template-columns: 1fr; padding: 24px }
+  .theater-strip { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 170px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px }
+  .strip-item { scroll-snap-align: start }
+}
+@media (max-width: 760px) {
+  .theater-stage { aspect-ratio: auto; height: 290px }
+  .slide { width: 84%; top: 4% }
+  .slide-frame { padding: 44px 12px 18px; border-radius: 20px }
+  .theater-arrow { top: auto; bottom: 8px; width: 42px; height: 42px }
+  .theater-arrow.prev { left: 10px } .theater-arrow.next { right: 10px }
+  .theater-hint { display: none }
+  .theater-info { padding: 20px }
+}
+@media (prefers-reduced-motion: reduce) { .slide, .theater-info > * { transition: none; animation: none } }

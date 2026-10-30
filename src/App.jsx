@@ -19,13 +19,11 @@ import { initEffects } from './lib/effects.js'
 import Preloader from './components/Preloader.jsx'
 import HeroField from './components/HeroField.jsx'
 import SplitText, { ScrubText } from './components/SplitText.jsx'
-import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa, siReactrouter, siNodedotjs, siExpress } from 'simple-icons'
+import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa, siReactrouter, siNodedotjs, siExpress, siLivewire, siAlpinedotjs, siTailwindcss, siNginx } from 'simple-icons'
 
+// Order on the page: the three live projects first, then the rest
 const projects = [
-  { platform: 'web', number: 1, mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
-  { platform: 'web', number: 2, mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'Keeps research papers, defense schedules, files, and publications in one place, so nothing gets lost along the way.', tags: ['Research', 'Scheduling', 'Data organization'] },
-  { platform: 'web', number: 3, mock: 'booking', url: 'Mechanic · Book a service', title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'Customers pick a repair and book a time, and the shop keeps its mechanics’ schedules organized.', tags: ['Booking', 'Scheduling', 'Services'] },
-  { platform: 'web', number: 4, mock: 'shop', url: 'Crochet · Shop', live: 'https://jeny-crochet.onrender.com/home', demo: 'crochet', details: {
+  { platform: 'web', number: 4, accent: '#db2777', mock: 'shop', url: 'Crochet · Shop', live: 'https://jeny-crochet.onrender.com/home', demo: 'crochet', details: {
       overview: 'Jeny Crochet Co. is a live online shop for handmade crochet. Customers browse more than 240 pieces across 12 collections, save favourites, order with cash on delivery, and can request a custom piece in their own colours and size.',
       facts: [['Catalogue', '242+ pieces · 12 collections'], ['Payment', 'Cash on delivery'], ['Hosting', 'Render + Cloudflare']],
       features: [
@@ -47,7 +45,27 @@ const projects = [
         ['Hosting', [['Render', siRender], ['Apache', siApache], ['Cloudflare', siCloudflare]]],
       ],
     }, title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop where people can browse handmade crochet, place orders, and ask for custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
-  { platform: 'web', number: 5, mock: 'scan', url: 'Gym · Check-in', live: 'https://ironclad-web.onrender.com/login', demo: 'gym', details: {
+  { platform: 'web', number: 3, accent: '#16a34a', mock: 'booking', url: 'Mechanic · Book a service', live: 'https://dexter-auto.onrender.com/login', demo: 'mechanic', details: {
+      overview: 'Dexter Auto Services is a live booking system for an auto repair shop. Customers sign in to book a service, follow their repair step by step, and see the price before any work begins.',
+      facts: [['Shop hours', 'Mon–Sat · 8AM–6PM'], ['Sign-in', 'Email or Google'], ['Hosting', 'Render + Cloudflare']],
+      features: [
+        ['Online booking', 'Customers book a service online and pick their time.'],
+        ['Live repair tracking', 'Customers can follow every step of their repair.'],
+        ['Upfront prices', 'The price is shown before any work begins, so there are no bill surprises.'],
+        ['Accounts', 'Create an account with name, email and password, or sign up with Google, and stay signed in.'],
+        ['Password reset', 'A reset link is emailed when a customer forgets their password.'],
+        ['Call the shop', 'Customers who prefer to talk can call the shop straight from the sign-in page.'],
+        ['Shop policies', 'Privacy, terms, cookie and refund policies are linked on every page.'],
+      ],
+      flow: ['Create an account or sign in', 'Book a service and pick a time', 'See the price before work begins', 'Follow the repair step by step'],
+      stack: [
+        ['Backend', [['Laravel', siLaravel], ['PHP', siPhp]]],
+        ['Frontend', [['Livewire', siLivewire], ['Alpine.js', siAlpinedotjs], ['Tailwind CSS', siTailwindcss], ['Vite', siVite]]],
+        ['Sign-in', [['Google sign-in', siGoogle]]],
+        ['Hosting', [['Render', siRender], ['nginx', siNginx], ['Cloudflare', siCloudflare]]],
+      ],
+    }, title: 'Mechanic Booking System', category: 'Booking platform', symbol: 'M—', description: 'Customers pick a repair and book a time, and the shop keeps its mechanics’ schedules organized.', tags: ['Booking', 'Scheduling', 'Services'] },
+  { platform: 'web', number: 5, accent: '#dc2626', mock: 'scan', url: 'Gym · Check-in', live: 'https://ironclad-web.onrender.com/login', demo: 'gym', details: {
       overview: 'Ironclad is a live gym membership and attendance system. Members carry a digital pass with a QR code, staff scan it at the front desk to time them in and out, and the owner sees peak hours, revenue by plan and a full activity log.',
       facts: [['Users', 'Members · Staff · Owner'], ['Check-in', 'QR code or member ID'], ['Hosting', 'Render + Cloudflare']],
       features: [
@@ -68,8 +86,10 @@ const projects = [
         ['Hosting', [['Render', siRender], ['Cloudflare', siCloudflare]]],
       ],
     }, title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'Members check in and out with their own ID, and the gym keeps track of attendance and memberships.', tags: ['Attendance', 'Membership', 'Member ID'] },
-  { platform: 'mobile', number: 6, mock: 'habit', url: '', details: { stack: [['Mobile app', [['Flutter', siFlutter], ['Dart', siDart]]]] }, title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
-  { platform: 'mobile', number: 7, mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals and symptoms that helps spot what might be causing flare-ups over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
+  { platform: 'web', number: 1, accent: '#0ea5e9', mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
+  { platform: 'web', number: 2, accent: '#6366f1', mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'Keeps research papers, defense schedules, files, and publications in one place, so nothing gets lost along the way.', tags: ['Research', 'Scheduling', 'Data organization'] },
+  { platform: 'mobile', number: 6, accent: '#10b981', mock: 'habit', url: '', details: { stack: [['Mobile app', [['Flutter', siFlutter], ['Dart', siDart]]]] }, title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
+  { platform: 'mobile', number: 7, accent: '#f59e0b', mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals and symptoms that helps spot what might be causing flare-ups over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
 ]
 
 const skills = [
