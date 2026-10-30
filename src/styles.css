@@ -1935,3 +1935,72 @@ html:not([data-theme="dark"]) .showcase-details { border: 0; background: var(--o
   .pm-foot .pm-step { flex: 1; justify-content: center }
 }
 @media (prefers-reduced-motion: reduce) { .pm, .pm-panel, .pm-feature, .pm-flow li { animation: none } }
+
+/* ══ Project dock: jump between the stacked projects ═════════════════
+   Fixed to the bottom of the content area (beside the sidebar); slides in while the stack is on screen. */
+.pdock-wrap { position: fixed; z-index: 60; left: var(--side, 0px); right: 0; bottom: 22px; display: flex; justify-content: center; pointer-events: none; opacity: 0; transform: translateY(24px); transition: opacity .4s ease, transform .5s cubic-bezier(.22, 1, .36, 1) }
+.pdock-wrap[data-show] { opacity: 1; transform: none }
+.pdock-wrap[data-show] .pdock { pointer-events: auto }
+.modal-open .pdock-wrap { opacity: 0; transform: translateY(24px) }
+.pdock { display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 999px; border: 1px solid var(--border-strong); background: color-mix(in srgb, var(--surface-solid) 92%, transparent); box-shadow: 0 18px 40px -12px rgb(0 0 0 / .35) }
+.pdock-dots { display: flex; gap: 3px }
+.pdock-dot { position: relative; width: 36px; height: 34px; border-radius: 999px; border: 0; background: transparent; font: 600 12px var(--mono); color: var(--text-3); cursor: pointer; transition: background-color .25s, color .25s, transform .25s var(--ease) }
+.pdock-dot:hover { color: var(--text); transform: translateY(-2px) }
+.pdock-dot[data-on] { background: var(--text); color: var(--invert) }
+html:not([data-theme="dark"]) .pdock-dot[data-on] { background: var(--sea); color: #fff }
+.pdock-tip { position: absolute; left: 50%; bottom: calc(100% + 12px); translate: -50% 6px; padding: 6px 10px; border-radius: 9px; background: var(--text); color: var(--invert); font: 600 12px var(--body); font-style: normal; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s, translate .25s var(--ease) }
+.pdock-dot:hover .pdock-tip, .pdock-dot:focus-visible .pdock-tip { opacity: 1; translate: -50% 0 }
+.pdock-now { display: flex; align-items: center; gap: 8px; max-width: 230px; padding: 0 10px 0 12px; border-left: 1px solid var(--border); font: 600 13px var(--body); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.pdock-now b { font: 700 12px var(--mono); color: var(--accent-2) }
+.pdock-arrow { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; transition: background-color .25s, color .25s, opacity .25s }
+.pdock-arrow:hover:not(:disabled) { background: var(--text); color: var(--invert) }
+.pdock-arrow:disabled { opacity: .35; cursor: default }
+@media (max-width: 760px) {
+  .pdock-wrap { left: 0; bottom: 14px; padding: 0 10px }
+  .pdock-now { display: none }
+  .pdock-dot { width: 30px }
+}
+@media (prefers-reduced-motion: reduce) { .pdock-wrap { transition: none } }
+
+/* ══ Drag a project card to switch project ══════════════════════════
+   While held the card follows the pointer (translate/rotate set inline); on release it springs back.
+   A label says what letting go will do. */
+/* Picked up: lifts slightly (scale only; animating its large shadow would repaint the card every frame);
+   let go: glides back over .7s */
+.showcase-card { transition: transform .12s linear, filter .12s linear, border-color .3s, translate .7s cubic-bezier(.22, 1, .36, 1), rotate .7s cubic-bezier(.22, 1, .36, 1), scale .45s cubic-bezier(.22, 1, .36, 1) }
+.showcase-card[data-dragging] { transition: transform .12s linear, filter .12s linear, border-color .3s, scale .35s cubic-bezier(.22, 1, .36, 1); scale: 1.015 }
+.showcase-drag { position: absolute; z-index: 6; left: 50%; top: 18px; translate: -50% -8px; padding: 8px 14px; border-radius: 999px; background: var(--text); color: var(--invert); font: 600 13px var(--body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s, translate .3s var(--ease) }
+html:not([data-theme="dark"]) .showcase-drag { background: var(--sea); color: #fff }
+.showcase-card[data-dragging] .showcase-drag { opacity: 1; translate: -50% 0 }
+.showcase-card[data-dir="hold"] .showcase-drag:before { content: "Pull further to switch project" }
+.showcase-card[data-dir="next"] .showcase-drag:before { content: "Let go for the next project →" }
+.showcase-card[data-dir="prev"] .showcase-drag:before { content: "←  Let go for the previous project" }
+/* Dock scrubbing: press on the numbers and slide */
+.pdock-dots { touch-action: none; cursor: grab }
+.pdock-dots[data-scrubbing] .pdock-dot { transition: background-color .12s, color .12s }
+.pdock-dots[data-scrubbing] .pdock-dot[data-on] .pdock-tip { opacity: 1; translate: -50% 0 }
+.pdock-dots[data-scrubbing] .pdock-dot:hover:not([data-on]) .pdock-tip { opacity: 0 }
+
+/* ══ Ironclad gym login tour (real screenshot, one shared 16s timeline) ══
+   transform = translate(t) scale(s) around the centre; t brings the focus point to the middle and is
+   clamped to ±(s-1)/2 so the screenshot always covers the frame.
+   Stops: full view → member pass (74%, 30%) → features (62%, 80%) → sign-in form (30%, 55%) → full view */
+.browser .device-screen.gdemo { --T: 16s; position: relative; display: block; height: auto; aspect-ratio: 16 / 10; overflow: hidden; background: #f4f1ee }
+.gdemo img { display: block; width: 100%; height: 100%; object-fit: cover; will-change: transform; animation: gd-cam var(--T) cubic-bezier(.65, 0, .35, 1) infinite }
+@keyframes gd-cam {
+  0%, 10% { transform: translate(0, 0) scale(1) }
+  22%, 38% { transform: translate(-35%, 34%) scale(1.7) }
+  50%, 64% { transform: translate(-19%, -30%) scale(1.6) }
+  76%, 88% { transform: translate(25%, -7%) scale(1.5) }
+  100% { transform: translate(0, 0) scale(1) }
+}
+.gdemo-captions { position: absolute; left: 3%; bottom: 4%; display: grid }
+.gdemo-captions i { grid-area: 1 / 1; justify-self: start; padding: 6px 11px; border-radius: 999px; background: rgb(21 18 19 / .82); color: #fff; font: 600 10px var(--body); font-style: normal; white-space: nowrap; opacity: 0 }
+.gdemo-captions i:before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: #e0353d; vertical-align: 1px }
+.gdemo .gd-cap0 { animation: gd-cap0 var(--T) ease infinite }
+.gdemo .gd-cap1 { animation: gd-cap1 var(--T) ease infinite }
+.gdemo .gd-cap2 { animation: gd-cap2 var(--T) ease infinite }
+@keyframes gd-cap0 { 0%, 21% { opacity: 0; transform: translateY(6px) } 24%, 38% { opacity: 1; transform: none } 41%, 100% { opacity: 0; transform: translateY(-6px) } }
+@keyframes gd-cap1 { 0%, 49% { opacity: 0; transform: translateY(6px) } 52%, 64% { opacity: 1; transform: none } 67%, 100% { opacity: 0; transform: translateY(-6px) } }
+@keyframes gd-cap2 { 0%, 75% { opacity: 0; transform: translateY(6px) } 78%, 88% { opacity: 1; transform: none } 91%, 100% { opacity: 0; transform: translateY(-6px) } }
+@media (prefers-reduced-motion: reduce) { .gdemo img, .gdemo-captions i { animation: none } }

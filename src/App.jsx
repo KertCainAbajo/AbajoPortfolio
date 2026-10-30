@@ -19,7 +19,7 @@ import { initEffects } from './lib/effects.js'
 import Preloader from './components/Preloader.jsx'
 import HeroField from './components/HeroField.jsx'
 import SplitText, { ScrubText } from './components/SplitText.jsx'
-import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa } from 'simple-icons'
+import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa, siReactrouter, siNodedotjs, siExpress } from 'simple-icons'
 
 const projects = [
   { platform: 'web', number: 1, mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
@@ -47,7 +47,27 @@ const projects = [
         ['Hosting', [['Render', siRender], ['Apache', siApache], ['Cloudflare', siCloudflare]]],
       ],
     }, title: 'Crochet Shop System', category: 'E-commerce', symbol: '✳', description: 'An online shop where people can browse handmade crochet, place orders, and ask for custom pieces.', tags: ['E-commerce', 'Orders', 'Custom work'] },
-  { platform: 'web', number: 5, mock: 'scan', url: 'Gym · Check-in', title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'Members check in and out with their own ID, and the gym keeps track of attendance and memberships.', tags: ['Attendance', 'Membership', 'Member ID'] },
+  { platform: 'web', number: 5, mock: 'scan', url: 'Gym · Check-in', live: 'https://ironclad-web.onrender.com/login', demo: 'gym', details: {
+      overview: 'Ironclad is a live gym membership and attendance system. Members carry a digital pass with a QR code, staff scan it at the front desk to time them in and out, and the owner sees peak hours, revenue by plan and a full activity log.',
+      facts: [['Users', 'Members · Staff · Owner'], ['Check-in', 'QR code or member ID'], ['Hosting', 'Render + Cloudflare']],
+      features: [
+        ['Digital member pass', 'Each member gets a pass with a QR code to show at the front desk, plus their membership status.'],
+        ['QR check-in', 'Staff scan the member’s QR code, or type their ID, to time them in and out in seconds.'],
+        ['Membership status', 'Members see how many days are left. Expired passes are asked to renew, and new ones wait for staff to activate them.'],
+        ['Plans and schedules', 'The gym manages its membership plans and schedules in one place.'],
+        ['Visit history', 'Every time-in and time-out is saved, with a day streak, and members can download theirs as a spreadsheet (CSV).'],
+        ['Owner reports', 'Peak check-in hours, revenue by plan, and member lists to export.'],
+        ['Activity log', 'An audit log keeps a history of actions taken in the system.'],
+        ['Accounts', 'Sign up with email or Google, reset a forgotten password, and update email or password.'],
+      ],
+      flow: ['Member signs in', 'Shows their QR pass at the front desk', 'Staff scan it to time them in', 'Time out when leaving', 'Visit history and streak update', 'Owner checks peak hours and revenue'],
+      stack: [
+        ['Frontend', [['React', siReact], ['React Router', siReactrouter], ['Vite', siVite]]],
+        ['Backend', [['Node.js', siNodedotjs], ['Express', siExpress]]],
+        ['Sign-in', [['Google sign-in', siGoogle]]],
+        ['Hosting', [['Render', siRender], ['Cloudflare', siCloudflare]]],
+      ],
+    }, title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'Members check in and out with their own ID, and the gym keeps track of attendance and memberships.', tags: ['Attendance', 'Membership', 'Member ID'] },
   { platform: 'mobile', number: 6, mock: 'habit', url: '', details: { stack: [['Mobile app', [['Flutter', siFlutter], ['Dart', siDart]]]] }, title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
   { platform: 'mobile', number: 7, mock: 'log', url: '', title: 'Acid Reflux Tracker', category: 'Health tracker', symbol: '≈', description: 'A personal log for meals and symptoms that helps spot what might be causing flare-ups over time.', tags: ['Health tracking', 'Patterns', 'Logging'] },
 ]
