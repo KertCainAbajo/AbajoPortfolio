@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react'
-import { ArrowDown, ArrowUpRight, Code2, Smartphone, Layers3, Sparkles, MapPin, Globe, Bot, Network, Bug, Brain, FileText } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Code2, Smartphone, Layers3, Sparkles, MapPin, Palmtree, Globe, Bot, Network, Bug, Brain, FileText } from 'lucide-react'
 import Sidebar from './components/Sidebar.jsx'
 import Section from './components/Section.jsx'
 import ProjectShowcase from './components/ProjectShowcase.jsx'
@@ -234,14 +234,15 @@ function App() {
       <div className="cursor-dot" aria-hidden="true" /><div className="cursor-ring" aria-hidden="true" />
       <div className="backdrop" aria-hidden="true">
         <span className="backdrop-grid" /><span className="backdrop-glow glow-a" /><span className="backdrop-glow glow-b" />
-        {/* Light mode only: a beach panorama (sky with rays, clouds and gulls, islands and a sailboat on the horizon,
-            glittering sea with rolling foam, sand, a swaying palm); the hero keeps its own sun */}
+        {/* Beach panorama (day in light mode, moonlit night in dark mode) (sky with rays, clouds and gulls, islands and a sailboat on the horizon,
+            a golden-hour sun setting on the horizon with its reflection on the water, rolling foam, wet sand,
+            a swaying palm); switching themes sets the sun and raises the moon, or the reverse */}
         <span className="beach">
-          <span className="beach-rays" /><span className="beach-cloud c1" /><span className="beach-cloud c2" /><span className="beach-cloud c3" />
+          <span className="beach-stars"><i /><i /></span><span className="beach-aurora" /><span className="beach-rays" /><span className="beach-cloud c1" /><span className="beach-cloud c2" /><span className="beach-cloud c3" />
           <span className="beach-gull g1"><i /></span><span className="beach-gull g2"><i /></span><span className="beach-gull g3"><i /></span>
-          <span className="beach-isles" /><span className="beach-boat" />
-          <span className="beach-sea"><b className="beach-glitter" /><i /><i /><i /></span><span className="beach-sand" />
-          <span className="beach-palm" />
+          <span className="beach-haze" /><span className="beach-sun" /><span className="beach-moon" /><span className="beach-isles" /><span className="beach-boat" />
+          <span className="beach-sea"><b className="beach-glint" /><i /><i /><i /></span><span className="beach-sand" />
+          <span className="beach-palm-shadow" /><span className="beach-palm" />
         </span>
       </div>
       <Sidebar />
@@ -258,6 +259,8 @@ function App() {
           <div className="hero-copy">
             <span className="hero-badge reveal" style={{ '--d': '150ms' }}><Sparkles size={14} /> IT Graduate <i /> Web &amp; Mobile Developer</span>
             <h1 className="reveal" style={{ '--d': '250ms' }} aria-label={title}><span className="hero-name-ghost" aria-hidden="true">{title}</span><TypedName text={title} /></h1>
+            {/* Light mode: a hand-drawn swoosh under the name */}
+            <svg className="hero-swoosh" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 28 C120 8 250 6 372 20 S548 34 594 12" /></svg>
             <p className="hero-description reveal" style={{ '--d': '380ms' }}>I build websites and mobile apps that make everyday tasks easier, like booking a service, tracking a request, or checking in at the gym.</p>
             <div className="hero-actions reveal" style={{ '--d': '480ms' }}>
               <a className="btn btn-primary" href="#projects" data-magnetic>Explore my work <ArrowUpRight size={16} /></a>
@@ -270,6 +273,8 @@ function App() {
 
           <div className="hero-visual reveal" style={{ '--d': '300ms' }}>
             {floaters.map((f) => <span className={`floater ${f.cls}`} data-depth={f.depth} key={f.label} aria-hidden="true" style={{ '--brand': `#${f.tech.hex}` }}><span className="floater-inner"><svg viewBox="0 0 24 24"><path d={f.tech.path} /></svg>{f.label}</span></span>)}
+            {/* A tilted 3D orbit ring circling the portrait, with two points of light travelling round it */}
+            <span className="hero-orbit" aria-hidden="true"><i /></span>
             <div className="portrait-card" data-tilt="6">
               <div className="visual-topline"><span className="visual-label">The developer</span><ThemeSwitch /></div>
               <div className="portrait-art" aria-label="Portrait of Kert Cain Arvie P. Abajo" role="img">
@@ -281,6 +286,12 @@ function App() {
               </div>
               <div className="visual-bottomline"><span>Information Technology</span><span><MapPin size={13} /> Davao City, PH</span></div>
             </div>
+            {/* Light mode: a slowly turning postmark stamp over the portrait's corner */}
+            <span className="hero-stamp" aria-hidden="true">
+              <svg viewBox="0 0 200 200"><defs><path id="stamp-ring" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs>
+                <text><textPath href="#stamp-ring" textLength="462" lengthAdjust="spacing">WEB &amp; MOBILE DEVELOPER • DAVAO CITY • OPEN TO WORK •</textPath></text></svg>
+              <b><Palmtree size={26} /></b>
+            </span>
           </div>
           <a className="scroll-cue" href="#education"><span>Scroll to explore</span><ArrowDown size={14} /></a>
         </section>

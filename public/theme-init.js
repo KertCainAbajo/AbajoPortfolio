@@ -7,5 +7,5 @@
   if (theme !== 'light') theme = 'dark'
   try { localStorage.removeItem('theme') } catch (e) {}
   document.documentElement.dataset.theme = theme
-  document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#09090b' : '#fbf6ee')
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#09090b' : '#fafafa')
 })()

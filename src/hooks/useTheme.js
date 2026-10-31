@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 
-const THEME_COLORS = { light: '#fbf6ee', dark: '#09090b' }
+const THEME_COLORS = { light: '#fafafa', dark: '#09090b' }
 const readTheme = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
 
 // Read-only view of the current theme for components that react to switches.

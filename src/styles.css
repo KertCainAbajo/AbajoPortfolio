@@ -1534,7 +1534,7 @@ html:not([data-theme="dark"]) body:after { mix-blend-mode: normal; opacity: .035
 /* Theme switch: the circular reveal already shows the change, so the hover colour transitions on
    cards, chips and links are switched off for that moment (otherwise ~500 of them animate on the
    main thread during the reveal). The switch, sun, waves and portrait keep their own motion. */
-.theme-instant :not(.theme-toggle, .theme-toggle *, .hero-sun, .hero-waves, .portrait-art, .portrait-art *),
+.theme-instant :not(.theme-toggle, .theme-toggle *, .hero-sun, .hero-waves, .beach-sun, .beach-moon, .portrait-art, .portrait-art *),
 .theme-instant :not(.theme-toggle, .theme-toggle *, .portrait-art, .portrait-art *)::before,
 .theme-instant :not(.theme-toggle, .theme-toggle *, .portrait-art, .portrait-art *)::after { transition: none !important }
 
@@ -2233,7 +2233,7 @@ html:not([data-theme="dark"]) .side-progress:before { background: linear-gradien
 
 /* ══ Light mode: beach panorama v2 ══════════════════════════════════
    Replaces the flat sky/sea/sand stripes: deep-blue sky warming to a sunlit haze, soft sun rays,
-   clouds and gulls, islands and a drifting sailboat on a low horizon (78%), a glittering sea with
+   clouds and gulls, islands and a drifting sailboat on a low horizon (78%), a sea with
    rolling foam, wet sand, and a palm swaying at the right edge. Static art is SVG; motion is transform-only. */
 html:not([data-theme="dark"]) .beach { background: linear-gradient(180deg, #8fd0ef 0%, #b5e1f5 24%, #d6eff9 48%, #eef6f4 66%, #f8ecd8 78%) }
 .beach-rays { right: -10%; top: -30%; width: 90vmax; aspect-ratio: 1; border-radius: 50%; opacity: .55;
@@ -2252,12 +2252,6 @@ html:not([data-theme="dark"]) .beach { background: linear-gradient(180deg, #8fd0
 .beach-boat { top: calc(78% - 30px); left: -4%; width: 34px; height: 30px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 54'%3E %3Cpath d='M30 4 L30 40 L8 40 Z' fill='%23ffffff'/%3E%3Cpath d='M33 10 L33 40 L52 40 Z' fill='%23fde68a'/%3E %3Cpath d='M4 42 L56 42 L48 50 L12 50 Z' fill='%230e5a6b'/%3E%3Cpath d='M30 2 L30 42' stroke='%230e5a6b' stroke-width='1.5'/%3E %3C/svg%3E") center / contain no-repeat; will-change: transform; animation: boat-drift 150s linear infinite }
 @keyframes boat-drift { 0% { transform: translate3d(0, 0, 0) } 25% { transform: translate3d(28vw, 1px, 0) } 50% { transform: translate3d(56vw, -1px, 0) } 75% { transform: translate3d(84vw, 1px, 0) } 100% { transform: translate3d(112vw, 0, 0) } }
 .beach-sea { top: 78%; height: 13%; background: linear-gradient(180deg, #5cbfd3 0%, #79cedb 40%, #a3dfe0 100%) }
-/* Sun glitter on the water: a band of sparkles sliding slowly */
-.beach-glitter { position: absolute; left: -200px; right: 0; top: 4px; height: 55%; opacity: .75; will-change: transform; animation: glitter-slide 6s linear infinite;
-  background: radial-gradient(1.4px 1px at 20px 6px, #fff 99%, transparent), radial-gradient(1.2px 1px at 75px 18px, #fff 99%, transparent), radial-gradient(1.6px 1px at 130px 10px, #fff 99%, transparent), radial-gradient(1px 1px at 170px 26px, #fff 99%, transparent);
-  background-size: 200px 32px;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent); mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent) }
-@keyframes glitter-slide { to { transform: translateX(200px) } }
 .beach-sand { top: 91%; background: radial-gradient(rgb(180 140 80 / .16) 1px, transparent 1.4px) 0 0 / 7px 7px, radial-gradient(rgb(255 255 255 / .55) 1px, transparent 1.4px) 3px 4px / 11px 11px, linear-gradient(180deg, #e8d6b2 0%, #f1e2c4 30%, #f6ead2 100%) }
 /* Palm at the right edge, swaying from its base */
 .beach-palm { right: -30px; bottom: 2%; width: min(300px, 26vw); aspect-ratio: 1 / 2; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 640'%3E %3Cg fill='%230e5a6b'%3E %3Cpath d='M168 640 C176 520 182 420 196 330 C204 280 214 248 226 226 L238 232 C226 256 218 290 212 336 C200 426 196 524 190 640 Z'/%3E %3Cpath d='M232 226 C196 196 140 186 74 214 C128 204 178 210 224 236 Z'/%3E %3Cpath d='M232 226 C214 178 172 138 108 128 C160 152 196 186 222 232 Z'/%3E %3Cpath d='M232 226 C246 174 286 140 318 136 C290 160 262 196 240 234 Z'/%3E %3Cpath d='M232 226 C278 210 310 228 320 262 C292 240 262 234 236 238 Z'/%3E %3Cpath d='M232 226 C204 236 168 268 150 318 C178 280 206 258 236 240 Z'/%3E %3Cpath d='M232 226 C252 250 266 290 266 334 C254 296 240 266 226 244 Z'/%3E %3Ccircle cx='224' cy='238' r='8'/%3E%3Ccircle cx='238' cy='242' r='7'/%3E %3C/g%3E%3C/svg%3E") center bottom / contain no-repeat; opacity: .22; transform-origin: 55% 100%; will-change: transform; animation: palm-sway 7s ease-in-out infinite alternate }
@@ -2320,3 +2314,297 @@ html:not([data-theme="dark"]) .section-ghost { -webkit-text-stroke: 1.5px rgb(25
   .idemo .cdemo-scene.id-on0 { opacity: 1 }
   .idemo .id-track, .idemo .id-me { display: none }
 }
+
+/* ══ Light mode: golden-hour shoreline (hero redesign) ══════════════
+   A crisp sun sits on the horizon (78%), half set behind the sea, with its light reflected down the
+   water; warm haze above the horizon, deeper water toward the horizon, wet sand at the waterline and a
+   detailed palm with its shadow. The sun rises out of the sea whenever light mode is switched on. */
+html:not([data-theme="dark"]) .hero-sun { display: none }
+.beach-haze { left: 0; right: 0; top: calc(78% - 190px); height: 190px; background: radial-gradient(60% 100% at 50% 100%, rgb(255 226 170 / .7), rgb(255 238 205 / .35) 45%, transparent 75%) }
+.beach-sun { left: 50%; top: 78%; width: clamp(150px, 15vw, 230px); aspect-ratio: 1; border-radius: 50%; translate: -50% -50%;
+  background: radial-gradient(circle, #fffef6 0%, #fff7d1 30%, #ffe08a 52%, #ffc65c 68%, #ffb347 72%, transparent 73%);
+  box-shadow: 0 0 60px 20px rgb(255 210 120 / .55), 0 0 160px 70px rgb(255 196 110 / .3);
+  transition: translate 2.2s cubic-bezier(.22, 1, .36, 1) .2s }
+@starting-style { html:not([data-theme="dark"]) .beach-sun { translate: -50% 65% } }
+/* Deeper, clearer water: darker toward the horizon, aqua near the shore */
+.beach-sea { background: linear-gradient(180deg, #1aa0c0 0%, #2fb5cc 30%, #5ccbd7 62%, #9fe3e1 100%) }
+.beach-sea:before { height: 3px; background: linear-gradient(90deg, transparent, rgb(255 246 214 / .95) 35%, rgb(255 255 255) 50%, rgb(255 246 214 / .95) 65%, transparent) }
+/* The sun's reflection: a column of bright ripples down the water, gently shimmering */
+.beach-glint { position: absolute; left: 50%; top: 0; width: clamp(160px, 18vw, 280px); height: 100%; translate: -50% 0; will-change: transform, opacity;
+  background: repeating-linear-gradient(180deg, rgb(255 248 214 / .95) 0 2px, transparent 2px 6px, rgb(255 255 255 / .7) 6px 7px, transparent 7px 11px);
+  -webkit-mask-image: radial-gradient(50% 90% at 50% 0%, #000 25%, transparent 78%); mask-image: radial-gradient(50% 90% at 50% 0%, #000 25%, transparent 78%);
+  animation: glint-shimmer 2.6s ease-in-out infinite alternate }
+@keyframes glint-shimmer { from { transform: scaleX(.86); opacity: .75 } to { transform: scaleX(1.08); opacity: 1 } }
+/* Wet sand at the waterline, then dry sand with a finer, softer grain */
+.beach-sand { background: radial-gradient(rgb(180 140 80 / .1) 1px, transparent 1.4px) 0 0 / 8px 8px,
+  linear-gradient(180deg, #cdb98f 0%, #dccaa3 10%, #ead9b6 22%, #f3e5c8 45%, #f7ecd6 100%) }
+.beach-sand:before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 14%; background: linear-gradient(90deg, transparent, rgb(255 255 255 / .35) 40%, rgb(255 246 214 / .5) 50%, rgb(255 255 255 / .35) 60%, transparent) }
+/* Detailed palm and its shadow on the sand */
+.beach-palm { right: -20px; width: min(320px, 25vw); opacity: .95; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 640'%3E %3Cdefs%3E %3ClinearGradient id='t' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%233d6b62'/%3E%3Cstop offset='.55' stop-color='%235f8f7d'/%3E%3Cstop offset='1' stop-color='%232f5a52'/%3E%3C/linearGradient%3E %3ClinearGradient id='f' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%232f8f6b'/%3E%3Cstop offset='1' stop-color='%231d6b52'/%3E%3C/linearGradient%3E %3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%231f6e55'/%3E%3Cstop offset='1' stop-color='%2314513f'/%3E%3C/linearGradient%3E %3C/defs%3E %3Cpath d='M166 640 C174 520 180 420 194 330 C202 280 212 248 224 226 L240 232 C228 256 220 290 214 336 C202 426 198 524 192 640 Z' fill='url(%23t)'/%3E %3Cg stroke='%232a4f47' stroke-opacity='.45' stroke-width='2' fill='none'%3E %3Cpath d='M170 610 h22'/%3E%3Cpath d='M172 570 h21'/%3E%3Cpath d='M174 530 h21'/%3E%3Cpath d='M176 490 h21'/%3E%3Cpath d='M178 450 h21'/%3E%3Cpath d='M181 410 h21'/%3E%3Cpath d='M185 370 h21'/%3E%3Cpath d='M190 330 h21'/%3E%3Cpath d='M197 292 h20'/%3E%3Cpath d='M206 258 h20'/%3E %3C/g%3E %3Cg fill='url(%23b)'%3E %3Cpath d='M232 226 C214 178 172 138 108 128 C160 152 196 186 222 232 Z'/%3E %3Cpath d='M232 226 C246 174 286 140 318 136 C290 160 262 196 240 234 Z'/%3E %3Cpath d='M232 226 C252 250 266 290 266 334 C254 296 240 266 226 244 Z'/%3E %3C/g%3E %3Cg fill='url(%23f)'%3E %3Cpath d='M232 226 C196 196 140 186 74 214 C128 204 178 210 224 236 Z'/%3E %3Cpath d='M232 226 C278 210 310 228 320 262 C292 240 262 234 236 238 Z'/%3E %3Cpath d='M232 226 C204 236 168 268 150 318 C178 280 206 258 236 240 Z'/%3E %3Cpath d='M232 226 C226 190 236 150 262 118 C248 154 244 190 240 230 Z'/%3E %3C/g%3E %3Ccircle cx='224' cy='240' r='9' fill='%235b4630'/%3E%3Ccircle cx='239' cy='244' r='8' fill='%236b5236'/%3E%3Ccircle cx='231' cy='252' r='7' fill='%234f3d2a'/%3E %3C/svg%3E"); filter: drop-shadow(0 18px 24px rgb(20 60 50 / .18)) }
+.beach-palm-shadow { right: 30px; bottom: 1%; width: min(260px, 20vw); height: 26px; border-radius: 50%; background: radial-gradient(closest-side, rgb(120 90 50 / .28), transparent) }
+@media (max-width: 760px) {
+  .beach-palm { width: 150px; right: -30px; opacity: .55 }
+  .beach-palm-shadow { width: 120px; right: 0 }
+}
+@media (prefers-reduced-motion: reduce) { .beach-sun { transition: none } }
+
+/* Glossy glass portrait card and floating chips */
+html:not([data-theme="dark"]) .portrait-card { background: linear-gradient(160deg, rgb(255 255 255 / .82), rgb(255 255 255 / .45) 55%, rgb(224 247 250 / .6)); border: 1px solid rgb(255 255 255 / .95);
+  box-shadow: inset 0 1px 1px #fff, inset 0 0 0 1px rgb(255 255 255 / .35), 0 50px 90px -45px rgb(8 76 112 / .55), 0 6px 18px -8px rgb(8 76 112 / .15) }
+html:not([data-theme="dark"]) .floater-inner { background: linear-gradient(180deg, rgb(255 255 255 / .92), rgb(255 255 255 / .62)); border-color: rgb(255 255 255 / .95); box-shadow: inset 0 1px 0 #fff, 0 12px 24px -12px rgb(8 76 112 / .45) }
+
+/* Hero stats on a glass panel in light mode, so they stay readable over sky, sun or sea */
+html:not([data-theme="dark"]) .hero-stats { width: fit-content; padding: 16px 26px; border: 1px solid rgb(255 255 255 / .95); border-radius: 22px;
+  background: linear-gradient(180deg, rgb(255 255 255 / .88), rgb(255 255 255 / .66)); box-shadow: inset 0 1px 0 #fff, 0 22px 44px -26px rgb(8 76 112 / .5) }
+html:not([data-theme="dark"]) .hero-stats div + div { padding-left: clamp(20px, 4vw, 48px); margin-left: calc(-1 * clamp(20px, 4vw, 48px) / 2); border-left: 1px solid rgb(14 116 144 / .12) }
+html:not([data-theme="dark"]) .hero-stats dd { color: var(--text-2) }
+
+/* ══ Light mode hero: "postcard from the beach" ═════════════════════
+   Light-only redesign of the hero's components: sunset-gradient name with a hand-drawn swoosh,
+   a postcard-ticket badge, the portrait in an arched glass window with a turning postmark stamp,
+   sticker-style tech chips, sea-glass stat pebbles, glass top bar and scroll cue. */
+.hero-swoosh, .hero-stamp { display: none }
+html:not([data-theme="dark"]) .hero-copy h1 { margin-bottom: 4px; font-weight: 800 }
+html:not([data-theme="dark"]) .hero-name-typed { background: linear-gradient(168deg, #0b3a52 18%, #0e6f8c 42%, #0ea5b7 60%, #f59e0b 80%, #f97316 92%); background-size: 100% 100%; background-position: 0 0; -webkit-background-clip: text; background-clip: text; color: transparent }
+html:not([data-theme="dark"]) .hero-swoosh { display: block; width: min(520px, 92%); height: 26px; margin: 0 0 22px 4px; overflow: visible }
+.hero-swoosh path { fill: none; stroke: #f59e0b; stroke-width: 6; stroke-linecap: round; opacity: .85; stroke-dasharray: 700; stroke-dashoffset: 700; animation: swoosh-draw 1.4s cubic-bezier(.65, 0, .35, 1) .9s forwards }
+@keyframes swoosh-draw { to { stroke-dashoffset: 0 } }
+/* Postcard ticket badge */
+html:not([data-theme="dark"]) .hero-badge { height: 38px; padding: 0 16px 0 10px; border-radius: 12px; border: 1.5px dashed rgb(14 116 144 / .35); background: #fff; color: var(--text-2);
+  box-shadow: 0 0 0 5px rgb(255 255 255 / .75), 0 14px 26px -14px rgb(8 76 112 / .45) }
+html:not([data-theme="dark"]) .hero-badge svg { color: #f97316 }
+html:not([data-theme="dark"]) .hero-badge i { background: #0ea5b7 }
+/* Buttons: ocean-to-lagoon primary with a soft halo, glass secondary */
+html:not([data-theme="dark"]) .btn-primary { background: linear-gradient(120deg, #0369a1, #0891b2 45%, #14b8a6); box-shadow: 0 0 0 5px rgb(255 255 255 / .55), 0 16px 32px -12px rgb(2 132 199 / .75) }
+html:not([data-theme="dark"]) .hero-actions .btn-ghost { background: linear-gradient(180deg, rgb(255 255 255 / .92), rgb(255 255 255 / .65)); border: 1px solid #fff; color: #0e7490; box-shadow: inset 0 1px 0 #fff, 0 12px 24px -14px rgb(8 76 112 / .45) }
+/* Stats: three sea-glass pebbles with their own accent (replaces the single panel) */
+html:not([data-theme="dark"]) .hero-stats { width: auto; gap: 12px; margin-top: 34px; padding: 0; border: 0; background: none; box-shadow: none }
+html:not([data-theme="dark"]) .hero-stats div, html:not([data-theme="dark"]) .hero-stats div + div { position: relative; overflow: hidden; min-width: 128px; margin: 0; padding: 16px 20px 14px; border: 1px solid rgb(255 255 255 / .95); border-radius: 20px;
+  background: linear-gradient(170deg, rgb(255 255 255 / .92), rgb(255 255 255 / .62)); box-shadow: inset 0 1px 0 #fff, 0 18px 36px -22px rgb(8 76 112 / .55) }
+html:not([data-theme="dark"]) .hero-stats div:before { content: ""; position: absolute; left: 16px; right: 16px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: #0284c7 }
+html:not([data-theme="dark"]) .hero-stats div:nth-child(2):before { background: #14b8a6 }
+html:not([data-theme="dark"]) .hero-stats div:nth-child(3):before { background: #f97316 }
+/* Portrait in an arched glass window */
+html:not([data-theme="dark"]) .portrait-card { position: relative; padding: 14px; border-radius: 280px 280px 36px 36px }
+html:not([data-theme="dark"]) .portrait-art { border-radius: 268px 268px 26px 26px; background: linear-gradient(180deg, #fde7b0 0%, #fbd38d 35%, #7dd3e6 75%, #38bdf8 100%) }
+html:not([data-theme="dark"]) .visual-topline { position: absolute; z-index: 8; top: 22px; left: 50%; translate: -50% 0; padding: 5px; border-radius: 999px; border: 1px solid #fff; background: rgb(255 255 255 / .82); box-shadow: 0 10px 22px -12px rgb(8 76 112 / .5) }
+html:not([data-theme="dark"]) .visual-label { display: none }
+html:not([data-theme="dark"]) .visual-bottomline { position: relative; z-index: 8; margin: -58px 18px 6px; padding: 11px 18px; border-radius: 999px; border: 1px solid #fff; background: linear-gradient(180deg, rgb(255 255 255 / .94), rgb(255 255 255 / .72)); color: var(--text-2); box-shadow: 0 14px 28px -16px rgb(8 76 112 / .55) }
+html:not([data-theme="dark"]) .visual-bottomline svg { color: #f97316 }
+/* Turning postmark stamp on the arch's upper-right shoulder */
+html:not([data-theme="dark"]) .hero-stamp { display: grid; place-items: center; position: absolute; z-index: 9; right: -62px; top: 64px; width: 140px; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 58%, #fff6e8); border: 2px dashed rgb(249 115 22 / .55); box-shadow: 0 0 0 6px rgb(255 255 255 / .7), 0 18px 32px -16px rgb(124 45 18 / .45) }
+.hero-stamp > svg { position: absolute; inset: 0; width: 100%; height: 100%; will-change: transform; animation: stamp-turn 26s linear infinite }
+.hero-stamp text { font: 700 16.5px var(--mono); letter-spacing: .04em; fill: #c2410c }
+.hero-stamp b { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(160deg, #22d3ee, #0284c7); color: #fff; box-shadow: inset 0 1px 0 rgb(255 255 255 / .6), 0 8px 16px -8px rgb(2 132 199 / .8) }
+@keyframes stamp-turn { to { transform: rotate(360deg) } }
+/* Sticker-style tech chips: white border, slight tilt, crisp shadow */
+html:not([data-theme="dark"]) .floater-inner { height: 42px; padding: 0 16px 0 10px; border: 3px solid #fff; background: linear-gradient(180deg, #ffffff, #f2fbfd); color: var(--text); font-weight: 700; rotate: -6deg; box-shadow: 0 14px 26px -12px rgb(8 76 112 / .5) }
+html:not([data-theme="dark"]) .float-b .floater-inner { rotate: 5deg }
+html:not([data-theme="dark"]) .float-c .floater-inner { rotate: -3deg }
+/* Glass top bar label and scroll cue */
+html:not([data-theme="dark"]) .topbar-left { padding: 8px 14px; border-radius: 999px; border: 1px solid #fff; background: rgb(255 255 255 / .62); color: #0e7490 }
+html:not([data-theme="dark"]) .scroll-cue { width: fit-content; flex-direction: row; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid #fff; background: rgb(255 255 255 / .72); color: #0e7490; box-shadow: 0 12px 24px -14px rgb(8 76 112 / .5) }
+html:not([data-theme="dark"]) .scroll-cue svg { animation: cue-bob 1.6s ease-in-out infinite }
+@keyframes cue-bob { 50% { transform: translateY(4px) } }
+@media (max-width: 760px) {
+  html:not([data-theme="dark"]) .hero-stamp { width: 96px; right: -6px; top: 40px }
+  .hero-stamp text { font-size: 15px }
+  html:not([data-theme="dark"]) .hero-stats div, html:not([data-theme="dark"]) .hero-stats div + div { min-width: 0; flex: 1; padding: 12px 12px 10px }
+}
+@media (prefers-reduced-motion: reduce) { .hero-swoosh path { animation: none; stroke-dashoffset: 0 } .hero-stamp > svg, .scroll-cue svg { animation: none } }
+
+/* ══ Dark mode: moonlit night beach + the same hero layout as light mode ══
+   The beach scene now shows in both themes. At night: starry sky with a drifting aurora, a silver moon
+   on the horizon with its reflection, dark water with moonlit foam, cool sand, silhouetted islands,
+   boat and palm. Switching themes sets the sun and raises the moon (or the reverse). */
+:root[data-theme="dark"] body { background: transparent }
+:root[data-theme="dark"] .backdrop-grid, :root[data-theme="dark"] .backdrop-glow { display: none }
+:root[data-theme="dark"] .beach { display: block; position: absolute; inset: 0; background: linear-gradient(180deg, #02040a 0%, #060b17 38%, #0b1526 64%, #12223a 78%) }
+.beach-stars, .beach-aurora { display: none }
+:root[data-theme="dark"] .beach-stars, :root[data-theme="dark"] .beach-aurora { display: block }
+:root[data-theme="dark"] .beach-rays, :root[data-theme="dark"] .beach-gull, :root[data-theme="dark"] .beach-palm-shadow { display: none }
+/* Stars: two tiled layers twinkling out of step */
+.beach-stars { left: 0; right: 0; top: 0; height: 74% }
+.beach-stars i { position: absolute; inset: 0; will-change: opacity; animation: star-twinkle 4s ease-in-out infinite alternate;
+  background: radial-gradient(1.2px 1.2px at 22px 30px, #fff 99%, transparent), radial-gradient(1px 1px at 140px 90px, #dbe7ff 99%, transparent), radial-gradient(1.6px 1.6px at 260px 40px, #fff 99%, transparent), radial-gradient(1px 1px at 330px 150px, #c7d7ff 99%, transparent), radial-gradient(1.3px 1.3px at 90px 190px, #fff 99%, transparent);
+  background-size: 380px 230px;
+  -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent) }
+.beach-stars i + i { background-size: 520px 300px; background-position: 140px 60px; animation-duration: 5.5s; animation-delay: -2s }
+@keyframes star-twinkle { from { opacity: .35 } to { opacity: 1 } }
+/* Aurora: soft colour clouds drifting slowly across the upper sky */
+.beach-aurora { left: -15%; right: -15%; top: 4%; height: 46%; will-change: transform; animation: aurora-drift 34s ease-in-out infinite alternate;
+  background: radial-gradient(38% 50% at 28% 55%, rgb(45 212 191 / .16), transparent 70%), radial-gradient(34% 46% at 58% 38%, rgb(139 92 246 / .16), transparent 70%), radial-gradient(30% 40% at 84% 58%, rgb(56 189 248 / .14), transparent 70%) }
+@keyframes aurora-drift { to { transform: translate3d(-7%, 3%, 0) } }
+:root[data-theme="dark"] .beach-cloud { opacity: .07 }
+:root[data-theme="dark"] .beach-haze { background: radial-gradient(60% 100% at 50% 100%, rgb(148 180 255 / .22), rgb(120 140 220 / .08) 45%, transparent 75%) }
+/* Sun sets below the sea at night; the silver moon takes its place */
+:root[data-theme="dark"] .beach-sun { translate: -50% 65%; opacity: 0 }
+.beach-sun { transition: translate 2.2s cubic-bezier(.22, 1, .36, 1) .2s, opacity 1.6s ease .2s }
+/* The moon stays in the scene in both themes (hidden below the sea by day) so it can rise and set */
+.beach-moon { display: block; left: 50%; top: 78%; width: clamp(96px, 9vw, 140px); aspect-ratio: 1; border-radius: 50%; translate: -50% 65%;
+  background: radial-gradient(circle at 34% 30%, rgb(0 0 0 / .07) 0 8%, transparent 9%), radial-gradient(circle at 62% 58%, rgb(0 0 0 / .06) 0 11%, transparent 12%), radial-gradient(circle at 40% 70%, rgb(0 0 0 / .05) 0 6%, transparent 7%), radial-gradient(circle, #ffffff 0%, #eef3ff 55%, #cfdcf5 100%);
+  box-shadow: 0 0 40px 10px rgb(200 216 255 / .35), 0 0 140px 60px rgb(150 180 255 / .16);
+  opacity: 0; transition: translate 2.2s cubic-bezier(.22, 1, .36, 1) .2s, opacity 1.6s ease .2s }
+:root[data-theme="dark"] .beach-moon { translate: -50% -55%; opacity: 1 }
+:root[data-theme="dark"] .beach-isles, :root[data-theme="dark"] .beach-boat { filter: brightness(.32) saturate(.6) }
+:root[data-theme="dark"] .beach-sea { background: linear-gradient(180deg, #0d2036 0%, #102a44 40%, #15344f 100%) }
+:root[data-theme="dark"] .beach-sea:before { background: linear-gradient(90deg, transparent, rgb(200 216 255 / .5) 40%, #fff 50%, rgb(200 216 255 / .5) 60%, transparent) }
+:root[data-theme="dark"] .beach-glint { background: repeating-linear-gradient(180deg, rgb(225 233 255 / .85) 0 2px, transparent 2px 6px, rgb(255 255 255 / .55) 6px 7px, transparent 7px 11px); width: clamp(110px, 12vw, 190px) }
+:root[data-theme="dark"] .beach-sea i { opacity: .22 }
+:root[data-theme="dark"] .beach-sand { background: radial-gradient(rgb(255 255 255 / .05) 1px, transparent 1.4px) 0 0 / 8px 8px, linear-gradient(180deg, #121a26 0%, #19222f 18%, #1c2533 50%, #151c27 100%) }
+:root[data-theme="dark"] .beach-sand:before { background: linear-gradient(90deg, transparent, rgb(200 216 255 / .1) 45%, rgb(200 216 255 / .16) 50%, rgb(200 216 255 / .1) 55%, transparent) }
+:root[data-theme="dark"] .beach-palm { filter: brightness(.12) saturate(0); opacity: .9 }
+@media (prefers-reduced-motion: reduce) { .beach-moon { transition: none } }
+
+/* Dark hero: same positions as light mode, in night colours */
+:root[data-theme="dark"] .hero-copy h1 { margin-bottom: 4px; font-weight: 800 }
+:root[data-theme="dark"] .hero-name-typed { background: linear-gradient(168deg, #ffffff 22%, #d7e0ee 46%, #a5c4ff 72%, #c4b5fd 94%); -webkit-background-clip: text; background-clip: text; color: transparent; animation: none }
+:root[data-theme="dark"] .hero-swoosh { display: block; width: min(520px, 92%); height: 26px; margin: 0 0 22px 4px; overflow: visible; filter: drop-shadow(0 0 8px rgb(143 180 255 / .7)) }
+:root[data-theme="dark"] .hero-swoosh path { stroke: #a5c4ff }
+:root[data-theme="dark"] .hero-badge { height: 38px; padding: 0 16px 0 10px; border-radius: 12px; border: 1.5px dashed rgb(255 255 255 / .22); background: rgb(13 17 26 / .85); box-shadow: 0 0 0 5px rgb(255 255 255 / .03), 0 14px 26px -14px rgb(0 0 0 / .8) }
+:root[data-theme="dark"] .hero-badge svg { color: #a5c4ff }
+:root[data-theme="dark"] .btn-primary { box-shadow: 0 0 0 5px rgb(255 255 255 / .06), 0 0 34px rgb(165 196 255 / .35) }
+:root[data-theme="dark"] .hero-actions .btn-ghost { background: linear-gradient(180deg, rgb(255 255 255 / .08), rgb(255 255 255 / .03)); border: 1px solid rgb(255 255 255 / .16); box-shadow: inset 0 1px 0 rgb(255 255 255 / .12) }
+:root[data-theme="dark"] .hero-stats { width: auto; gap: 12px; margin-top: 34px; padding: 0; border: 0; background: none; box-shadow: none }
+:root[data-theme="dark"] .hero-stats div { position: relative; overflow: hidden; min-width: 128px; padding: 16px 20px 14px; border: 1px solid rgb(255 255 255 / .1); border-radius: 20px;
+  background: linear-gradient(170deg, rgb(26 31 44 / .94), rgb(13 17 26 / .9)); box-shadow: inset 0 1px 0 rgb(255 255 255 / .1), 0 18px 36px -22px rgb(0 0 0 / .9) }
+:root[data-theme="dark"] .hero-stats div:before { content: ""; position: absolute; left: 16px; right: 16px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: #a5c4ff; box-shadow: 0 0 12px #a5c4ff }
+:root[data-theme="dark"] .hero-stats div:nth-child(2):before { background: #c4b5fd; box-shadow: 0 0 12px #c4b5fd }
+:root[data-theme="dark"] .hero-stats div:nth-child(3):before { background: #5eead4; box-shadow: 0 0 12px #5eead4 }
+:root[data-theme="dark"] .portrait-card { position: relative; padding: 14px; border-radius: 280px 280px 36px 36px; border-color: transparent;
+  background: linear-gradient(160deg, rgb(255 255 255 / .09), rgb(255 255 255 / .02) 55%, rgb(165 196 255 / .06));
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / .2), inset 0 0 0 1px rgb(255 255 255 / .08), 0 0 60px -10px rgb(165 196 255 / .25), 0 50px 90px -45px rgb(0 0 0 / .9) }
+/* Silver → violet edge glow on the arch (a masked gradient border) */
+:root[data-theme="dark"] .portrait-card:before { content: ""; position: absolute; inset: 0; z-index: 9; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: linear-gradient(160deg, rgb(255 255 255 / .7), rgb(165 196 255 / .25) 35%, rgb(196 181 253 / .55) 70%, rgb(255 255 255 / .15));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0) }
+:root[data-theme="dark"] .portrait-art { border-radius: 268px 268px 26px 26px; background: linear-gradient(180deg, #0c1424 0%, #142038 55%, #1d3150 100%) }
+:root[data-theme="dark"] .visual-topline { position: absolute; z-index: 10; top: 22px; left: 50%; translate: -50% 0; padding: 5px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .14); background: rgb(13 17 26 / .82); box-shadow: 0 10px 22px -12px rgb(0 0 0 / .9) }
+:root[data-theme="dark"] .visual-label { display: none }
+:root[data-theme="dark"] .visual-bottomline { position: relative; z-index: 10; margin: -58px 18px 6px; padding: 11px 18px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .14); background: rgb(13 17 26 / .82); color: #d7e0ee; box-shadow: 0 14px 28px -16px rgb(0 0 0 / .9) }
+:root[data-theme="dark"] .visual-bottomline svg { color: #a5c4ff }
+:root[data-theme="dark"] .hero-stamp { display: grid; place-items: center; position: absolute; z-index: 11; right: -62px; top: 64px; width: 140px; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, #0f1522 58%, #141b2b); border: 2px dashed rgb(165 196 255 / .45); box-shadow: 0 0 0 6px rgb(255 255 255 / .03), 0 0 30px rgb(165 196 255 / .2), 0 18px 32px -16px rgb(0 0 0 / .9) }
+:root[data-theme="dark"] .hero-stamp text { fill: #a5c4ff }
+:root[data-theme="dark"] .hero-stamp b { background: linear-gradient(160deg, #a5c4ff, #6366f1); color: #0b1020 }
+:root[data-theme="dark"] .floater-inner { height: 42px; padding: 0 16px 0 10px; border: 2px solid rgb(255 255 255 / .18); background: linear-gradient(180deg, #171b24, #10131a); font-weight: 700; rotate: -6deg; box-shadow: 0 14px 26px -12px rgb(0 0 0 / .9), 0 0 18px -6px rgb(165 196 255 / .35) }
+:root[data-theme="dark"] .float-b .floater-inner { rotate: 5deg }
+:root[data-theme="dark"] .float-c .floater-inner { rotate: -3deg }
+:root[data-theme="dark"] .topbar-left { padding: 8px 14px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .12); background: rgb(13 17 26 / .7) }
+:root[data-theme="dark"] .scroll-cue { width: fit-content; flex-direction: row; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .12); background: rgb(13 17 26 / .75) }
+:root[data-theme="dark"] .scroll-cue svg { animation: cue-bob 1.6s ease-in-out infinite }
+@media (max-width: 760px) {
+  :root[data-theme="dark"] .hero-stamp { width: 96px; right: -6px; top: 40px }
+  :root[data-theme="dark"] .hero-stats div { min-width: 0; flex: 1; padding: 12px 12px 10px }
+}
+
+/* ══ 3D orbit ring around the portrait (both themes) ═════════════════
+   A dashed ellipse tilted back in 3D, slowly turning, with two points of light riding on it. */
+.hero-orbit { position: absolute; z-index: 0; left: 50%; top: 58%; width: 132%; aspect-ratio: 1; translate: -50% -50%; pointer-events: none; transform-style: preserve-3d; perspective: 900px }
+.hero-orbit i { position: absolute; inset: 0; display: block; border-radius: 50%; border: 1.5px dashed rgb(165 196 255 / .35); will-change: transform; transform: rotateX(74deg) rotateZ(0deg); animation: orbit-turn 26s linear infinite }
+.hero-orbit i:before, .hero-orbit i:after { content: ""; position: absolute; width: 14px; height: 14px; margin: -7px; border-radius: 50%; background: #fff; box-shadow: 0 0 14px 4px rgb(165 196 255 / .9) }
+.hero-orbit i:before { left: 50%; top: 0 }
+.hero-orbit i:after { left: 50%; top: 100%; width: 9px; height: 9px; margin: -4.5px; box-shadow: 0 0 12px 3px rgb(196 181 253 / .9) }
+html:not([data-theme="dark"]) .hero-orbit i { border-color: rgb(14 116 144 / .35) }
+html:not([data-theme="dark"]) .hero-orbit i:before { background: #fff; box-shadow: 0 0 14px 4px rgb(250 204 21 / .9) }
+html:not([data-theme="dark"]) .hero-orbit i:after { box-shadow: 0 0 12px 3px rgb(34 211 238 / .9) }
+@keyframes orbit-turn { to { transform: rotateX(74deg) rotateZ(360deg) } }
+.hero-visual > .portrait-card { position: relative; z-index: 1 }
+@media (max-width: 760px) { .hero-orbit { width: 118% } }
+@media (prefers-reduced-motion: reduce) { .hero-orbit i, .beach-stars i, .beach-aurora { animation: none } }
+
+/* ══ Black & white theme, colourful content ═════════════════════════
+   The page itself (backgrounds, text, buttons, cards, sidebar) is ink on white paper in light mode and
+   white on black in dark mode. Content keeps its own colours: project screenshots and signature
+   colours, brand logos, demo scenes, the portrait and the live-status dots. */
+:root { --ink: #fafafa; --paper: #0a0a0a }
+html:not([data-theme="dark"]) {
+  --ink: #0a0a0a; --paper: #ffffff;
+  --bg: #fafafa; --bg-2: #f1f1f1;
+  --surface: rgb(255 255 255 / .78); --surface-2: rgb(255 255 255 / .94); --surface-solid: #ffffff;
+  --border: rgb(0 0 0 / .08); --border-strong: rgb(0 0 0 / .16);
+  --text: #0a0a0a; --text-2: #262626; --text-3: #6b6b6b; --invert: #fafafa;
+  --sea: #0a0a0a; --aqua: #3f3f3f; --sky: #737373; --sun: #0a0a0a; --gold: #a3a3a3; --coral: #525252;
+  --ocean: linear-gradient(120deg, #0a0a0a, #3f3f3f); --sunset: linear-gradient(90deg, #0a0a0a, #8a8a8a);
+  --accent: #0a0a0a; --accent-2: #0a0a0a;
+  --glow: rgb(0 0 0 / .06); --spot: rgb(0 0 0 / .05); --grid-line: rgb(0 0 0 / .055); --field: #0a0a0a;
+  --shadow: 0 1px 2px rgb(0 0 0 / .05), 0 16px 32px -18px rgb(0 0 0 / .28);
+  --shadow-lg: 0 2px 6px rgb(0 0 0 / .05), 0 40px 80px -36px rgb(0 0 0 / .4);
+  --portrait-bg: #efefef; --portrait-lines: rgb(0 0 0 / .08);
+  --screen: #ffffff; --screen-2: #f4f4f4; --screen-line: rgb(0 0 0 / .08);
+  --cursor: #0a0a0a; --cursor-edge: rgb(255 255 255 / .7); --cursor-fill: rgb(0 0 0 / .1);
+}
+
+/* Light background: clean paper with a fine grid and soft corner shading (no beach) */
+html:not([data-theme="dark"]) .beach { display: none }
+html:not([data-theme="dark"]) .backdrop { background: radial-gradient(70% 55% at 85% -10%, rgb(0 0 0 / .05), transparent 60%), radial-gradient(60% 50% at -10% 110%, rgb(0 0 0 / .05), transparent 60%) }
+html:not([data-theme="dark"]) .backdrop-grid { display: block; -webkit-mask-image: radial-gradient(ellipse 85% 70% at 60% 10%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 85% 70% at 60% 10%, #000 20%, transparent 75%) }
+html:not([data-theme="dark"]) .backdrop-glow { display: block; background: radial-gradient(circle, rgb(0 0 0 / .05), transparent 68%) }
+html:not([data-theme="dark"]) body:after { opacity: .045 }
+
+/* Dividers in light mode: a hairline with a dark glint sweeping across (mirrors dark mode) */
+html:not([data-theme="dark"]) .section-shell:before, html:not([data-theme="dark"]) .contact-section:before {
+  left: 0; right: 0; top: 0; height: 1px; opacity: 1; animation: none; -webkit-mask: none; mask: none;
+  background: linear-gradient(90deg, transparent, rgb(0 0 0 / .16) 20%, rgb(0 0 0 / .16) 80%, transparent) }
+html:not([data-theme="dark"]) .section-shell:after, html:not([data-theme="dark"]) .contact-section:after {
+  top: -1px; height: 3px; width: 22%; background: linear-gradient(90deg, transparent, rgb(0 0 0 / .55), transparent); opacity: 1 }
+
+/* Light hero in ink */
+html:not([data-theme="dark"]) .hero-name-typed { background: linear-gradient(168deg, #0a0a0a 40%, #3f3f3f 70%, #7a7a7a 100%); -webkit-background-clip: text; background-clip: text; color: transparent }
+html:not([data-theme="dark"]) .hero-swoosh path { stroke: #0a0a0a; opacity: .9 }
+html:not([data-theme="dark"]) .hero-badge { border-color: rgb(0 0 0 / .3) }
+html:not([data-theme="dark"]) .hero-badge svg, html:not([data-theme="dark"]) .visual-bottomline svg { color: #0a0a0a }
+html:not([data-theme="dark"]) .hero-badge i { background: #0a0a0a }
+html:not([data-theme="dark"]) .btn-primary { background: #0a0a0a; color: #fff; box-shadow: 0 0 0 5px rgb(0 0 0 / .06), 0 18px 34px -14px rgb(0 0 0 / .55) }
+html:not([data-theme="dark"]) .hero-actions .btn-ghost { color: #0a0a0a; border: 1px solid rgb(0 0 0 / .18) }
+html:not([data-theme="dark"]) .hero-stats dt { background: none; color: #0a0a0a }
+html:not([data-theme="dark"]) .hero-stats div:before, html:not([data-theme="dark"]) .hero-stats div:nth-child(2):before, html:not([data-theme="dark"]) .hero-stats div:nth-child(3):before { background: #0a0a0a }
+html:not([data-theme="dark"]) .portrait-art { background: linear-gradient(180deg, #f7f7f7 0%, #e9e9e9 60%, #dcdcdc 100%) }
+html:not([data-theme="dark"]) .hero-stamp { background: radial-gradient(circle, #ffffff 58%, #f4f4f4); border-color: rgb(0 0 0 / .45) }
+html:not([data-theme="dark"]) .hero-stamp text { fill: #0a0a0a }
+html:not([data-theme="dark"]) .hero-stamp b { background: #0a0a0a; color: #fff }
+html:not([data-theme="dark"]) .hero-orbit i { border-color: rgb(0 0 0 / .28) }
+html:not([data-theme="dark"]) .hero-orbit i:before, html:not([data-theme="dark"]) .hero-orbit i:after { background: #0a0a0a; box-shadow: 0 0 0 4px rgb(0 0 0 / .08) }
+html:not([data-theme="dark"]) .topbar-left, html:not([data-theme="dark"]) .scroll-cue { color: #0a0a0a; border-color: rgb(0 0 0 / .1) }
+html:not([data-theme="dark"]) .section-heading h2 .split-char { color: #0a0a0a }
+html:not([data-theme="dark"]) .section-ghost { -webkit-text-stroke: 1.5px rgb(0 0 0 / .12); text-shadow: none }
+
+/* Glass sidebar and cards in light mode: white glass with a crisp grey rim */
+html:not([data-theme="dark"]) .sidebar:after, html:not([data-theme="dark"]) .mobile-header:after { background: linear-gradient(150deg, rgb(0 0 0 / .12), rgb(0 0 0 / .03) 30%, rgb(0 0 0 / .1) 55%, rgb(0 0 0 / .02) 75%, rgb(0 0 0 / .12)) }
+html:not([data-theme="dark"]) .sidebar, html:not([data-theme="dark"]) .mobile-header { background: linear-gradient(165deg, rgb(255 255 255 / .9), rgb(255 255 255 / .7)); box-shadow: inset 0 1px 1px #fff, 0 30px 60px -30px rgb(0 0 0 / .3), 0 2px 8px rgb(0 0 0 / .05) }
+html:not([data-theme="dark"]) .side-link.active .side-icon { background: #0a0a0a; border-color: #0a0a0a; box-shadow: 0 8px 16px -8px rgb(0 0 0 / .6) }
+html:not([data-theme="dark"]) .side-group-label { color: #6b6b6b }
+html:not([data-theme="dark"]) .side-progress:before { background: #0a0a0a }
+html:not([data-theme="dark"]) .card { background: #ffffff; border-color: rgb(0 0 0 / .08); box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 24px 48px -30px rgb(0 0 0 / .35) }
+
+/* Preloader in light mode: black on white */
+html:not([data-theme="dark"]) .preloader { --pre-bg: #fafafa; --pre-fg: #0a0a0a; --pre-dim: #6b6b6b; --pre-line: rgb(0 0 0 / .14); --pre-a: #0a0a0a; --pre-b: #6b6b6b }
+html:not([data-theme="dark"]) .pre-sun { background: radial-gradient(circle, rgb(0 0 0 / .06), transparent 60%) }
+html:not([data-theme="dark"]) .pre-name { background: linear-gradient(100deg, #0a0a0a 40%, #6b6b6b); -webkit-background-clip: text; background-clip: text }
+/* Dark mode in pure black & white: a clean starfield on black (the moonlit beach showed through every card),
+   with the original faint grid and soft glows */
+:root[data-theme="dark"] .beach { background: linear-gradient(180deg, #000 0%, #050505 60%, #0a0a0a 100%) }
+:root[data-theme="dark"] .beach-sun, :root[data-theme="dark"] .beach-moon, :root[data-theme="dark"] .beach-sea, :root[data-theme="dark"] .beach-sand,
+:root[data-theme="dark"] .beach-isles, :root[data-theme="dark"] .beach-boat, :root[data-theme="dark"] .beach-palm, :root[data-theme="dark"] .beach-haze,
+:root[data-theme="dark"] .beach-cloud, :root[data-theme="dark"] .beach-aurora { display: none }
+:root[data-theme="dark"] .beach-stars { height: 100% }
+:root[data-theme="dark"] .beach-stars i { -webkit-mask-image: radial-gradient(ellipse 90% 80% at 60% 30%, #000 30%, transparent 85%); mask-image: radial-gradient(ellipse 90% 80% at 60% 30%, #000 30%, transparent 85%) }
+:root[data-theme="dark"] .backdrop-grid, :root[data-theme="dark"] .backdrop-glow { display: block }
+:root[data-theme="dark"] .portrait-art { background: radial-gradient(70% 55% at 50% 30%, #262626, #0d0d0d 75%) }
+
+/* Brand logos in their own colours in dark mode too; small logos sit on a white disc so near-black
+   brands (GitHub, Expo, Express…) stay visible on dark surfaces */
+:root[data-theme="dark"] .floater-inner svg, :root[data-theme="dark"] .tech-chip svg, :root[data-theme="dark"] .chip-logo svg,
+:root[data-theme="dark"] .legend-logos svg, :root[data-theme="dark"] .orbit-bubble svg { fill: var(--brand); padding: 2px; border-radius: 50%; background: #fff; box-sizing: content-box }
+/* Photos are content too: full colour in both themes */
+:root[data-theme="dark"] .portrait-base, :root[data-theme="dark"] .portrait-base-head, :root[data-theme="dark"] .portrait-video, :root[data-theme="dark"] .me-photo img { filter: none }
+
+/* Quote card follows the black & white theme: an ink card in light mode, a paper card in dark mode */
+html:not([data-theme="dark"]) .quote-section, :root[data-theme="dark"] .quote-section { border: 0; animation: none; background: radial-gradient(80% 120% at 50% 0%, rgb(255 255 255 / .1), transparent 70%), #0a0a0a; box-shadow: 0 40px 80px -40px rgb(0 0 0 / .55); color: #fff }
+:root[data-theme="dark"] .quote-section { background: radial-gradient(80% 120% at 50% 0%, rgb(0 0 0 / .06), transparent 70%), #fafafa; box-shadow: 0 40px 80px -40px rgb(255 255 255 / .18); color: #0a0a0a }
+html:not([data-theme="dark"]) .quote-section:before { background-image: linear-gradient(rgb(255 255 255 / .07) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .07) 1px, transparent 1px) }
+:root[data-theme="dark"] .quote-section:before { background-image: linear-gradient(rgb(0 0 0 / .06) 1px, transparent 1px), linear-gradient(90deg, rgb(0 0 0 / .06) 1px, transparent 1px) }
+html:not([data-theme="dark"]) .quote-section blockquote.scrub, html:not([data-theme="dark"]) .quote-section cite, html:not([data-theme="dark"]) .quote-mark { color: #fff }
+:root[data-theme="dark"] .quote-section blockquote.scrub, :root[data-theme="dark"] .quote-section cite, :root[data-theme="dark"] .quote-mark { color: #0a0a0a }
+:root[data-theme="dark"] .quote-section .scrub-word { opacity: clamp(.3, calc(var(--p, 0) - var(--i)), 1) }
