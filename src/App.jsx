@@ -19,7 +19,7 @@ import { initEffects } from './lib/effects.js'
 import Preloader from './components/Preloader.jsx'
 import HeroField from './components/HeroField.jsx'
 import SplitText, { ScrubText } from './components/SplitText.jsx'
-import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa, siReactrouter, siNodedotjs, siExpress, siLivewire, siTailwindcss, siNginx, siPostgresql, siSupabase, siDocker, siChartdotjs, siBrevo, siAxios, siReactquery, siLeaflet, siCapacitor, siResend, siVitest, siTestinglibrary, siVercel, siOpenapiinitiative } from 'simple-icons'
+import { siHtml5, siCss, siJavascript, siReact, siTypescript, siPhp, siLaravel, siMysql, siMongodb, siFlutter, siDart, siGit, siGithub, siPostman, siExpo, siPhpmyadmin, siVite, siFontawesome, siGoogle, siRender, siCloudflare, siApache, siPwa, siReactrouter, siNodedotjs, siExpress, siLivewire, siTailwindcss, siNginx, siPostgresql, siSupabase, siDocker, siChartdotjs, siBrevo, siAxios, siReactquery, siLeaflet, siCapacitor, siResend, siVitest, siTestinglibrary, siVercel, siOpenapiinitiative, siComposer, siAlpinedotjs, siGoogleanalytics } from 'simple-icons'
 
 // Order on the page: the three live projects first, then the rest
 const projects = [
@@ -114,7 +114,28 @@ const projects = [
         ['Hosting', [['Render', siRender], ['Cloudflare', siCloudflare]]],
       ],
     }, title: 'Gym Time-In & Time-Out', category: 'Membership system', symbol: '05', description: 'Members check in and out with their own ID, and the gym keeps track of attendance and memberships.', tags: ['Attendance', 'Membership', 'Member ID'] },
-  { platform: 'web', number: 1, accent: '#0ea5e9', mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
+  { platform: 'web', number: 1, accent: '#e11d74', live: 'https://itso.uic.edu.ph/', demo: 'itso', details: {
+      overview: 'The UIC IP Management System is the university’s live platform for registering, monitoring and managing intellectual property, run by the Innovation and Technology Support Office (ITSO) together with the Research, Publication, and Innovation Center (RPIC). I worked on it as Quality Assurance in a seven-person student development team.',
+      facts: [['My role', 'Quality Assurance'], ['Team', '7 student developers'], ['For', 'UIC · ITSO and RPIC'], ['Sign-in', 'Google']],
+      features: [
+        ['IP filing and tracking', 'Applications for patents, utility models, copyright, industrial designs and trademarks, followed from filing to approval.'],
+        ['Real-time monitoring', 'Deadlines, statuses and filing checkpoints across the whole portfolio in one dashboard.'],
+        ['Dashboards for every role', 'Separate views for RPIC, ITSO, faculty and students.'],
+        ['Document management', 'Secure storage with version control for research papers and filing documents.'],
+        ['Event scheduling', 'Seminars, research defenses and other academic events in one calendar.'],
+        ['Notifications', 'Real-time alerts and updates for everyone involved in a filing.'],
+        ['Analytics and reporting', 'Live insights on the IP portfolio, such as readiness across protection types.'],
+        ['IP policy first', 'Users read and accept the university IP policy before signing in with Google.'],
+      ],
+      flow: ['Read and accept the IP policy', 'Sign in with Google', 'File an IP application with its documents', 'ITSO and RPIC review it', 'Track the status until approval'],
+      stack: [
+        ['Backend', [['Laravel 12', siLaravel], ['PHP 8.4', siPhp], ['Composer', siComposer]]],
+        ['Frontend', [['Livewire 3', siLivewire], ['Alpine.js', siAlpinedotjs], ['Tailwind CSS', siTailwindcss], ['Vite', siVite], ['Chart.js', siChartdotjs], ['Font Awesome', siFontawesome]]],
+        ['Database', [['MySQL', siMysql]]],
+        ['Sign-in', [['Google sign-in', siGoogle]]],
+        ['Hosting & analytics', [['Cloudflare', siCloudflare], ['Google Analytics', siGoogleanalytics]]],
+      ],
+    }, mock: 'tracker', url: 'ITSO · Applications', title: 'ITSO IP Management System', category: 'Office workflow', symbol: 'IP', description: 'Lets the university’s Innovation and Technology Support Office receive applications online and follow each one from submission to approval.', tags: ['Document tracking', 'Status monitoring', 'Workflows'] },
   { platform: 'web', number: 2, accent: '#6366f1', mock: 'calendar', url: 'RPIC · Defense schedule', title: 'RPIC Research Management System', category: 'Research management', symbol: 'R/', description: 'Keeps research papers, defense schedules, files, and publications in one place, so nothing gets lost along the way.', tags: ['Research', 'Scheduling', 'Data organization'] },
   { platform: 'mobile', number: 6, accent: '#10b981', mock: 'habit', url: '', details: { stack: [['Mobile app', [['Flutter', siFlutter], ['Dart', siDart]]]] }, title: 'TechSustain', category: 'Flutter app', symbol: '↗', description: 'A Flutter app that helps people build small eco-friendly habits, with simple tips and a personal tracker.', tags: ['Flutter', 'Sustainability', 'Habit tracking'] },
   { platform: 'mobile', number: 7, accent: '#f59e0b', details: {
@@ -211,7 +232,18 @@ function App() {
       <Preloader onReveal={() => setReady(true)} />
       <div className="scroll-progress" aria-hidden="true" />
       <div className="cursor-dot" aria-hidden="true" /><div className="cursor-ring" aria-hidden="true" />
-      <div className="backdrop" aria-hidden="true"><span className="backdrop-grid" /><span className="backdrop-glow glow-a" /><span className="backdrop-glow glow-b" /></div>
+      <div className="backdrop" aria-hidden="true">
+        <span className="backdrop-grid" /><span className="backdrop-glow glow-a" /><span className="backdrop-glow glow-b" />
+        {/* Light mode only: a beach panorama (sky with rays, clouds and gulls, islands and a sailboat on the horizon,
+            glittering sea with rolling foam, sand, a swaying palm); the hero keeps its own sun */}
+        <span className="beach">
+          <span className="beach-rays" /><span className="beach-cloud c1" /><span className="beach-cloud c2" /><span className="beach-cloud c3" />
+          <span className="beach-gull g1"><i /></span><span className="beach-gull g2"><i /></span><span className="beach-gull g3"><i /></span>
+          <span className="beach-isles" /><span className="beach-boat" />
+          <span className="beach-sea"><b className="beach-glitter" /><i /><i /><i /></span><span className="beach-sand" />
+          <span className="beach-palm" />
+        </span>
+      </div>
       <Sidebar />
       <main className="main-content">
         <div className="topbar">
